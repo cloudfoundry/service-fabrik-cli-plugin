@@ -1,0 +1,5 @@
+{
+        "serviceBroker": "service-fabrik-broker",
+        "serviceBrokerExtUrl": "/api/v1",
+        "skipSslFlag": true
+}

@@ -1,0 +1,46 @@
+{
+  "ConfigVersion": 3,
+  "Target": "https://api.cf.service-fabrik.io",
+  "APIVersion": "2.57.0",
+  "AuthorizationEndpoint": "https://login.cf.service-fabrik.io",
+  "LoggregatorEndPoint": "wss://loggregator.cf.service-fabrik.io:443",
+  "DopplerEndPoint": "wss://doppler.cf.service-fabrik.io:443",
+  "UaaEndpoint": "https://uaa.cf.service-fabrik.io",
+  "RoutingAPIEndpoint": "",
+  "AccessToken": "bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImxlZ2FjeS10b2tlbi1rZXkiLCJ0eXAiOiJKV1QifQ.eyJqdGkiOiJlYTI3YzZhNmRiZDg0Y2Y0YmYxNWExZTM2MzFmOGQwOSIsInN1YiI6IjVmNTBlZjdlLWU3NDUtNDIwZC04NTQ2LWM5OTEwZWZhOWUxYyIsInNjb3BlIjpbImNsb3VkX2NvbnRyb2xsZXIucmVhZCIsInBhc3N3b3JkLndyaXRlIiwiY2xvdWRfY29udHJvbGxlci53cml0ZSIsIm9wZW5pZCIsImRvcHBsZXIuZmlyZWhvc2UiLCJzY2ltLndyaXRlIiwic2NpbS5yZWFkIiwiY2xvdWRfY29udHJvbGxlci5hZG1pbiIsInVhYS51c2VyIl0sImNsaWVudF9pZCI6ImNmIiwiY2lkIjoiY2YiLCJhenAiOiJjZiIsImdyYW50X3R5cGUiOiJwYXNzd29yZCIsInVzZXJfaWQiOiI1ZjUwZWY3ZS1lNzQ1LTQyMGQtODU0Ni1jOTkxMGVmYTllMWMiLCJvcmlnaW4iOiJ1YWEiLCJ1c2VyX25hbWUiOiJhZG1pbiIsImVtYWlsIjoiYWRtaW4iLCJyZXZfc2lnIjoiYTMwZWI5ZjEiLCJpYXQiOjE0ODA0MDY1MTUsImV4cCI6MTQ4MDQwNzExNSwiaXNzIjoiaHR0cHM6Ly91YWEuY2Yuc2VydmljZS1mYWJyaWsuc2M2LnNhcGNsb3VkLmlvL29hdXRoL3Rva2VuIiwiemlkIjoidWFhIiwiYXVkIjpbInNjaW0iLCJjbG91ZF9jb250cm9sbGVyIiwicGFzc3dvcmQiLCJjZiIsInVhYSIsIm9wZW5pZCIsImRvcHBsZXIiXX0.q_AYTPgwR5VP6-i3QNbTaATKCsDKe8B76udSkqCKxa-ZLjUFppogONP2Yd6S_f_mG23SjyUYVnYay2d62W1I4i9Ih28aBcYqaCsVyecvenr3ujS_P4KTjTfrm7wq-qdIF4H0DGNCreNU_XImzDug8dGvJFen9duGHsgNjcUGY7g",
+  "SSHOAuthClient": "ssh-proxy",
+  "RefreshToken": "eyJhbGciOiJSUzI1NiIsImtpZCI6ImxlZ2FjeS10b2tlbi1rZXkiLCJ0eXAiOiJKV1QifQ.eyJqdGkiOiJlYTI3YzZhNmRiZDg0Y2Y0YmYxNWExZTM2MzFmOGQwOS1yIiwic3ViIjoiNWY1MGVmN2UtZTc0NS00MjBkLTg1NDYtYzk5MTBlZmE5ZTFjIiwic2NvcGUiOlsib3BlbmlkIiwic2NpbS5yZWFkIiwiY2xvdWRfY29udHJvbGxlci5hZG1pbiIsInVhYS51c2VyIiwiY2xvdWRfY29udHJvbGxlci5yZWFkIiwicGFzc3dvcmQud3JpdGUiLCJjbG91ZF9jb250cm9sbGVyLndyaXRlIiwiZG9wcGxlci5maXJlaG9zZSIsInNjaW0ud3JpdGUiXSwiaWF0IjoxNDgwMzI5NzAwLCJleHAiOjE0ODI5MjE3MDAsImNpZCI6ImNmIiwiY2xpZW50X2lkIjoiY2YiLCJpc3MiOiJodHRwczovL3VhYS5jZi5zZXJ2aWNlLWZhYnJpay5zYzYuc2FwY2xvdWQuaW8vb2F1dGgvdG9rZW4iLCJ6aWQiOiJ1YWEiLCJncmFudF90eXBlIjoicGFzc3dvcmQiLCJ1c2VyX25hbWUiOiJhZG1pbiIsIm9yaWdpbiI6InVhYSIsInVzZXJfaWQiOiI1ZjUwZWY3ZS1lNzQ1LTQyMGQtODU0Ni1jOTkxMGVmYTllMWMiLCJyZXZfc2lnIjoiYTMwZWI5ZjEiLCJhdWQiOlsiY2YiLCJvcGVuaWQiLCJzY2ltIiwiY2xvdWRfY29udHJvbGxlciIsInVhYSIsInBhc3N3b3JkIiwiZG9wcGxlciJdfQ.B5enXP9p60x7SVoFEG7j9Px6KkcSxo2oqWkdc0bJ14ut8bCt1ObsSwv86bpXlorfbtRC1Qh7nK8bzOvAv-x7SDu8rNdx7IjxH1cxRAAsycPYakLuWeB8o5Ib9OG2yzFGzjKdZcKRlN0W03GjnOYTQsx_D7E6xdXheGlAv9czylA",
+  "OrganizationFields": {
+    "GUID": "e4bbd93b-dfff-4623-9810-ad799c5f3106",
+    "Name": "test",
+    "QuotaDefinition": {
+      "guid": "ba13ed41-b18c-4399-a60c-e2fbd1878de3",
+      "name": "paid-services",
+      "memory_limit": 10240,
+      "instance_memory_limit": -1,
+      "total_routes": 1000,
+      "total_services": 100,
+      "non_basic_services_allowed": true,
+      "app_instance_limit": -1,
+      "total_reserved_route_ports": 0
+    }
+  },
+  "SpaceFields": {
+    "GUID": "b0728cce-2eef-4a8b-ac57-b480f2c48461",
+    "Name": "postgresql_test",
+    "AllowSSH": true
+  },
+  "SSLDisabled": true,
+  "AsyncTimeout": 0,
+  "Trace": "",
+  "ColorEnabled": "",
+  "Locale": "",
+  "PluginRepos": [
+    {
+      "Name": "CF-Community",
+      "URL": "https://plugins.cloudfoundry.org"
+    }
+  ],
+  "MinCLIVersion": "",
+  "MinRecommendedCLIVersion": ""
+}

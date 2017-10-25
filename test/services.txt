@@ -1,0 +1,220 @@
+{
+   "total_results": 7,
+   "total_pages": 1,
+   "prev_url": null,
+   "next_url": null,
+   "resources": [
+      {
+         "metadata": {
+            "guid": "232fb15a-462b-43f1-b48a-fb0327d65fe6",
+            "url": "/v2/services/232fb15a-462b-43f1-b48a-fb0327d65fe6",
+            "created_at": "2016-09-22T12:53:10Z",
+            "updated_at": "2016-11-23T16:06:13Z"
+         },
+         "entity": {
+            "label": "blueprint",
+            "provider": null,
+            "url": null,
+            "description": "Blueprint service for internal development, testing, and documentation purposes of the Service Fabrik",
+            "long_description": null,
+            "version": null,
+            "info_url": null,
+            "active": true,
+            "bindable": true,
+            "unique_id": "24731fb8-7b84-4f57-914f-c3d55d793dd4",
+            "extra": "{\"displayName\":\"Blueprint\",\"documentationUrl\":\"https://sap.com/\",\"longDescription\":\"Blueprint service for internal development, testing, and documentation purposes of the Service Fabrik\",\"providerDisplayName\":\"SAP SE\",\"supportUrl\":\"https://sap.com/\"}",
+            "tags": [
+               "blueprint",
+               "no-not-use"
+            ],
+            "requires": [],
+            "documentation_url": null,
+            "service_broker_guid": "e3e67637-0128-48e0-bee2-9d30c32d5ae7",
+            "plan_updateable": true,
+            "service_plans_url": "/v2/services/232fb15a-462b-43f1-b48a-fb0327d65fe6/service_plans"
+         }
+      },
+      {
+         "metadata": {
+            "guid": "896cf32e-6992-441f-a33e-68914218f920",
+            "url": "/v2/services/896cf32e-6992-441f-a33e-68914218f920",
+            "created_at": "2016-09-22T12:53:10Z",
+            "updated_at": "2016-11-23T16:06:13Z"
+         },
+         "entity": {
+            "label": "mongodb",
+            "provider": null,
+            "url": null,
+            "description": "MongoDB document-oriented database system",
+            "long_description": null,
+            "version": null,
+            "info_url": null,
+            "active": true,
+            "bindable": true,
+            "unique_id": "3c266123-8e6e-4034-a2aa-e48e13fbf893",
+            "extra": "{\"displayName\":\"MongoDB\",\"documentationUrl\":\"https://docs.mongodb.org/manual/\",\"longDescription\":\"MongoDB document-oriented database system\",\"providerDisplayName\":\"SAP SE\",\"supportUrl\":\"https://docs.mongodb.org/manual/support/\"}",
+            "tags": [
+               "mongodb",
+               "document"
+            ],
+            "requires": [],
+            "documentation_url": null,
+            "service_broker_guid": "e3e67637-0128-48e0-bee2-9d30c32d5ae7",
+            "plan_updateable": true,
+            "service_plans_url": "/v2/services/896cf32e-6992-441f-a33e-68914218f920/service_plans"
+         }
+      },
+      {
+         "metadata": {
+            "guid": "bce1debe-3a57-4a4c-be33-b710e10f7408",
+            "url": "/v2/services/bce1debe-3a57-4a4c-be33-b710e10f7408",
+            "created_at": "2016-09-22T12:53:10Z",
+            "updated_at": "2016-11-23T16:06:13Z"
+         },
+         "entity": {
+            "label": "postgresql",
+            "provider": null,
+            "url": null,
+            "description": "PostgreSQL object-relational database system",
+            "long_description": null,
+            "version": null,
+            "info_url": null,
+            "active": true,
+            "bindable": true,
+            "unique_id": "6db542eb-8187-4afc-8a85-e08b4a3cc24e",
+            "extra": "{\"displayName\":\"PostgreSQL\",\"documentationUrl\":\"http://www.postgresql.org/docs/\",\"longDescription\":\"PostgreSQL object-relational database system\",\"providerDisplayName\":\"SAP SE\",\"supportUrl\":\"http://www.postgresql.org/support/\"}",
+            "tags": [
+               "postgresql",
+               "relational"
+            ],
+            "requires": [],
+            "documentation_url": null,
+            "service_broker_guid": "e3e67637-0128-48e0-bee2-9d30c32d5ae7",
+            "plan_updateable": true,
+            "service_plans_url": "/v2/services/bce1debe-3a57-4a4c-be33-b710e10f7408/service_plans"
+         }
+      },
+      {
+         "metadata": {
+            "guid": "1969a524-00d3-4301-8b00-95dc98af47e3",
+            "url": "/v2/services/1969a524-00d3-4301-8b00-95dc98af47e3",
+            "created_at": "2016-09-22T12:53:10Z",
+            "updated_at": "2016-11-23T16:06:13Z"
+         },
+         "entity": {
+            "label": "rabbitmq",
+            "provider": null,
+            "url": null,
+            "description": "RabbitMQ messaging",
+            "long_description": null,
+            "version": null,
+            "info_url": null,
+            "active": true,
+            "bindable": true,
+            "unique_id": "19f17a7a-5247-4ee2-94b5-03eac6756388",
+            "extra": "{\"displayName\":\"RabbitMQ\",\"documentationUrl\":\"https://www.rabbitmq.com/documentation.html\",\"longDescription\":\"RabbitMQ messaging\",\"providerDisplayName\":\"SAP SE\",\"supportUrl\":\"https://www.rabbitmq.com/community.html\"}",
+            "tags": [
+               "rabbitmq",
+               "mbus",
+               "pubsub",
+               "amqp"
+            ],
+            "requires": [],
+            "documentation_url": null,
+            "service_broker_guid": "e3e67637-0128-48e0-bee2-9d30c32d5ae7",
+            "plan_updateable": true,
+            "service_plans_url": "/v2/services/1969a524-00d3-4301-8b00-95dc98af47e3/service_plans"
+         }
+      },
+      {
+         "metadata": {
+            "guid": "f276322b-1385-426e-9955-1ad3e97ab34a",
+            "url": "/v2/services/f276322b-1385-426e-9955-1ad3e97ab34a",
+            "created_at": "2016-09-22T12:53:10Z",
+            "updated_at": "2016-11-23T16:06:13Z"
+         },
+         "entity": {
+            "label": "redis",
+            "provider": null,
+            "url": null,
+            "description": "Redis in-memory data structure store",
+            "long_description": null,
+            "version": null,
+            "info_url": null,
+            "active": true,
+            "bindable": true,
+            "unique_id": "6855ef2c-e036-4984-9654-f6b0169d95de",
+            "extra": "{\"displayName\":\"Redis\",\"documentationUrl\":\"http://redis.io/documentation\",\"longDescription\":\"Redis in-memory data structure store\",\"providerDisplayName\":\"SAP SE\",\"supportUrl\":\"http://redis.io/community\"}",
+            "tags": [
+               "redis",
+               "keyvalue"
+            ],
+            "requires": [],
+            "documentation_url": null,
+            "service_broker_guid": "e3e67637-0128-48e0-bee2-9d30c32d5ae7",
+            "plan_updateable": true,
+            "service_plans_url": "/v2/services/f276322b-1385-426e-9955-1ad3e97ab34a/service_plans"
+         }
+      },
+      {
+         "metadata": {
+            "guid": "83b43d43-ed8d-44b7-8b60-46298bbc221b",
+            "url": "/v2/services/83b43d43-ed8d-44b7-8b60-46298bbc221b",
+            "created_at": "2016-09-22T12:53:10Z",
+            "updated_at": "2016-11-23T16:06:13Z"
+         },
+         "entity": {
+            "label": "influxdb",
+            "provider": null,
+            "url": null,
+            "description": "InfluxDB time series database",
+            "long_description": null,
+            "version": null,
+            "info_url": null,
+            "active": true,
+            "bindable": true,
+            "unique_id": "1df79168-84c8-4e3a-be47-f58bd0b510d2",
+            "extra": "{\"displayName\":\"InfluxDB\",\"documentationUrl\":\"https://docs.influxdata.com/influxdb\",\"longDescription\":\"InfluxDB time series database\",\"providerDisplayName\":\"SAP SE\",\"supportUrl\":\"https://influxdata.com/pricing\"}",
+            "tags": [
+               "influxdb",
+               "timeseries"
+            ],
+            "requires": [],
+            "documentation_url": null,
+            "service_broker_guid": "e3e67637-0128-48e0-bee2-9d30c32d5ae7",
+            "plan_updateable": true,
+            "service_plans_url": "/v2/services/83b43d43-ed8d-44b7-8b60-46298bbc221b/service_plans"
+         }
+      },
+      {
+         "metadata": {
+            "guid": "235a8934-d517-4c76-852d-f5e426e084c8",
+            "url": "/v2/services/235a8934-d517-4c76-852d-f5e426e084c8",
+            "created_at": "2016-10-20T07:19:58Z",
+            "updated_at": "2016-11-23T16:06:13Z"
+         },
+         "entity": {
+            "label": "r",
+            "provider": null,
+            "url": null,
+            "description": "R programming runtime embedded in a RServe TCP server",
+            "long_description": null,
+            "version": null,
+            "info_url": null,
+            "active": true,
+            "bindable": true,
+            "unique_id": "aacec4cd-e035-49e0-8106-adb0f381764a",
+            "extra": "{\"displayName\":\"R\",\"documentationUrl\":\"https://cran.r-project.org/manuals.html\",\"longDescription\":\"R programming runtime embedded in a RServe TCP server\",\"providerDisplayName\":\"SAP SE\",\"supportUrl\":\"https://www.r-project.org/help.html\"}",
+            "tags": [
+               "rserve",
+               "r"
+            ],
+            "requires": [],
+            "documentation_url": null,
+            "service_broker_guid": "e3e67637-0128-48e0-bee2-9d30c32d5ae7",
+            "plan_updateable": true,
+            "service_plans_url": "/v2/services/235a8934-d517-4c76-852d-f5e426e084c8/service_plans"
+         }
+      }
+   ]
+}

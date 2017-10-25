@@ -1,0 +1,829 @@
+{
+   "total_results": 41,
+   "total_pages": 1,
+   "prev_url": null,
+   "next_url": null,
+   "resources": [
+      {
+         "metadata": {
+            "guid": "844f8a43-5122-4409-92c0-b8aa369c0f7a",
+            "url": "/v2/service_plans/844f8a43-5122-4409-92c0-b8aa369c0f7a",
+            "created_at": "2016-09-22T12:53:10Z",
+            "updated_at": "2016-11-23T16:06:13Z"
+         },
+         "entity": {
+            "name": "v1.0-container",
+            "free": true,
+            "description": "Blueprint 1.0 service running inside a Docker container (for non-productive usage)",
+            "service_guid": "232fb15a-462b-43f1-b48a-fb0327d65fe6",
+            "extra": "{\"bullets\":[\"Container Deployment\",\"128 MB Memory\",\"100 MB Disk\"],\"costs\":[{\"amount\":{\"usd\":0},\"unit\":\"MONTHLY\"}]}",
+            "unique_id": "466c5078-df6e-427d-8fb2-c76af50c0f56",
+            "public": false,
+            "active": true,
+            "service_url": "/v2/services/232fb15a-462b-43f1-b48a-fb0327d65fe6",
+            "service_instances_url": "/v2/service_plans/844f8a43-5122-4409-92c0-b8aa369c0f7a/service_instances"
+         }
+      },
+      {
+         "metadata": {
+            "guid": "fe24bc04-9f10-4a84-b9be-047e3827340e",
+            "url": "/v2/service_plans/fe24bc04-9f10-4a84-b9be-047e3827340e",
+            "created_at": "2016-09-22T12:53:10Z",
+            "updated_at": "2016-11-23T16:06:13Z"
+         },
+         "entity": {
+            "name": "v1.0-container-large",
+            "free": true,
+            "description": "Blueprint 1.0 service running inside a large Docker container (for non-productive usage)",
+            "service_guid": "232fb15a-462b-43f1-b48a-fb0327d65fe6",
+            "extra": "{\"bullets\":[\"Container Deployment\",\"256 MB Memory\",\"200 MB Disk\"],\"costs\":[{\"amount\":{\"usd\":0},\"unit\":\"MONTHLY\"}]}",
+            "unique_id": "6a252f89-c974-4ef9-a4de-c49f300de39a",
+            "public": false,
+            "active": true,
+            "service_url": "/v2/services/232fb15a-462b-43f1-b48a-fb0327d65fe6",
+            "service_instances_url": "/v2/service_plans/fe24bc04-9f10-4a84-b9be-047e3827340e/service_instances"
+         }
+      },
+      {
+         "metadata": {
+            "guid": "9c67ab74-66f1-4abf-a098-8dce06a02362",
+            "url": "/v2/service_plans/9c67ab74-66f1-4abf-a098-8dce06a02362",
+            "created_at": "2016-09-22T12:53:10Z",
+            "updated_at": "2016-11-23T16:06:13Z"
+         },
+         "entity": {
+            "name": "v1.0-dedicated-xsmall",
+            "free": false,
+            "description": "Blueprint 1.0 service x-small (managed service in beta)",
+            "service_guid": "232fb15a-462b-43f1-b48a-fb0327d65fe6",
+            "extra": "{\"bullets\":[\"Dedicated Deployment\",\"1 VM\",\"1 vCPUs\",\"1 GB Memory\",\"1 GB Disk\"],\"costs\":[{\"amount\":{\"usd\":0},\"unit\":\"MONTHLY\"}],\"supported_features\":[\"state\",\"lifecycle\",\"credentials\",\"backup\",\"restore\"]}",
+            "unique_id": "bc158c9a-7934-401e-94ab-057082a5073f",
+            "public": false,
+            "active": true,
+            "service_url": "/v2/services/232fb15a-462b-43f1-b48a-fb0327d65fe6",
+            "service_instances_url": "/v2/service_plans/9c67ab74-66f1-4abf-a098-8dce06a02362/service_instances"
+         }
+      },
+      {
+         "metadata": {
+            "guid": "443cebeb-f4cc-494c-90ac-b8aabf658737",
+            "url": "/v2/service_plans/443cebeb-f4cc-494c-90ac-b8aabf658737",
+            "created_at": "2016-09-22T12:53:10Z",
+            "updated_at": "2016-11-23T16:06:13Z"
+         },
+         "entity": {
+            "name": "v1.0-dedicated-small",
+            "free": false,
+            "description": "Blueprint 1.0 service small (managed service in beta)",
+            "service_guid": "232fb15a-462b-43f1-b48a-fb0327d65fe6",
+            "extra": "{\"bullets\":[\"Dedicated Deployment\",\"1 VM\",\"1 vCPUs\",\"1 GB Memory\",\"2 GB Disk\"],\"costs\":[{\"amount\":{\"usd\":0},\"unit\":\"MONTHLY\"}],\"update_predecessors\":[\"bc158c9a-7934-401e-94ab-057082a5073f\"],\"supported_features\":[\"state\",\"lifecycle\",\"credentials\",\"backup\",\"restore\"]}",
+            "unique_id": "d616b00a-5949-4b1c-bc73-0d3c59f3954a",
+            "public": false,
+            "active": true,
+            "service_url": "/v2/services/232fb15a-462b-43f1-b48a-fb0327d65fe6",
+            "service_instances_url": "/v2/service_plans/443cebeb-f4cc-494c-90ac-b8aabf658737/service_instances"
+         }
+      },
+      {
+         "metadata": {
+            "guid": "c5b150ab-2780-493a-bcfa-efae7aa94c74",
+            "url": "/v2/service_plans/c5b150ab-2780-493a-bcfa-efae7aa94c74",
+            "created_at": "2016-09-22T12:53:10Z",
+            "updated_at": "2016-11-23T16:06:24Z"
+         },
+         "entity": {
+            "name": "v3.0-container",
+            "free": true,
+            "description": "MongoDB 3.0.7 service running inside a Docker container (for non-productive usage)",
+            "service_guid": "896cf32e-6992-441f-a33e-68914218f920",
+            "extra": "{\"bullets\":[\"Container Deployment\",\"128 MB Memory\",\"750 MB Disk\"],\"costs\":[{\"amount\":{\"usd\":0},\"unit\":\"MONTHLY\"}]}",
+            "unique_id": "9bc824ec-8433-4c86-87a6-730a84a64656",
+            "public": true,
+            "active": true,
+            "service_url": "/v2/services/896cf32e-6992-441f-a33e-68914218f920",
+            "service_instances_url": "/v2/service_plans/c5b150ab-2780-493a-bcfa-efae7aa94c74/service_instances"
+         }
+      },
+      {
+         "metadata": {
+            "guid": "dcf83427-c5e7-4136-8ac7-59439b93a8df",
+            "url": "/v2/service_plans/dcf83427-c5e7-4136-8ac7-59439b93a8df",
+            "created_at": "2016-09-22T12:53:10Z",
+            "updated_at": "2016-11-23T16:06:13Z"
+         },
+         "entity": {
+            "name": "v3.0-container-large",
+            "free": true,
+            "description": "MongoDB 3.0.7 service running inside a large Docker container (for non-productive usage)",
+            "service_guid": "896cf32e-6992-441f-a33e-68914218f920",
+            "extra": "{\"bullets\":[\"Container Deployment\",\"512 MB Memory\",\"5 GB Disk\"],\"costs\":[{\"amount\":{\"usd\":0},\"unit\":\"MONTHLY\"}]}",
+            "unique_id": "e9756df4-d41c-42e8-b1c3-94bf702828ce",
+            "public": false,
+            "active": true,
+            "service_url": "/v2/services/896cf32e-6992-441f-a33e-68914218f920",
+            "service_instances_url": "/v2/service_plans/dcf83427-c5e7-4136-8ac7-59439b93a8df/service_instances"
+         }
+      },
+      {
+         "metadata": {
+            "guid": "ded3c04f-70c4-450c-831d-1d5f977e153f",
+            "url": "/v2/service_plans/ded3c04f-70c4-450c-831d-1d5f977e153f",
+            "created_at": "2016-09-22T12:53:10Z",
+            "updated_at": "2016-11-23T16:06:23Z"
+         },
+         "entity": {
+            "name": "v3.0-dedicated-xsmall",
+            "free": false,
+            "description": "MongoDB 3.0 service x-small (managed service in beta)",
+            "service_guid": "896cf32e-6992-441f-a33e-68914218f920",
+            "extra": "{\"bullets\":[\"Dedicated Deployment\",\"3 VMs\",\"2 vCPUs\",\"4 GB Memory\",\"40 GB Disk\"],\"costs\":[{\"amount\":{\"usd\":0},\"unit\":\"MONTHLY\"}],\"supported_features\":[\"state\",\"lifecycle\",\"credentials\"]}",
+            "unique_id": "2fff2c4d-7c31-4ed7-b505-0aeafbd8c0e2",
+            "public": true,
+            "active": true,
+            "service_url": "/v2/services/896cf32e-6992-441f-a33e-68914218f920",
+            "service_instances_url": "/v2/service_plans/ded3c04f-70c4-450c-831d-1d5f977e153f/service_instances"
+         }
+      },
+      {
+         "metadata": {
+            "guid": "75c62a28-1857-4a48-a595-db0846f4ce3d",
+            "url": "/v2/service_plans/75c62a28-1857-4a48-a595-db0846f4ce3d",
+            "created_at": "2016-09-22T12:53:10Z",
+            "updated_at": "2016-11-23T16:06:23Z"
+         },
+         "entity": {
+            "name": "v3.0-dedicated-small",
+            "free": false,
+            "description": "MongoDB 3.0 service small (managed service in beta)",
+            "service_guid": "896cf32e-6992-441f-a33e-68914218f920",
+            "extra": "{\"bullets\":[\"Dedicated Deployment\",\"3 VMs\",\"4 vCPUs\",\"16 GB Memory\",\"100 GB Disk\"],\"costs\":[{\"amount\":{\"usd\":0},\"unit\":\"MONTHLY\"}],\"update_predecessors\":[\"2fff2c4d-7c31-4ed7-b505-0aeafbd8c0e2\"],\"supported_features\":[\"state\",\"lifecycle\",\"credentials\"]}",
+            "unique_id": "63a7859b-8d73-40d4-ad4e-4d259bc92621",
+            "public": true,
+            "active": true,
+            "service_url": "/v2/services/896cf32e-6992-441f-a33e-68914218f920",
+            "service_instances_url": "/v2/service_plans/75c62a28-1857-4a48-a595-db0846f4ce3d/service_instances"
+         }
+      },
+      {
+         "metadata": {
+            "guid": "d0abe849-9d93-4aee-92ca-dbfcbd3cb97e",
+            "url": "/v2/service_plans/d0abe849-9d93-4aee-92ca-dbfcbd3cb97e",
+            "created_at": "2016-09-22T12:53:10Z",
+            "updated_at": "2016-11-23T16:06:23Z"
+         },
+         "entity": {
+            "name": "v3.0-dedicated-medium",
+            "free": false,
+            "description": "MongoDB 3.0 service medium (managed service in beta)",
+            "service_guid": "896cf32e-6992-441f-a33e-68914218f920",
+            "extra": "{\"bullets\":[\"Dedicated Deployment\",\"3 VMs\",\"8 vCPUs\",\"32 GB Memory\",\"400 GB Disk\"],\"costs\":[{\"amount\":{\"usd\":0},\"unit\":\"MONTHLY\"}],\"update_predecessors\":[\"2fff2c4d-7c31-4ed7-b505-0aeafbd8c0e2\",\"63a7859b-8d73-40d4-ad4e-4d259bc92621\"],\"supported_features\":[\"state\",\"lifecycle\",\"credentials\"]}",
+            "unique_id": "e643343a-02b8-4b68-b4b3-4d0832c89e3c",
+            "public": true,
+            "active": true,
+            "service_url": "/v2/services/896cf32e-6992-441f-a33e-68914218f920",
+            "service_instances_url": "/v2/service_plans/d0abe849-9d93-4aee-92ca-dbfcbd3cb97e/service_instances"
+         }
+      },
+      {
+         "metadata": {
+            "guid": "8af59147-751f-4cc9-8eea-8d6833457723",
+            "url": "/v2/service_plans/8af59147-751f-4cc9-8eea-8d6833457723",
+            "created_at": "2016-09-22T12:53:10Z",
+            "updated_at": "2016-11-23T16:06:24Z"
+         },
+         "entity": {
+            "name": "v3.0-dedicated-large",
+            "free": false,
+            "description": "MongoDB 3.0 service large (managed service in beta)",
+            "service_guid": "896cf32e-6992-441f-a33e-68914218f920",
+            "extra": "{\"bullets\":[\"Dedicated Deployment\",\"3 VMs\",\"16 vCPUs\",\"64 GB Memory\",\"800 GB Disk\"],\"costs\":[{\"amount\":{\"usd\":0},\"unit\":\"MONTHLY\"}],\"update_predecessors\":[\"2fff2c4d-7c31-4ed7-b505-0aeafbd8c0e2\",\"63a7859b-8d73-40d4-ad4e-4d259bc92621\",\"e643343a-02b8-4b68-b4b3-4d0832c89e3c\"],\"supported_features\":[\"state\",\"lifecycle\",\"credentials\"]}",
+            "unique_id": "90bcf5cb-cc92-4fa4-b294-e9028fa7d781",
+            "public": true,
+            "active": true,
+            "service_url": "/v2/services/896cf32e-6992-441f-a33e-68914218f920",
+            "service_instances_url": "/v2/service_plans/8af59147-751f-4cc9-8eea-8d6833457723/service_instances"
+         }
+      },
+      {
+         "metadata": {
+            "guid": "064796f1-b7bd-470e-a5df-b4d47b325025",
+            "url": "/v2/service_plans/064796f1-b7bd-470e-a5df-b4d47b325025",
+            "created_at": "2016-09-22T12:53:10Z",
+            "updated_at": "2016-11-23T16:06:25Z"
+         },
+         "entity": {
+            "name": "v9.4-container",
+            "free": true,
+            "description": "PostgreSQL 9.4.6 service running inside a Docker container (for non-productive usage)",
+            "service_guid": "bce1debe-3a57-4a4c-be33-b710e10f7408",
+            "extra": "{\"bullets\":[\"Container Deployment\",\"256 MB Memory\",\"750 MB Disk\"],\"costs\":[{\"amount\":{\"usd\":0},\"unit\":\"MONTHLY\"}]}",
+            "unique_id": "a22944a7-1e2d-4a6d-b5dc-ebc3f00bfd14",
+            "public": true,
+            "active": true,
+            "service_url": "/v2/services/bce1debe-3a57-4a4c-be33-b710e10f7408",
+            "service_instances_url": "/v2/service_plans/064796f1-b7bd-470e-a5df-b4d47b325025/service_instances"
+         }
+      },
+      {
+         "metadata": {
+            "guid": "b3ee1ebf-a24d-46c6-b8b4-f1d2198556e9",
+            "url": "/v2/service_plans/b3ee1ebf-a24d-46c6-b8b4-f1d2198556e9",
+            "created_at": "2016-09-22T12:53:10Z",
+            "updated_at": "2016-11-23T16:06:13Z"
+         },
+         "entity": {
+            "name": "v9.4-container-large",
+            "free": true,
+            "description": "PostgreSQL 9.4.6 service running inside a large Docker container (for non-productive usage)",
+            "service_guid": "bce1debe-3a57-4a4c-be33-b710e10f7408",
+            "extra": "{\"bullets\":[\"Container Deployment\",\"1 GB Memory\",\"5 GB Disk\"],\"costs\":[{\"amount\":{\"usd\":0},\"unit\":\"MONTHLY\"}]}",
+            "unique_id": "b8e0f117-2028-4c68-a291-8f7e846bca19",
+            "public": false,
+            "active": true,
+            "service_url": "/v2/services/bce1debe-3a57-4a4c-be33-b710e10f7408",
+            "service_instances_url": "/v2/service_plans/b3ee1ebf-a24d-46c6-b8b4-f1d2198556e9/service_instances"
+         }
+      },
+      {
+         "metadata": {
+            "guid": "9ac4b05b-4ddd-4953-a489-eb5cbe7c931e",
+            "url": "/v2/service_plans/9ac4b05b-4ddd-4953-a489-eb5cbe7c931e",
+            "created_at": "2016-09-22T12:53:10Z",
+            "updated_at": "2016-11-23T16:06:24Z"
+         },
+         "entity": {
+            "name": "v9.4-dedicated-xsmall",
+            "free": false,
+            "description": "PostgreSQL 9.4 service x-small (managed service in beta)",
+            "service_guid": "bce1debe-3a57-4a4c-be33-b710e10f7408",
+            "extra": "{\"bullets\":[\"Dedicated Deployment\",\"2 VMs\",\"2 vCPUs\",\"4 GB Memory\",\"200 GB Disk\"],\"costs\":[{\"amount\":{\"usd\":0},\"unit\":\"MONTHLY\"}],\"supported_features\":[\"credentials\",\"state\"]}",
+            "unique_id": "201c90de-f90d-44b1-9903-cea383085675",
+            "public": true,
+            "active": true,
+            "service_url": "/v2/services/bce1debe-3a57-4a4c-be33-b710e10f7408",
+            "service_instances_url": "/v2/service_plans/9ac4b05b-4ddd-4953-a489-eb5cbe7c931e/service_instances"
+         }
+      },
+      {
+         "metadata": {
+            "guid": "f095a76f-a1bf-4a5f-8f2a-8a1009343a41",
+            "url": "/v2/service_plans/f095a76f-a1bf-4a5f-8f2a-8a1009343a41",
+            "created_at": "2016-09-22T12:53:10Z",
+            "updated_at": "2016-11-23T16:06:24Z"
+         },
+         "entity": {
+            "name": "v9.4-dedicated-small",
+            "free": false,
+            "description": "PostgreSQL 9.4 service small (managed service in beta)",
+            "service_guid": "bce1debe-3a57-4a4c-be33-b710e10f7408",
+            "extra": "{\"bullets\":[\"Dedicated Deployment\",\"2 VMs\",\"2 vCPUs\",\"8 GB Memory\",\"600 GB Disk\"],\"costs\":[{\"amount\":{\"usd\":0},\"unit\":\"MONTHLY\"}],\"update_predecessors\":[\"201c90de-f90d-44b1-9903-cea383085675\"],\"supported_features\":[\"credentials\",\"state\"]}",
+            "unique_id": "5ae07aab-4559-4589-b1ad-ef5da1a34809",
+            "public": true,
+            "active": true,
+            "service_url": "/v2/services/bce1debe-3a57-4a4c-be33-b710e10f7408",
+            "service_instances_url": "/v2/service_plans/f095a76f-a1bf-4a5f-8f2a-8a1009343a41/service_instances"
+         }
+      },
+      {
+         "metadata": {
+            "guid": "8ab3eaed-3a2c-473c-84dc-94bab50f5d81",
+            "url": "/v2/service_plans/8ab3eaed-3a2c-473c-84dc-94bab50f5d81",
+            "created_at": "2016-09-22T12:53:10Z",
+            "updated_at": "2016-11-23T16:06:25Z"
+         },
+         "entity": {
+            "name": "v9.4-dedicated-medium",
+            "free": false,
+            "description": "PostgreSQL 9.4 service medium (managed service in beta)",
+            "service_guid": "bce1debe-3a57-4a4c-be33-b710e10f7408",
+            "extra": "{\"bullets\":[\"Dedicated Deployment\",\"2 VMs\",\"4 vCPUs\",\"16 GB Memory\",\"1 TB Disk\"],\"costs\":[{\"amount\":{\"usd\":0},\"unit\":\"MONTHLY\"}],\"update_predecessors\":[\"201c90de-f90d-44b1-9903-cea383085675\",\"5ae07aab-4559-4589-b1ad-ef5da1a34809\"],\"supported_features\":[\"credentials\",\"state\"]}",
+            "unique_id": "ff6a67a7-e1af-4645-bc6c-e7c662a90459",
+            "public": true,
+            "active": true,
+            "service_url": "/v2/services/bce1debe-3a57-4a4c-be33-b710e10f7408",
+            "service_instances_url": "/v2/service_plans/8ab3eaed-3a2c-473c-84dc-94bab50f5d81/service_instances"
+         }
+      },
+      {
+         "metadata": {
+            "guid": "e87e45a7-238f-4964-89ef-843705307cee",
+            "url": "/v2/service_plans/e87e45a7-238f-4964-89ef-843705307cee",
+            "created_at": "2016-09-22T12:53:10Z",
+            "updated_at": "2016-11-23T16:06:25Z"
+         },
+         "entity": {
+            "name": "v9.4-dedicated-large",
+            "free": false,
+            "description": "PostgreSQL 9.4 service large (managed service in beta)",
+            "service_guid": "bce1debe-3a57-4a4c-be33-b710e10f7408",
+            "extra": "{\"bullets\":[\"Dedicated Deployment\",\"2 VMs\",\"16 vCPUs\",\"64 GB Memory\",\"1 TB Disk\"],\"costs\":[{\"amount\":{\"usd\":0},\"unit\":\"MONTHLY\"}],\"update_predecessors\":[\"201c90de-f90d-44b1-9903-cea383085675\",\"5ae07aab-4559-4589-b1ad-ef5da1a34809\",\"ff6a67a7-e1af-4645-bc6c-e7c662a90459\"],\"supported_features\":[\"credentials\",\"state\"]}",
+            "unique_id": "329d43a9-2a84-4e26-a075-6c9cc794c6c8",
+            "public": true,
+            "active": true,
+            "service_url": "/v2/services/bce1debe-3a57-4a4c-be33-b710e10f7408",
+            "service_instances_url": "/v2/service_plans/e87e45a7-238f-4964-89ef-843705307cee/service_instances"
+         }
+      },
+      {
+         "metadata": {
+            "guid": "010aed14-4e0a-456a-b13b-b5c1cab6fd12",
+            "url": "/v2/service_plans/010aed14-4e0a-456a-b13b-b5c1cab6fd12",
+            "created_at": "2016-09-22T12:53:10Z",
+            "updated_at": "2016-11-23T16:06:13Z"
+         },
+         "entity": {
+            "name": "v3.6.2-container",
+            "free": true,
+            "description": "RabbitMQ 3.6.2-1 service running inside a Docker container (for non-productive usage)",
+            "service_guid": "1969a524-00d3-4301-8b00-95dc98af47e3",
+            "extra": "{\"bullets\":[\"Container Deployment\",\"256 MB Memory\",\"500 MB Disk\"],\"costs\":[{\"amount\":{\"usd\":0},\"unit\":\"MONTHLY\"}]}",
+            "unique_id": "d035f948-5d3a-43d7-9aec-954e234c3e9d",
+            "public": false,
+            "active": true,
+            "service_url": "/v2/services/1969a524-00d3-4301-8b00-95dc98af47e3",
+            "service_instances_url": "/v2/service_plans/010aed14-4e0a-456a-b13b-b5c1cab6fd12/service_instances"
+         }
+      },
+      {
+         "metadata": {
+            "guid": "4ed5d997-1635-4db5-9c63-489cdc86e7c8",
+            "url": "/v2/service_plans/4ed5d997-1635-4db5-9c63-489cdc86e7c8",
+            "created_at": "2016-09-22T12:53:10Z",
+            "updated_at": "2016-11-23T16:06:26Z"
+         },
+         "entity": {
+            "name": "v3.6-container",
+            "free": true,
+            "description": "RabbitMQ 3.6.5-1 service running inside a Docker container (for non-productive usage)",
+            "service_guid": "1969a524-00d3-4301-8b00-95dc98af47e3",
+            "extra": "{\"bullets\":[\"Container Deployment\",\"256 MB Memory\",\"500 MB Disk\"],\"costs\":[{\"amount\":{\"usd\":0},\"unit\":\"MONTHLY\"}]}",
+            "unique_id": "e396dbdf-2d5d-4710-87e1-81f100fcf795",
+            "public": true,
+            "active": true,
+            "service_url": "/v2/services/1969a524-00d3-4301-8b00-95dc98af47e3",
+            "service_instances_url": "/v2/service_plans/4ed5d997-1635-4db5-9c63-489cdc86e7c8/service_instances"
+         }
+      },
+      {
+         "metadata": {
+            "guid": "0fb858b7-7c2e-49b9-9d5e-ce65ae776af0",
+            "url": "/v2/service_plans/0fb858b7-7c2e-49b9-9d5e-ce65ae776af0",
+            "created_at": "2016-09-22T12:53:10Z",
+            "updated_at": "2016-11-23T16:06:13Z"
+         },
+         "entity": {
+            "name": "v3.5.7-dedicated-xsmall",
+            "free": false,
+            "description": "RabbitMQ 3.5.7 service x-small (managed service in beta)  - vulnerable/deprecated",
+            "service_guid": "1969a524-00d3-4301-8b00-95dc98af47e3",
+            "extra": "{\"bullets\":[\"Dedicated Deployment\",\"3 VMs\",\"1 vCPUs\",\"1 GB Memory\",\"10 GB Disk\"],\"costs\":[{\"amount\":{\"usd\":0},\"unit\":\"MONTHLY\"}],\"update_predecessors\":[\"bdbb128e-9ef3-4ba5-b283-65ce3ee56f73\"],\"supported_features\":[\"state\",\"credentials\"]}",
+            "unique_id": "bdbb128e-9ef3-4ba5-b283-65ce3ee56f73",
+            "public": false,
+            "active": true,
+            "service_url": "/v2/services/1969a524-00d3-4301-8b00-95dc98af47e3",
+            "service_instances_url": "/v2/service_plans/0fb858b7-7c2e-49b9-9d5e-ce65ae776af0/service_instances"
+         }
+      },
+      {
+         "metadata": {
+            "guid": "4b124398-0bfe-489f-87ad-9a118615c1b2",
+            "url": "/v2/service_plans/4b124398-0bfe-489f-87ad-9a118615c1b2",
+            "created_at": "2016-09-22T12:53:10Z",
+            "updated_at": "2016-11-23T16:06:13Z"
+         },
+         "entity": {
+            "name": "v3.5.7-dedicated-small",
+            "free": false,
+            "description": "RabbitMQ 3.5.7 service small (managed service in beta) - vulnerable/deprecated",
+            "service_guid": "1969a524-00d3-4301-8b00-95dc98af47e3",
+            "extra": "{\"bullets\":[\"Dedicated Deployment\",\"3 VMs, 2 LBs\",\"1 vCPUs\",\"2 GB Memory\",\"20 GB Disk\"],\"costs\":[{\"amount\":{\"usd\":0},\"unit\":\"MONTHLY\"}],\"update_predecessors\":[\"bdbb128e-9ef3-4ba5-b283-65ce3ee56f73\",\"f5d0e728-c42b-4809-8cff-60305aca3cab\"],\"supported_features\":[\"state\",\"credentials\"]}",
+            "unique_id": "f5d0e728-c42b-4809-8cff-60305aca3cab",
+            "public": false,
+            "active": true,
+            "service_url": "/v2/services/1969a524-00d3-4301-8b00-95dc98af47e3",
+            "service_instances_url": "/v2/service_plans/4b124398-0bfe-489f-87ad-9a118615c1b2/service_instances"
+         }
+      },
+      {
+         "metadata": {
+            "guid": "97709386-1c9f-4883-ba84-3005e896b9c8",
+            "url": "/v2/service_plans/97709386-1c9f-4883-ba84-3005e896b9c8",
+            "created_at": "2016-09-22T12:53:10Z",
+            "updated_at": "2016-11-23T16:06:13Z"
+         },
+         "entity": {
+            "name": "v3.5.7-dedicated-medium",
+            "free": false,
+            "description": "RabbitMQ 3.5.7 service medium (managed service in beta) - vulnerable/deprecated",
+            "service_guid": "1969a524-00d3-4301-8b00-95dc98af47e3",
+            "extra": "{\"bullets\":[\"Dedicated Deployment\",\"3 VMs, 2 LBs\",\"2 vCPUs\",\"4 GB Memory\",\"40 GB Disk\"],\"costs\":[{\"amount\":{\"usd\":0},\"unit\":\"MONTHLY\"}],\"update_predecessors\":[\"bdbb128e-9ef3-4ba5-b283-65ce3ee56f73\",\"f5d0e728-c42b-4809-8cff-60305aca3cab\",\"cbb179ca-3d05-4cd0-b9db-e4dd795a4257\"],\"supported_features\":[\"state\",\"credentials\"]}",
+            "unique_id": "cbb179ca-3d05-4cd0-b9db-e4dd795a4257",
+            "public": false,
+            "active": true,
+            "service_url": "/v2/services/1969a524-00d3-4301-8b00-95dc98af47e3",
+            "service_instances_url": "/v2/service_plans/97709386-1c9f-4883-ba84-3005e896b9c8/service_instances"
+         }
+      },
+      {
+         "metadata": {
+            "guid": "22b504cb-349b-488d-bbf8-cf1c5a0f4523",
+            "url": "/v2/service_plans/22b504cb-349b-488d-bbf8-cf1c5a0f4523",
+            "created_at": "2016-09-22T12:53:10Z",
+            "updated_at": "2016-11-23T16:06:13Z"
+         },
+         "entity": {
+            "name": "v3.5.7-dedicated-large",
+            "free": false,
+            "description": "RabbitMQ 3.5.7 service large (managed service in beta) - vulnerable/deprecated",
+            "service_guid": "1969a524-00d3-4301-8b00-95dc98af47e3",
+            "extra": "{\"bullets\":[\"Dedicated Deployment\",\"3 VMs, 2 LBs\",\"4 vCPUs\",\"16 GB Memory\",\"80 GB Disk\"],\"costs\":[{\"amount\":{\"usd\":0},\"unit\":\"MONTHLY\"}],\"update_predecessors\":[\"bdbb128e-9ef3-4ba5-b283-65ce3ee56f73\",\"f5d0e728-c42b-4809-8cff-60305aca3cab\",\"cbb179ca-3d05-4cd0-b9db-e4dd795a4257\",\"7e256bf6-e2d0-45ab-bd72-5d5ee555184c\"],\"supported_features\":[\"state\",\"credentials\"]}",
+            "unique_id": "7e256bf6-e2d0-45ab-bd72-5d5ee555184c",
+            "public": false,
+            "active": true,
+            "service_url": "/v2/services/1969a524-00d3-4301-8b00-95dc98af47e3",
+            "service_instances_url": "/v2/service_plans/22b504cb-349b-488d-bbf8-cf1c5a0f4523/service_instances"
+         }
+      },
+      {
+         "metadata": {
+            "guid": "99598b5c-96dc-49bc-b384-325c64ac9c42",
+            "url": "/v2/service_plans/99598b5c-96dc-49bc-b384-325c64ac9c42",
+            "created_at": "2016-09-22T12:53:10Z",
+            "updated_at": "2016-11-23T16:06:25Z"
+         },
+         "entity": {
+            "name": "v3.6-dedicated-xsmall",
+            "free": false,
+            "description": "RabbitMQ 3.6 service x-small (managed service in beta)",
+            "service_guid": "1969a524-00d3-4301-8b00-95dc98af47e3",
+            "extra": "{\"bullets\":[\"Dedicated Deployment\",\"3 VMs\",\"1 vCPUs\",\"1 GB Memory\",\"10 GB Disk\"],\"costs\":[{\"amount\":{\"usd\":0},\"unit\":\"MONTHLY\"}],\"update_predecessors\":[\"bdbb128e-9ef3-4ba5-b283-65ce3ee56f73\",\"4a8e635b-6957-4013-9eb4-5d29547a9423\"],\"supported_features\":[\"state\",\"credentials\"]}",
+            "unique_id": "4a8e635b-6957-4013-9eb4-5d29547a9423",
+            "public": true,
+            "active": true,
+            "service_url": "/v2/services/1969a524-00d3-4301-8b00-95dc98af47e3",
+            "service_instances_url": "/v2/service_plans/99598b5c-96dc-49bc-b384-325c64ac9c42/service_instances"
+         }
+      },
+      {
+         "metadata": {
+            "guid": "23a8b64f-d1f3-4c28-bba2-051cd7612b54",
+            "url": "/v2/service_plans/23a8b64f-d1f3-4c28-bba2-051cd7612b54",
+            "created_at": "2016-09-22T12:53:10Z",
+            "updated_at": "2016-11-23T16:06:26Z"
+         },
+         "entity": {
+            "name": "v3.6-dedicated-small",
+            "free": false,
+            "description": "RabbitMQ 3.6 service small (managed service in beta)",
+            "service_guid": "1969a524-00d3-4301-8b00-95dc98af47e3",
+            "extra": "{\"bullets\":[\"Dedicated Deployment\",\"3 VMs, 2 LBs\",\"1 vCPUs\",\"2 GB Memory\",\"20 GB Disk\"],\"costs\":[{\"amount\":{\"usd\":0},\"unit\":\"MONTHLY\"}],\"update_predecessors\":[\"bdbb128e-9ef3-4ba5-b283-65ce3ee56f73\",\"f5d0e728-c42b-4809-8cff-60305aca3cab\",\"4a8e635b-6957-4013-9eb4-5d29547a9423\",\"608da532-3280-4edd-bbd3-e52d331d1933\"],\"supported_features\":[\"state\",\"credentials\"]}",
+            "unique_id": "608da532-3280-4edd-bbd3-e52d331d1933",
+            "public": true,
+            "active": true,
+            "service_url": "/v2/services/1969a524-00d3-4301-8b00-95dc98af47e3",
+            "service_instances_url": "/v2/service_plans/23a8b64f-d1f3-4c28-bba2-051cd7612b54/service_instances"
+         }
+      },
+      {
+         "metadata": {
+            "guid": "763df38b-ff94-4d6a-9bce-aab22ef60cbf",
+            "url": "/v2/service_plans/763df38b-ff94-4d6a-9bce-aab22ef60cbf",
+            "created_at": "2016-09-22T12:53:10Z",
+            "updated_at": "2016-11-23T16:06:26Z"
+         },
+         "entity": {
+            "name": "v3.6-dedicated-medium",
+            "free": false,
+            "description": "RabbitMQ 3.6 service medium (managed service in beta)",
+            "service_guid": "1969a524-00d3-4301-8b00-95dc98af47e3",
+            "extra": "{\"bullets\":[\"Dedicated Deployment\",\"3 VMs, 2 LBs\",\"2 vCPUs\",\"4 GB Memory\",\"40 GB Disk\"],\"costs\":[{\"amount\":{\"usd\":0},\"unit\":\"MONTHLY\"}],\"update_predecessors\":[\"bdbb128e-9ef3-4ba5-b283-65ce3ee56f73\",\"f5d0e728-c42b-4809-8cff-60305aca3cab\",\"cbb179ca-3d05-4cd0-b9db-e4dd795a4257\",\"4a8e635b-6957-4013-9eb4-5d29547a9423\",\"608da532-3280-4edd-bbd3-e52d331d1933\",\"1e2f5f80-48c3-4804-986d-1a3c204508b0\"],\"supported_features\":[\"state\",\"credentials\"]}",
+            "unique_id": "1e2f5f80-48c3-4804-986d-1a3c204508b0",
+            "public": true,
+            "active": true,
+            "service_url": "/v2/services/1969a524-00d3-4301-8b00-95dc98af47e3",
+            "service_instances_url": "/v2/service_plans/763df38b-ff94-4d6a-9bce-aab22ef60cbf/service_instances"
+         }
+      },
+      {
+         "metadata": {
+            "guid": "695e97c2-459f-4c9c-be30-004205ef659a",
+            "url": "/v2/service_plans/695e97c2-459f-4c9c-be30-004205ef659a",
+            "created_at": "2016-09-22T12:53:10Z",
+            "updated_at": "2016-11-23T16:06:26Z"
+         },
+         "entity": {
+            "name": "v3.6-dedicated-large",
+            "free": false,
+            "description": "RabbitMQ 3.6 service large (managed service in beta)",
+            "service_guid": "1969a524-00d3-4301-8b00-95dc98af47e3",
+            "extra": "{\"bullets\":[\"Dedicated Deployment\",\"3 VMs, 2 LBs\",\"4 vCPUs\",\"16 GB Memory\",\"80 GB Disk\"],\"costs\":[{\"amount\":{\"usd\":0},\"unit\":\"MONTHLY\"}],\"update_predecessors\":[\"bdbb128e-9ef3-4ba5-b283-65ce3ee56f73\",\"f5d0e728-c42b-4809-8cff-60305aca3cab\",\"cbb179ca-3d05-4cd0-b9db-e4dd795a4257\",\"7e256bf6-e2d0-45ab-bd72-5d5ee555184c\",\"4a8e635b-6957-4013-9eb4-5d29547a9423\",\"608da532-3280-4edd-bbd3-e52d331d1933\",\"1e2f5f80-48c3-4804-986d-1a3c204508b0\",\"5800ce1b-1617-43ee-b4bb-00b980f94e15\"],\"supported_features\":[\"state\",\"credentials\"]}",
+            "unique_id": "5800ce1b-1617-43ee-b4bb-00b980f94e15",
+            "public": true,
+            "active": true,
+            "service_url": "/v2/services/1969a524-00d3-4301-8b00-95dc98af47e3",
+            "service_instances_url": "/v2/service_plans/695e97c2-459f-4c9c-be30-004205ef659a/service_instances"
+         }
+      },
+      {
+         "metadata": {
+            "guid": "f08d85fc-ab24-47c1-b005-3f2edfe1ec38",
+            "url": "/v2/service_plans/f08d85fc-ab24-47c1-b005-3f2edfe1ec38",
+            "created_at": "2016-09-22T12:53:10Z",
+            "updated_at": "2016-11-23T16:06:29Z"
+         },
+         "entity": {
+            "name": "v3.0-container",
+            "free": true,
+            "description": "Redis 3.0.7 service running inside a Docker container (for non-productive usage)",
+            "service_guid": "f276322b-1385-426e-9955-1ad3e97ab34a",
+            "extra": "{\"bullets\":[\"Container Deployment\",\"50 MB Memory\",\"30 MB Redis maxmemory\",\"500 MB Disk\"],\"costs\":[{\"amount\":{\"usd\":0},\"unit\":\"MONTHLY\"}]}",
+            "unique_id": "39c1cf1f-c698-4db1-a0c5-42cfc394f246",
+            "public": true,
+            "active": true,
+            "service_url": "/v2/services/f276322b-1385-426e-9955-1ad3e97ab34a",
+            "service_instances_url": "/v2/service_plans/f08d85fc-ab24-47c1-b005-3f2edfe1ec38/service_instances"
+         }
+      },
+      {
+         "metadata": {
+            "guid": "a0cb6e95-1958-4b5b-b6c8-ea01c29abf63",
+            "url": "/v2/service_plans/a0cb6e95-1958-4b5b-b6c8-ea01c29abf63",
+            "created_at": "2016-09-22T12:53:10Z",
+            "updated_at": "2016-11-23T16:06:13Z"
+         },
+         "entity": {
+            "name": "v3.0-container-large",
+            "free": true,
+            "description": "Redis 3.0.7 service running inside a large Docker container (for non-productive usage)",
+            "service_guid": "f276322b-1385-426e-9955-1ad3e97ab34a",
+            "extra": "{\"bullets\":[\"Container Deployment\",\"450 MB Memory\",\"300 MB Redis maxmemory\",\"1 GB Disk\"],\"costs\":[{\"amount\":{\"usd\":0},\"unit\":\"MONTHLY\"}]}",
+            "unique_id": "33c16a3d-7c81-4b78-999a-599583c89915",
+            "public": false,
+            "active": true,
+            "service_url": "/v2/services/f276322b-1385-426e-9955-1ad3e97ab34a",
+            "service_instances_url": "/v2/service_plans/a0cb6e95-1958-4b5b-b6c8-ea01c29abf63/service_instances"
+         }
+      },
+      {
+         "metadata": {
+            "guid": "826fa439-6e5f-4dac-acd2-6b183ffde4af",
+            "url": "/v2/service_plans/826fa439-6e5f-4dac-acd2-6b183ffde4af",
+            "created_at": "2016-09-22T12:53:10Z",
+            "updated_at": "2016-11-23T16:06:27Z"
+         },
+         "entity": {
+            "name": "v3.0-dedicated-xsmall-single-node",
+            "free": false,
+            "description": "Redis 3.0 service x-small single-node (managed service in beta)",
+            "service_guid": "f276322b-1385-426e-9955-1ad3e97ab34a",
+            "extra": "{\"bullets\":[\"Dedicated Deployment\",\"1 VM\",\"1 vCPUs\",\"2 GB Memory\",\"1 GB Redis maxmemory\",\"4 GB Disk\"],\"costs\":[{\"amount\":{\"usd\":0},\"unit\":\"MONTHLY\"}],\"supported_features\":[\"credentials\"]}",
+            "unique_id": "d8a9d980-1fd9-4650-adf4-5d4863f20dfb",
+            "public": true,
+            "active": true,
+            "service_url": "/v2/services/f276322b-1385-426e-9955-1ad3e97ab34a",
+            "service_instances_url": "/v2/service_plans/826fa439-6e5f-4dac-acd2-6b183ffde4af/service_instances"
+         }
+      },
+      {
+         "metadata": {
+            "guid": "4e05a4e1-8824-4d09-8721-e6ef7f732889",
+            "url": "/v2/service_plans/4e05a4e1-8824-4d09-8721-e6ef7f732889",
+            "created_at": "2016-09-22T12:53:10Z",
+            "updated_at": "2016-11-23T16:06:27Z"
+         },
+         "entity": {
+            "name": "v3.0-dedicated-small-single-node",
+            "free": false,
+            "description": "Redis 3.0 service small single-node (managed service in beta)",
+            "service_guid": "f276322b-1385-426e-9955-1ad3e97ab34a",
+            "extra": "{\"bullets\":[\"Dedicated Deployment\",\"1 VM\",\"2 vCPUs\",\"4 GB Memory\",\"3 GB Redis maxmemory\",\"10 GB Disk\"],\"costs\":[{\"amount\":{\"usd\":0},\"unit\":\"MONTHLY\"}],\"update_predecessors\":[\"d8a9d980-1fd9-4650-adf4-5d4863f20dfb\"],\"supported_features\":[\"credentials\"]}",
+            "unique_id": "d9f7b72c-981d-4ce3-bd11-d6e640c5445c",
+            "public": true,
+            "active": true,
+            "service_url": "/v2/services/f276322b-1385-426e-9955-1ad3e97ab34a",
+            "service_instances_url": "/v2/service_plans/4e05a4e1-8824-4d09-8721-e6ef7f732889/service_instances"
+         }
+      },
+      {
+         "metadata": {
+            "guid": "c2de39b1-96dd-493e-9272-6d2ed6b6a32d",
+            "url": "/v2/service_plans/c2de39b1-96dd-493e-9272-6d2ed6b6a32d",
+            "created_at": "2016-09-22T12:53:10Z",
+            "updated_at": "2016-11-23T16:06:27Z"
+         },
+         "entity": {
+            "name": "v3.0-dedicated-medium-single-node",
+            "free": false,
+            "description": "Redis 3.0 service medium single-node (managed service in beta)",
+            "service_guid": "f276322b-1385-426e-9955-1ad3e97ab34a",
+            "extra": "{\"bullets\":[\"Dedicated Deployment\",\"1 VM\",\"4 vCPUs\",\"16 GB Memory\",\"15 GB Redis maxmemory\",\"60 GB Disk\"],\"costs\":[{\"amount\":{\"usd\":0},\"unit\":\"MONTHLY\"}],\"update_predecessors\":[\"d8a9d980-1fd9-4650-adf4-5d4863f20dfb\",\"d9f7b72c-981d-4ce3-bd11-d6e640c5445c\"],\"supported_features\":[\"credentials\"]}",
+            "unique_id": "5da91a4c-a7ed-40e7-ad19-52c5432fffca",
+            "public": true,
+            "active": true,
+            "service_url": "/v2/services/f276322b-1385-426e-9955-1ad3e97ab34a",
+            "service_instances_url": "/v2/service_plans/c2de39b1-96dd-493e-9272-6d2ed6b6a32d/service_instances"
+         }
+      },
+      {
+         "metadata": {
+            "guid": "c1942c2b-43b3-4786-83d4-70203fe60968",
+            "url": "/v2/service_plans/c1942c2b-43b3-4786-83d4-70203fe60968",
+            "created_at": "2016-09-22T12:53:10Z",
+            "updated_at": "2016-11-23T16:06:27Z"
+         },
+         "entity": {
+            "name": "v3.0-dedicated-large-single-node",
+            "free": false,
+            "description": "Redis 3.0 service large single-node (managed service in beta)",
+            "service_guid": "f276322b-1385-426e-9955-1ad3e97ab34a",
+            "extra": "{\"bullets\":[\"Dedicated Deployment\",\"1 VM\",\"8 vCPUs\",\"32 GB Memory\",\"30 GB Redis maxmemory\",\"100 GB Disk\"],\"costs\":[{\"amount\":{\"usd\":0},\"unit\":\"MONTHLY\"}],\"update_predecessors\":[\"d8a9d980-1fd9-4650-adf4-5d4863f20dfb\",\"d9f7b72c-981d-4ce3-bd11-d6e640c5445c\",\"5da91a4c-a7ed-40e7-ad19-52c5432fffca\"],\"supported_features\":[\"credentials\"]}",
+            "unique_id": "7665116d-2d84-459b-9ae9-f418ab5e84cc",
+            "public": true,
+            "active": true,
+            "service_url": "/v2/services/f276322b-1385-426e-9955-1ad3e97ab34a",
+            "service_instances_url": "/v2/service_plans/c1942c2b-43b3-4786-83d4-70203fe60968/service_instances"
+         }
+      },
+      {
+         "metadata": {
+            "guid": "f9685fd1-14ba-45b6-95ff-14e0fc2b5394",
+            "url": "/v2/service_plans/f9685fd1-14ba-45b6-95ff-14e0fc2b5394",
+            "created_at": "2016-09-22T12:53:10Z",
+            "updated_at": "2016-11-23T16:06:28Z"
+         },
+         "entity": {
+            "name": "v3.0-dedicated-xxlarge-single-node",
+            "free": false,
+            "description": "Redis 3.0 service xxlarge single-node (managed service in beta)",
+            "service_guid": "f276322b-1385-426e-9955-1ad3e97ab34a",
+            "extra": "{\"bullets\":[\"Dedicated Deployment\",\"1 VM\",\"40 vCPUs\",\"160 GB Memory\",\"156 GB Redis maxmemory\",\"600 GB Disk\"],\"costs\":[{\"amount\":{\"usd\":0},\"unit\":\"MONTHLY\"}],\"update_predecessors\":[\"d8a9d980-1fd9-4650-adf4-5d4863f20dfb\",\"d9f7b72c-981d-4ce3-bd11-d6e640c5445c\",\"5da91a4c-a7ed-40e7-ad19-52c5432fffca\",\"7665116d-2d84-459b-9ae9-f418ab5e84cc\"],\"supported_features\":[\"credentials\"]}",
+            "unique_id": "5620c4d2-3e6d-4baf-b6a7-a41718ab80db",
+            "public": true,
+            "active": true,
+            "service_url": "/v2/services/f276322b-1385-426e-9955-1ad3e97ab34a",
+            "service_instances_url": "/v2/service_plans/f9685fd1-14ba-45b6-95ff-14e0fc2b5394/service_instances"
+         }
+      },
+      {
+         "metadata": {
+            "guid": "99ad2420-99a4-476a-ac1d-5d0e9bb7c18a",
+            "url": "/v2/service_plans/99ad2420-99a4-476a-ac1d-5d0e9bb7c18a",
+            "created_at": "2016-09-22T12:53:10Z",
+            "updated_at": "2016-11-23T16:06:28Z"
+         },
+         "entity": {
+            "name": "v3.0-dedicated-xsmall",
+            "free": false,
+            "description": "Redis 3.0 service x-small (managed service in beta)",
+            "service_guid": "f276322b-1385-426e-9955-1ad3e97ab34a",
+            "extra": "{\"bullets\":[\"Dedicated Deployment\",\"3 VMs\",\"1 vCPUs\",\"2 GB Memory\",\"1 GB Redis maxmemory\",\"4 GB Disk\"],\"costs\":[{\"amount\":{\"usd\":0},\"unit\":\"MONTHLY\"}],\"supported_features\":[\"credentials\"]}",
+            "unique_id": "1033b1cb-ac35-4f3f-8edd-32ec8dc62f9e",
+            "public": true,
+            "active": true,
+            "service_url": "/v2/services/f276322b-1385-426e-9955-1ad3e97ab34a",
+            "service_instances_url": "/v2/service_plans/99ad2420-99a4-476a-ac1d-5d0e9bb7c18a/service_instances"
+         }
+      },
+      {
+         "metadata": {
+            "guid": "3380fe6a-ec87-4e18-b07e-af8fd2575de2",
+            "url": "/v2/service_plans/3380fe6a-ec87-4e18-b07e-af8fd2575de2",
+            "created_at": "2016-09-22T12:53:10Z",
+            "updated_at": "2016-11-23T16:06:28Z"
+         },
+         "entity": {
+            "name": "v3.0-dedicated-small",
+            "free": false,
+            "description": "Redis 3.0 service small (managed service in beta)",
+            "service_guid": "f276322b-1385-426e-9955-1ad3e97ab34a",
+            "extra": "{\"bullets\":[\"Dedicated Deployment\",\"3 VMs\",\"2 vCPUs\",\"4 GB Memory\",\"3 GB Redis maxmemory\",\"10 GB Disk\"],\"costs\":[{\"amount\":{\"usd\":0},\"unit\":\"MONTHLY\"}],\"update_predecessors\":[\"1033b1cb-ac35-4f3f-8edd-32ec8dc62f9e\"],\"supported_features\":[\"credentials\"]}",
+            "unique_id": "769b351b-0fc3-46ed-8da5-b71ff1449976",
+            "public": true,
+            "active": true,
+            "service_url": "/v2/services/f276322b-1385-426e-9955-1ad3e97ab34a",
+            "service_instances_url": "/v2/service_plans/3380fe6a-ec87-4e18-b07e-af8fd2575de2/service_instances"
+         }
+      },
+      {
+         "metadata": {
+            "guid": "76060725-6a14-49c9-b877-7a44128cd1de",
+            "url": "/v2/service_plans/76060725-6a14-49c9-b877-7a44128cd1de",
+            "created_at": "2016-09-22T12:53:10Z",
+            "updated_at": "2016-11-23T16:06:28Z"
+         },
+         "entity": {
+            "name": "v3.0-dedicated-medium",
+            "free": false,
+            "description": "Redis 3.0 service medium (managed service in beta)",
+            "service_guid": "f276322b-1385-426e-9955-1ad3e97ab34a",
+            "extra": "{\"bullets\":[\"Dedicated Deployment\",\"3 VMs\",\"4 vCPUs\",\"16 GB Memory\",\"15 GB Redis maxmemory\",\"60 GB Disk\"],\"costs\":[{\"amount\":{\"usd\":0},\"unit\":\"MONTHLY\"}],\"update_predecessors\":[\"1033b1cb-ac35-4f3f-8edd-32ec8dc62f9e\",\"769b351b-0fc3-46ed-8da5-b71ff1449976\"],\"supported_features\":[\"credentials\"]}",
+            "unique_id": "4a016e54-644a-47d3-8fc5-108b7c551467",
+            "public": true,
+            "active": true,
+            "service_url": "/v2/services/f276322b-1385-426e-9955-1ad3e97ab34a",
+            "service_instances_url": "/v2/service_plans/76060725-6a14-49c9-b877-7a44128cd1de/service_instances"
+         }
+      },
+      {
+         "metadata": {
+            "guid": "da8a0057-43d5-4629-aba4-28edd4f7c9cf",
+            "url": "/v2/service_plans/da8a0057-43d5-4629-aba4-28edd4f7c9cf",
+            "created_at": "2016-09-22T12:53:10Z",
+            "updated_at": "2016-11-23T16:06:29Z"
+         },
+         "entity": {
+            "name": "v3.0-dedicated-large",
+            "free": false,
+            "description": "Redis 3.0 service large (managed service in beta)",
+            "service_guid": "f276322b-1385-426e-9955-1ad3e97ab34a",
+            "extra": "{\"bullets\":[\"Dedicated Deployment\",\"3 VMs\",\"8 vCPUs\",\"32 GB Memory\",\"30 GB Redis maxmemory\",\"100 GB Disk\"],\"costs\":[{\"amount\":{\"usd\":0},\"unit\":\"MONTHLY\"}],\"update_predecessors\":[\"1033b1cb-ac35-4f3f-8edd-32ec8dc62f9e\",\"769b351b-0fc3-46ed-8da5-b71ff1449976\",\"4a016e54-644a-47d3-8fc5-108b7c551467\"],\"supported_features\":[\"credentials\"]}",
+            "unique_id": "772dc3fb-091d-4bee-85d2-537f291c7503",
+            "public": true,
+            "active": true,
+            "service_url": "/v2/services/f276322b-1385-426e-9955-1ad3e97ab34a",
+            "service_instances_url": "/v2/service_plans/da8a0057-43d5-4629-aba4-28edd4f7c9cf/service_instances"
+         }
+      },
+      {
+         "metadata": {
+            "guid": "d22c9eac-a999-498b-8f13-57497e0dbd8f",
+            "url": "/v2/service_plans/d22c9eac-a999-498b-8f13-57497e0dbd8f",
+            "created_at": "2016-09-22T12:53:10Z",
+            "updated_at": "2016-11-23T16:06:29Z"
+         },
+         "entity": {
+            "name": "v3.0-dedicated-xxlarge",
+            "free": false,
+            "description": "Redis 3.0 service xxlarge (managed service in beta)",
+            "service_guid": "f276322b-1385-426e-9955-1ad3e97ab34a",
+            "extra": "{\"bullets\":[\"Dedicated Deployment\",\"3 VMs\",\"40 vCPUs\",\"160 GB Memory\",\"156 GB Redis maxmemory\",\"600 GB Disk\"],\"costs\":[{\"amount\":{\"usd\":0},\"unit\":\"MONTHLY\"}],\"update_predecessors\":[\"1033b1cb-ac35-4f3f-8edd-32ec8dc62f9e\",\"769b351b-0fc3-46ed-8da5-b71ff1449976\",\"4a016e54-644a-47d3-8fc5-108b7c551467\",\"772dc3fb-091d-4bee-85d2-537f291c7503\"],\"supported_features\":[\"credentials\"]}",
+            "unique_id": "2bb83f94-34f3-46f2-90a3-ef7d32c0524a",
+            "public": true,
+            "active": true,
+            "service_url": "/v2/services/f276322b-1385-426e-9955-1ad3e97ab34a",
+            "service_instances_url": "/v2/service_plans/d22c9eac-a999-498b-8f13-57497e0dbd8f/service_instances"
+         }
+      },
+      {
+         "metadata": {
+            "guid": "52456330-93dc-4738-8f4f-34faf03e139c",
+            "url": "/v2/service_plans/52456330-93dc-4738-8f4f-34faf03e139c",
+            "created_at": "2016-09-22T12:53:10Z",
+            "updated_at": "2016-11-23T16:06:22Z"
+         },
+         "entity": {
+            "name": "v0.13-container",
+            "free": true,
+            "description": "InfluxDB 0.13.0 service running inside a Docker container (for non-productive usage)",
+            "service_guid": "83b43d43-ed8d-44b7-8b60-46298bbc221b",
+            "extra": "{\"bullets\":[\"Container Deployment\",\"200 MB Memory\",\"750 MB Disk\"],\"costs\":[{\"amount\":{\"usd\":0},\"unit\":\"MONTHLY\"}]}",
+            "unique_id": "b4d9285e-95b0-4db7-bca4-8e8420796f76",
+            "public": true,
+            "active": true,
+            "service_url": "/v2/services/83b43d43-ed8d-44b7-8b60-46298bbc221b",
+            "service_instances_url": "/v2/service_plans/52456330-93dc-4738-8f4f-34faf03e139c/service_instances"
+         }
+      },
+      {
+         "metadata": {
+            "guid": "4b960c65-3c00-4087-9cbd-e32790f7d99d",
+            "url": "/v2/service_plans/4b960c65-3c00-4087-9cbd-e32790f7d99d",
+            "created_at": "2016-09-22T12:53:10Z",
+            "updated_at": "2016-11-23T16:06:13Z"
+         },
+         "entity": {
+            "name": "v0.12-container",
+            "free": true,
+            "description": "InfluxDB 0.12.2 service running inside a Docker container (for non-productive usage)",
+            "service_guid": "83b43d43-ed8d-44b7-8b60-46298bbc221b",
+            "extra": "{\"bullets\":[\"Container Deployment\",\"200 MB Memory\",\"750 MB Disk\"],\"costs\":[{\"amount\":{\"usd\":0},\"unit\":\"MONTHLY\"}]}",
+            "unique_id": "7bd666b2-b7db-4c0a-ba78-bc6ab7b9af1e",
+            "public": false,
+            "active": true,
+            "service_url": "/v2/services/83b43d43-ed8d-44b7-8b60-46298bbc221b",
+            "service_instances_url": "/v2/service_plans/4b960c65-3c00-4087-9cbd-e32790f7d99d/service_instances"
+         }
+      },
+      {
+         "metadata": {
+            "guid": "2f946fd2-5f59-442e-ae74-bba94f97ee61",
+            "url": "/v2/service_plans/2f946fd2-5f59-442e-ae74-bba94f97ee61",
+            "created_at": "2016-10-20T07:19:58Z",
+            "updated_at": "2016-11-23T16:06:23Z"
+         },
+         "entity": {
+            "name": "v3.3-container",
+            "free": true,
+            "description": "R runtime embedded in RServe, running inside a Docker container",
+            "service_guid": "235a8934-d517-4c76-852d-f5e426e084c8",
+            "extra": "{\"bullets\":[\"Container Deployment\",\"1 GB Memory\",\"2 GB Disk\"],\"costs\":[{\"amount\":{\"usd\":0},\"unit\":\"MONTHLY\"}]}",
+            "unique_id": "562c9c36-853d-4c3c-8b1d-093b6910befb",
+            "public": true,
+            "active": true,
+            "service_url": "/v2/services/235a8934-d517-4c76-852d-f5e426e084c8",
+            "service_instances_url": "/v2/service_plans/2f946fd2-5f59-442e-ae74-bba94f97ee61/service_instances"
+         }
+      }
+   ]
+}
+
