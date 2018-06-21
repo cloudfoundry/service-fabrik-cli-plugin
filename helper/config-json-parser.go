@@ -4,18 +4,20 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
-	"github.com/mitchellh/go-homedir"
 	"github.com/SAP/service-fabrik-cli-plugin/errors"
+	"github.com/mitchellh/go-homedir"
 	"io/ioutil"
 	"os"
 	"strings"
 )
 
 type Config struct {
-	AccessToken        string
-	SpaceFields        SpaceField
-	OrganizationFields OrgField
-	Target             string
+	RefreshToken          string
+	AccessToken           string
+	SpaceFields           SpaceField
+	OrganizationFields    OrgField
+	Target                string
+	AuthorizationEndpoint string
 }
 
 type SpaceField struct {
@@ -134,6 +136,20 @@ func GetAccessToken(file []byte) string {
 	return config.AccessToken
 }
 
+func GetRefreshToken(file []byte) string {
+	var config Config
+
+	if err := json.Unmarshal(file, &config); err != nil {
+		fmt.Printf("Error parsing json [%v]\n", err)
+		os.Exit(4)
+	}
+
+	if config.AccessToken == "" {
+		errors.NoAccessTokenError("Access Token")
+	}
+	return config.RefreshToken
+}
+
 func GetSpaceGUID(file []byte) string {
 	var config Config
 
@@ -191,6 +207,21 @@ func GetApiEndpoint(file []byte) string {
 		errors.NoAccessTokenError("Api Endpoint")
 	}
 	return config.Target
+
+}
+
+func GetLoginEndpoint(file []byte) string {
+	var config Config
+
+	if err := json.Unmarshal(file, &config); err != nil {
+		fmt.Printf("Error parsing json [%v]\n", err)
+		os.Exit(4)
+	}
+
+	if config.Target == "" {
+		errors.NoAccessTokenError("Login Endpoint")
+	}
+	return config.AuthorizationEndpoint
 
 }
 
