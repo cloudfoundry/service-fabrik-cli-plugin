@@ -71,8 +71,16 @@ Command Name | Command Description
 `cf backup BACKUP_ID` | Show the information about a particular backup.
 ` cf list-backup ` | Show the list of all backups present in the space.
 ` cf list-backup SERVICE_INSTANCE_NAME ` | Show the list of all backups for the given service-fabrik service instance.
+` cf list-backup --guid SERVICE_INSTANCE_GUID` | Show the list of all backups for the given service-fabrik service instance. The argument has to be the guid of the service instance. (Works even for a deleted instance.)
+`cf list-backup SERVICE_INSTANCE_NAME --deleted` | Shows the list of all backups for a deleted service-fabrik service instance. (Works only for a deleted service-instance.)
+`cf instance-events` | Lists all events including create, update and delete events triggered for all service instances present in the space.
+`cf instance-events --create` | Lists all create instance events triggered for all service instances present in the space.
+`cf instance-events --update` | Lists all update service instance events triggered for all service instances present in the space.
+`cf instance-events --delete` | Lists all delete service instance events triggered for all service instances present in the space.
+`cf instance-events ` | Lists all service instance events triggered for all service instances present in the space.
 ` cf start-restore SERVICE_INSTANCE_NAME BACKUP_ID ` | Start restore of a service-fabrik service instance from the given backup id.
 ` cf abort-restore SERVICE_INSTANCE_NAME` | Abort restore of a service-fabrik service instance.
+ 
 For more information, see the command help output available via `cf [command] --help` or `cf help [command]`.
 
 # Further Reading
