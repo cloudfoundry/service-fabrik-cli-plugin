@@ -307,7 +307,7 @@ func FindServiceGUId(cliConnection plugin.CliConnection, servicePlanGuid string,
 	return "Invalid_Service_Guid"
 }
 
-func FindDeletedInstanceGuid(cliConnection plugin.CliConnection, instanceName string, output []string, userSpaceGuid string) string {
+func FindDeletedInstanceGuid(cliConnection plugin.CliConnection, instanceName string, output []string, userSpaceGuid string) map[string]string {
 	var cmd string
 	var err error
 
@@ -324,7 +324,6 @@ func FindDeletedInstanceGuid(cliConnection plugin.CliConnection, instanceName st
 	var nextPage bool = false
 	guidInstanceMap := make(map[string]string)
 
-	//str3 = "\""+args[3]+"\""
 	var userInput string = "\"" + instanceName + "\""
 
 	for cmd != "null" {
@@ -355,6 +354,7 @@ func FindDeletedInstanceGuid(cliConnection plugin.CliConnection, instanceName st
 				if strings.Contains(instanceNameTemp, userInput) {
 					flag = 1
 					guidInstanceMap[guidTemp] = instanceNameTemp
+					instanceNameTemp =""
 				}
 			}
 		}
@@ -366,13 +366,8 @@ func FindDeletedInstanceGuid(cliConnection plugin.CliConnection, instanceName st
 	}
 	if flag == 0 {
 		errors.IncorrectInstanceName(instanceName)
-	} else {
-		if len(guidInstanceMap) == 1 {
-			return guidTemp
-		}
 	}
-
-	return "Multiple_Instance_Guid"
+	return guidInstanceMap
 }
 
 func FindInstanceGuid(cliConnection plugin.CliConnection, instanceName string, output []string, userSpaceGuid string) string {
@@ -388,7 +383,7 @@ func FindInstanceGuid(cliConnection plugin.CliConnection, instanceName string, o
 	var guid string
 	var nextPage bool = false
 
-	//str3 = "\""+args[3]+"\""
+	
 	var userInput string = "\"" + instanceName + "\""
 
 	for cmd != "null" {

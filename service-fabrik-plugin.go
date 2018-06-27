@@ -69,7 +69,7 @@ func (serviceFabrikPlugin *ServiceFabrikPlugin) Run(cliConnection plugin.CliConn
 	}
 
 	var cmds []string = strings.Split(args[0], "-")
-	//2 overall switches: backup, restore & events
+	//3 overall switches: backup, restore & events
 	if len(cmds) == 2 {
 
 		switch cmds[1] {
@@ -110,7 +110,7 @@ func (serviceFabrikPlugin *ServiceFabrikPlugin) Run(cliConnection plugin.CliConn
 					if args[1] == "--no-name" {
 						backup.NewBackupCommand(cliConnection).ListBackups(cliConnection, true)
 					} else {
-						backup.NewBackupCommand(cliConnection).ListBackupsByInstanceName(cliConnection, args[1])
+						backup.NewBackupCommand(cliConnection).ListBackupsByInstance(cliConnection, args[1], "", false)
 					}
 				}
 				if argLength == 1 {
@@ -118,9 +118,9 @@ func (serviceFabrikPlugin *ServiceFabrikPlugin) Run(cliConnection plugin.CliConn
 				}
 				if argLength == 3 {
 					if args[2] == "--deleted" {
-						backup.NewBackupCommand(cliConnection).ListDeletedBackupsByInstanceName(cliConnection, args[1])
+						backup.NewBackupCommand(cliConnection).ListBackupsByDeletedInstanceName(cliConnection, args[1])
 					} else if args[1] == "--guid" {
-						backup.NewBackupCommand(cliConnection).ListBackupsByInstanceGuid(cliConnection, args[2])
+						backup.NewBackupCommand(cliConnection).ListBackupsByInstance(cliConnection, "", args[2], true)
 					} else {
 						errors.InvalidArgument()
 						serviceFabrikPlugin.printHelp()
@@ -215,7 +215,7 @@ func (serviceFabrikPlugin *ServiceFabrikPlugin) GetMetadata() plugin.PluginMetad
 		Name:    "ServiceFabrikPlugin",
 		Version: setVersion(Version),
 		Commands: []plugin.Command{
-			/* { // required to be a registered command
+			 { // required to be a registered command
 				Name:     "start-backup",
 				HelpText: "Start backup of a service instance",
 				UsageDetails: plugin.Usage{
@@ -228,7 +228,7 @@ func (serviceFabrikPlugin *ServiceFabrikPlugin) GetMetadata() plugin.PluginMetad
 				UsageDetails: plugin.Usage{
 					Usage: "cf abort-backup SERVICE_INSTANCE_NAME",
 				},
-			},*/
+			},
 			{
 				Name:     "list-backup",
 				HelpText: "List backup(s) of a service instance",

@@ -24,7 +24,7 @@ func ErrorIsNil(err error) {
 
 func IncorrectNumberOfArguments() {
 	color.Red("FAILED")
-	fmt.Println("You have entered an incorrect number of arguments.")
+	fmt.Println("You have entered incorrect number of arguments.")
 	fmt.Println("Enter 'cf backup' to check the list of commands and their usage.")
 	os.Exit(1)
 }

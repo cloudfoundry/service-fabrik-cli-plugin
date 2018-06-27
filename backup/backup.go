@@ -188,95 +188,8 @@ func (c *BackupCommand) BackupInfo(cliConnection plugin.CliConnection, backupId 
 
 }
 
-func (c *BackupCommand) ListBackupsByInstanceGuid(cliConnection plugin.CliConnection, serviceInstanceGuid string) {
-	fmt.Println("Getting the list of  backups in the org", AddColor(helper.GetOrgName(helper.ReadConfigJsonFile()), cyan), "/ space", AddColor(helper.GetSpaceName(helper.ReadConfigJsonFile()), cyan), "/ service instance GUID", AddColor(serviceInstanceGuid, cyan), "...")
 
-	if helper.GetAccessToken(helper.ReadConfigJsonFile()) == "" {
-		errors.NoAccessTokenError("Access Token")
-	}
-
-	client := GetHttpClient()
-
-	var userSpaceGuid string = helper.GetSpaceGUID(helper.ReadConfigJsonFile())
-
-	var guid string = serviceInstanceGuid
-	var ServiceName string = guidTranslator.FindInstanceName(cliConnection, guid, nil)
-
-	if ServiceName == "" {
-		errors.IncorrectGuid(guid)
-		return
-	}
-
-	var apiEndpoint string = helper.GetApiEndpoint(helper.ReadConfigJsonFile())
-	var broker string = GetBrokerName()
-	var extUrl string = GetExtUrl()
-
-	apiEndpoint = strings.Replace(apiEndpoint, "api", broker, 1)
-
-	req, err := http.NewRequest("GET", apiEndpoint+extUrl+"/backups"+"?space_guid="+userSpaceGuid, nil)
-	errors.ErrorIsNil(err)
-
-	var resp *http.Response = GetResponse(client, req)
-
-	defer resp.Body.Close()
-
-	body, err := ioutil.ReadAll(resp.Body)
-
-	table := tablewriter.NewWriter(os.Stdout)
-	table.SetBorder(false)
-	table.SetHeaderAlignment(tablewriter.ALIGN_LEFT)
-	table.SetAlignment(tablewriter.ALIGN_LEFT)
-	table.SetCenterSeparator(" ")
-	table.SetColumnSeparator(" ")
-	table.SetRowSeparator(" ")
-	table.SetHeaderLine(false)
-	table.SetAutoFormatHeaders(false)
-
-	if resp.Status == "200 OK" {
-		fmt.Println(AddColor("OK", green))
-		//var temp = string(body)
-
-		//var lines = strings.Split(temp, ",")
-		var flag bool
-
-		table.SetHeader([]string{AddColor("backup_guid", white), AddColor("username", white), AddColor("type", white), AddColor("trigger", white), AddColor("started_at", white), AddColor("finished_at", white)})
-
-		var response []interface{}
-		if err := json.Unmarshal(body, &response); err != nil {
-			fmt.Println("Invalid response for the request ", err)
-		}
-
-		var no_of_columns int = 6
-		var field = make([]string, no_of_columns)
-
-		for backup := range response {
-			if strings.Contains(guid, (response[backup].(map[string]interface{}))["instance_guid"].(string)) {
-				field[1] = (response[backup].(map[string]interface{}))["username"].(string)
-				field[2] = (response[backup].(map[string]interface{}))["type"].(string)
-				field[0] = (response[backup].(map[string]interface{}))["backup_guid"].(string)
-				field[0] = AddColor(field[0], cyan)
-				field[3] = (response[backup].(map[string]interface{}))["trigger"].(string)
-				field[4] = (response[backup].(map[string]interface{}))["started_at"].(string)
-				field[5], flag = (response[backup].(map[string]interface{}))["finished_at"].(string)
-				if flag == false {
-					field[5] = "null"
-				}
-				table.Append(field)
-			}
-		}
-
-	}
-	table.Render()
-	if resp.Status != "200 OK" {
-		fmt.Println(AddColor("FAILED", red))
-		var message string = string(body)
-		var parts []string = strings.Split(message, ":")
-		fmt.Println(parts[2])
-	}
-
-}
-
-func (c *BackupCommand) ListDeletedBackupsByInstanceName(cliConnection plugin.CliConnection, serviceInstanceName string) {
+func (c *BackupCommand) ListBackupsByDeletedInstanceName(cliConnection plugin.CliConnection, serviceInstanceName string) {
 	fmt.Println("Getting the list of  backups in the org", AddColor(helper.GetOrgName(helper.ReadConfigJsonFile()), cyan), "/ space", AddColor(helper.GetSpaceName(helper.ReadConfigJsonFile()), cyan), "/ service instance", AddColor(serviceInstanceName, cyan), "...")
 
 	if helper.GetAccessToken(helper.ReadConfigJsonFile()) == "" {
@@ -286,13 +199,19 @@ func (c *BackupCommand) ListDeletedBackupsByInstanceName(cliConnection plugin.Cl
 	client := GetHttpClient()
 
 	var userSpaceGuid string = helper.GetSpaceGUID(helper.ReadConfigJsonFile())
-
-	var guid string = guidTranslator.FindDeletedInstanceGuid(cliConnection, serviceInstanceName, nil, "")
-	if guid == "Multiple_Instance_Guid" {
+	var guid string
+	var guidMap map[string]string = guidTranslator.FindDeletedInstanceGuid(cliConnection, serviceInstanceName, nil, "")
+	if len(guidMap) > 1 {
 		fmt.Println(AddColor("FAILED", red))
-		fmt.Println("" + serviceInstanceName + " contains multiple GUIDs, please use 'cf instance-events' to get instance guid and then use cf list-backup --guid GUID to get details")
+		fmt.Println("" + serviceInstanceName + " maps to multiple instance GUIDs, please use 'cf instance-events --delete' to list all instance delete events, get instance guid from list and then use cf list-backup --guid GUID to get details")
 		fmt.Println("Enter 'cf backup' to check the list of commands and their usage.")
 		os.Exit(1)
+	} else {
+		for k, _ := range guidMap {
+			guid = k
+			guid = strings.Trim(guid, ",")
+			guid = strings.Trim(guid, "\"")
+		}
 	}
 	var apiEndpoint string = helper.GetApiEndpoint(helper.ReadConfigJsonFile())
 	var broker string = GetBrokerName()
@@ -300,9 +219,8 @@ func (c *BackupCommand) ListDeletedBackupsByInstanceName(cliConnection plugin.Cl
 
 	apiEndpoint = strings.Replace(apiEndpoint, "api", broker, 1)
 
-	req, err := http.NewRequest("GET", apiEndpoint+extUrl+"/backups"+"?space_guid="+userSpaceGuid, nil)
+	req, err := http.NewRequest("GET", apiEndpoint+extUrl+"/backups"+"?space_guid="+userSpaceGuid+"&instance_id="+guid, nil)
 	errors.ErrorIsNil(err)
-
 	var resp *http.Response = GetResponse(client, req)
 
 	defer resp.Body.Close()
@@ -321,9 +239,6 @@ func (c *BackupCommand) ListDeletedBackupsByInstanceName(cliConnection plugin.Cl
 
 	if resp.Status == "200 OK" {
 		fmt.Println(AddColor("OK", green))
-		//var temp = string(body)
-
-		//var lines = strings.Split(temp, ",")
 		var flag bool
 
 		table.SetHeader([]string{AddColor("backup_guid", white), AddColor("username", white), AddColor("type", white), AddColor("trigger", white), AddColor("started_at", white), AddColor("finished_at", white)})
@@ -363,8 +278,7 @@ func (c *BackupCommand) ListDeletedBackupsByInstanceName(cliConnection plugin.Cl
 
 }
 
-func (c *BackupCommand) ListBackupsByInstanceName(cliConnection plugin.CliConnection, serviceInstanceName string) {
-	fmt.Println("Getting the list of  backups in the org", AddColor(helper.GetOrgName(helper.ReadConfigJsonFile()), cyan), "/ space", AddColor(helper.GetSpaceName(helper.ReadConfigJsonFile()), cyan), "/ service instance", AddColor(serviceInstanceName, cyan), "...")
+func (c *BackupCommand) ListBackupsByInstance(cliConnection plugin.CliConnection, serviceInstanceName string, instanceGuid string, guidBool bool) {
 
 	if helper.GetAccessToken(helper.ReadConfigJsonFile()) == "" {
 		errors.NoAccessTokenError("Access Token")
@@ -373,16 +287,23 @@ func (c *BackupCommand) ListBackupsByInstanceName(cliConnection plugin.CliConnec
 	client := GetHttpClient()
 
 	var userSpaceGuid string = helper.GetSpaceGUID(helper.ReadConfigJsonFile())
-
-	var guid string = guidTranslator.FindInstanceGuid(cliConnection, serviceInstanceName, nil, "")
-
+	var guid string
+	if guidBool == false {
+		guid = guidTranslator.FindInstanceGuid(cliConnection, serviceInstanceName, nil, "")
+		guid = strings.Trim(guid, ",")
+		guid = strings.Trim(guid, "\"")
+	 fmt.Println("Getting the list of  backups in the org", AddColor(helper.GetOrgName(helper.ReadConfigJsonFile()), cyan), "/ space", AddColor(helper.GetSpaceName(helper.ReadConfigJsonFile()), cyan), "/ service instance", AddColor(serviceInstanceName, cyan), "...")
+	} else {
+		guid = instanceGuid
+	fmt.Println("Getting the list of  backups in the org", AddColor(helper.GetOrgName(helper.ReadConfigJsonFile()), cyan), "/ space", AddColor(helper.GetSpaceName(helper.ReadConfigJsonFile()), cyan), "/ service instance GUID", AddColor(instanceGuid, cyan), "...")
+	}
 	var apiEndpoint string = helper.GetApiEndpoint(helper.ReadConfigJsonFile())
 	var broker string = GetBrokerName()
 	var extUrl string = GetExtUrl()
 
 	apiEndpoint = strings.Replace(apiEndpoint, "api", broker, 1)
 
-	req, err := http.NewRequest("GET", apiEndpoint+extUrl+"/backups"+"?space_guid="+userSpaceGuid, nil)
+	req, err := http.NewRequest("GET", apiEndpoint+extUrl+"/backups"+"?space_guid="+userSpaceGuid+"&instance_id="+guid, nil)
 	errors.ErrorIsNil(err)
 
 	var resp *http.Response = GetResponse(client, req)
@@ -400,49 +321,47 @@ func (c *BackupCommand) ListBackupsByInstanceName(cliConnection plugin.CliConnec
 	table.SetRowSeparator(" ")
 	table.SetHeaderLine(false)
 	table.SetAutoFormatHeaders(false)
+	var response []interface{}
+	
+	if err := json.Unmarshal(body, &response); err != nil {
+		fmt.Println("Invalid response for the request ", err)
+	}
+
+	if (len(response) == 0) && (guidBool == true) {
+		errors.IncorrectGuid(guid)
+	}
 
 	if resp.Status == "200 OK" {
 		fmt.Println(AddColor("OK", green))
-		//var temp = string(body)
 
-		//var lines = strings.Split(temp, ",")
 		var flag bool
 
 		table.SetHeader([]string{AddColor("backup_guid", white), AddColor("username", white), AddColor("type", white), AddColor("trigger", white), AddColor("started_at", white), AddColor("finished_at", white)})
 
-		var response []interface{}
-		if err := json.Unmarshal(body, &response); err != nil {
-			fmt.Println("Invalid response for the request ", err)
-		}
-
 		var no_of_columns int = 6
 		var field = make([]string, no_of_columns)
-
 		for backup := range response {
-			if strings.Contains(guid, (response[backup].(map[string]interface{}))["instance_guid"].(string)) {
-				field[1] = (response[backup].(map[string]interface{}))["username"].(string)
-				field[2] = (response[backup].(map[string]interface{}))["type"].(string)
-				field[0] = (response[backup].(map[string]interface{}))["backup_guid"].(string)
-				field[0] = AddColor(field[0], cyan)
-				field[3] = (response[backup].(map[string]interface{}))["trigger"].(string)
-				field[4] = (response[backup].(map[string]interface{}))["started_at"].(string)
-				field[5], flag = (response[backup].(map[string]interface{}))["finished_at"].(string)
-				if flag == false {
-					field[5] = "null"
-				}
-				table.Append(field)
+			field[1] = (response[backup].(map[string]interface{}))["username"].(string)
+			field[2] = (response[backup].(map[string]interface{}))["type"].(string)
+			field[0] = (response[backup].(map[string]interface{}))["backup_guid"].(string)
+			field[0] = AddColor(field[0], cyan)
+			field[3] = (response[backup].(map[string]interface{}))["trigger"].(string)
+			field[4] = (response[backup].(map[string]interface{}))["started_at"].(string)
+			field[5], flag = (response[backup].(map[string]interface{}))["finished_at"].(string)
+			if flag == false {
+				field[5] = "null"
 			}
+			table.Append(field)
 		}
 
-	}
-	table.Render()
-	if resp.Status != "200 OK" {
+	} else {
 		fmt.Println(AddColor("FAILED", red))
+		fmt.Println("Error is here")
 		var message string = string(body)
 		var parts []string = strings.Split(message, ":")
 		fmt.Println(parts[2])
 	}
-
+	table.Render()
 }
 
 func (c *BackupCommand) ListBackups(cliConnection plugin.CliConnection, noInstanceNames bool) {

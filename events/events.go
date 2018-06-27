@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"github.com/SAP/service-fabrik-cli-plugin/errors"
 	"github.com/SAP/service-fabrik-cli-plugin/helper"
+	"github.com/SAP/service-fabrik-cli-plugin/constants"
 	"github.com/cloudfoundry/cli/plugin"
 	"github.com/fatih/color"
 	"github.com/olekukonko/tablewriter"
@@ -37,15 +38,6 @@ func NewEventsCommand(cliConnection plugin.CliConnection) *EventCommand {
 	return command
 }
 
-const (
-	red                color.Attribute = color.FgRed
-	green              color.Attribute = color.FgGreen
-	cyan               color.Attribute = color.FgCyan
-	white              color.Attribute = color.FgWhite
-	MaxIdleConnections int             = 25
-	RequestTimeout     int             = 180
-)
-
 func AddColor(text string, textColor color.Attribute) string {
 	printer := color.New(textColor).Add(color.Bold).SprintFunc()
 	return printer(text)
@@ -55,22 +47,6 @@ type Configuration struct {
 	ServiceBroker       string
 	ServiceBrokerExtUrl string
 	SkipSslFlag         bool
-}
-
-func findNextPage(output []string) string {
-	for _, val := range output {
-		var str []string = strings.Fields(val)
-
-		if len(str) > 1 {
-			if strings.Compare(str[0], "\"next_url\":") == 0 {
-				next_page_url := str[1]
-				next_page_url = strings.TrimRight(next_page_url, ",")
-				next_page_url = strings.Trim(next_page_url, "\"")
-				return next_page_url
-			}
-		}
-	}
-	return "null"
 }
 
 func GetBrokerName() string {
@@ -102,36 +78,13 @@ func getConfiguration() Configuration {
 	return configuration
 }
 
-func GetHttpClient() *http.Client {
-	//Skip ssl verification.
-
-	client := &http.Client{
-		Transport: &http.Transport{
-			TLSClientConfig: &tls.Config{InsecureSkipVerify: GetskipSslFlag()},
-			Proxy:           http.ProxyFromEnvironment,
-		},
-		Timeout: time.Duration(180) * time.Second,
-	}
-	return client
-}
-
-func GetResponse(client *http.Client, req *http.Request) *http.Response {
-	req.Header.Set("Authorization", helper.GetAccessToken(helper.ReadConfigJsonFile()))
-	req.Header.Set("Content-Type", "application/json")
-
-	resp, err := client.Do(req)
-	errors.ErrorIsNil(err)
-	return resp
-}
-
-// createHTTPClient for connection re-use
 func createHttpClient(disableSecurityCheck bool) *http.Client {
 	client := &http.Client{
 		Transport: &http.Transport{
-			MaxIdleConnsPerHost: MaxIdleConnections,
+			MaxIdleConnsPerHost: constants.MaxIdleConnections,
 			TLSClientConfig:     &tls.Config{InsecureSkipVerify: disableSecurityCheck},
 		},
-		Timeout: time.Duration(RequestTimeout) * time.Second,
+		Timeout: time.Duration(constants.RequestTimeout) * time.Second,
 	}
 	return client
 }
@@ -229,7 +182,7 @@ func getAccessToken(loginUrl string, refreshToken string, grantType string) (str
 
 func (c *EventCommand) ListEvents(cliConnection plugin.CliConnection, noInstanceNames bool, action string) {
 	initialize()
-	fmt.Println("Getting the list of instance events in the org", AddColor(helper.GetOrgName(helper.ReadConfigJsonFile()), cyan), "/ space", AddColor(helper.GetSpaceName(helper.ReadConfigJsonFile()), cyan), "...")
+	fmt.Println("Getting the list of instance events in the org", AddColor(helper.GetOrgName(helper.ReadConfigJsonFile()), constants.Cyan), "/ space", AddColor(helper.GetSpaceName(helper.ReadConfigJsonFile()), constants.Cyan), "...")
 	var cmd string
 	var guid string
 	var instanceName string
@@ -253,7 +206,7 @@ func (c *EventCommand) ListEvents(cliConnection plugin.CliConnection, noInstance
 	table.SetHeaderLine(false)
 	table.SetAutoFormatHeaders(false)
 
-	table.SetHeader([]string{AddColor("instance_name", white), AddColor("instance_guid", white), AddColor("event_type", white), AddColor("user", white), AddColor("created_at", white)})
+	table.SetHeader([]string{AddColor("instance_name", constants.White), AddColor("instance_guid", constants.White), AddColor("event_type", constants.White), AddColor("user", constants.White), AddColor("created_at", constants.White)})
 
 	var columns int = 5
 	var field = make([]string, columns)
@@ -278,11 +231,11 @@ func (c *EventCommand) ListEvents(cliConnection plugin.CliConnection, noInstance
 	curlResponse, err := executeCurl(apiEndpoint, accessToken, cmd)
 
 	if err != nil {
-		fmt.Println(AddColor("FAILED", red))
+		fmt.Println(AddColor("FAILED", constants.Red))
 		fmt.Printf("Errors in getting Orgs: ", err)
 		return
 	} else {
-		fmt.Println(AddColor("OK", green))
+		fmt.Println(AddColor("OK", constants.Green))
 		for _, val := range curlResponse {
 			resources := val["resources"].([]interface{})
 			for _, resource := range resources {
@@ -296,7 +249,7 @@ func (c *EventCommand) ListEvents(cliConnection plugin.CliConnection, noInstance
 				instanceName = resourceObjEntity["actee_name"].(string)
 				field[0] = instanceName
 				field[1] = guid
-				field[1] = AddColor(field[1], cyan)
+				field[1] = AddColor(field[1], constants.Cyan)
 				field[2] = eventType
 				field[3] = user
 				field[4] = createTime
