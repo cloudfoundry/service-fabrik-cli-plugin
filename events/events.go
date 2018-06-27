@@ -27,9 +27,9 @@ type EventCommand struct {
 	cliConnection plugin.CliConnection
 }
 
-func initialize() {
-	httpClientDisabledSecurityCheck = createHttpClient(true)
-	httpClientEnabledSecurityCheck = createHttpClient(false)
+func Initialize() {
+	httpClientDisabledSecurityCheck = CreateHttpClient(true)
+	httpClientEnabledSecurityCheck = CreateHttpClient(false)
 }
 
 func NewEventsCommand(cliConnection plugin.CliConnection) *EventCommand {
@@ -50,18 +50,18 @@ type Configuration struct {
 }
 
 func GetBrokerName() string {
-	return getConfiguration().ServiceBroker
+	return GetConfiguration().ServiceBroker
 }
 
 func GetExtUrl() string {
-	return getConfiguration().ServiceBrokerExtUrl
+	return GetConfiguration().ServiceBrokerExtUrl
 }
 
 func GetskipSslFlag() bool {
-	return getConfiguration().SkipSslFlag
+	return GetConfiguration().SkipSslFlag
 }
 
-func getConfiguration() Configuration {
+func GetConfiguration() Configuration {
 	var path string
 	var CF_HOME string = os.Getenv("CF_HOME")
 	if CF_HOME == "" {
@@ -78,7 +78,7 @@ func getConfiguration() Configuration {
 	return configuration
 }
 
-func createHttpClient(disableSecurityCheck bool) *http.Client {
+func CreateHttpClient(disableSecurityCheck bool) *http.Client {
 	client := &http.Client{
 		Transport: &http.Transport{
 			MaxIdleConnsPerHost: constants.MaxIdleConnections,
@@ -89,7 +89,7 @@ func createHttpClient(disableSecurityCheck bool) *http.Client {
 	return client
 }
 
-func callHttpMethod(method string, url string, headers map[string]string, body io.Reader, disableSecurityCheck bool) (res *http.Response, err error) {
+func CallHttpMethod(method string, url string, headers map[string]string, body io.Reader, disableSecurityCheck bool) (res *http.Response, err error) {
 	req, err := http.NewRequest(method, url, body)
 	if err != nil {
 		fmt.Println("Error in Call HTTP")
@@ -114,7 +114,7 @@ func callHttpMethod(method string, url string, headers map[string]string, body i
 	return resp, err
 }
 
-func executeCurl(apiUrl string, accessToken string, path string) ([]map[string]interface{}, error) {
+func ExecuteCurl(apiUrl string, accessToken string, path string) ([]map[string]interface{}, error) {
 	headers := make(map[string]string)
 	headers["Content-Type"] = "application/json"
 	headers["Accept"] = "application/json"
@@ -123,7 +123,7 @@ func executeCurl(apiUrl string, accessToken string, path string) ([]map[string]i
 	hasNextUrl := true
 	url := apiUrl + path
 	for hasNextUrl {
-		curlResponse, err := callHttpMethod("GET", url, headers, nil, true)
+		curlResponse, err := CallHttpMethod("GET", url, headers, nil, true)
 		defer curlResponse.Body.Close()
 		var decodedBody map[string]interface{}
 		if err != nil {
@@ -154,7 +154,7 @@ func executeCurl(apiUrl string, accessToken string, path string) ([]map[string]i
 	return decodedBodyArray, nil
 }
 
-func getAccessToken(loginUrl string, refreshToken string, grantType string) (string, error) {
+func GetAccessToken(loginUrl string, refreshToken string, grantType string) (string, error) {
 	headers := make(map[string]string)
 	headers["Content-Type"] = "application/x-www-form-urlencoded"
 	headers["Accept"] = "application/json"
@@ -162,7 +162,7 @@ func getAccessToken(loginUrl string, refreshToken string, grantType string) (str
 
 	data := "grant_type=" + grantType + "&client_id=cf&client_secret=&refresh_token=" + refreshToken
 
-	tokenResponse, err := callHttpMethod("POST", loginUrl+"/oauth/token", headers, strings.NewReader(data), true)
+	tokenResponse, err := CallHttpMethod("POST", loginUrl+"/oauth/token", headers, strings.NewReader(data), true)
 	defer tokenResponse.Body.Close()
 	if err != nil {
 		fmt.Printf("Error while getting access-token (CF-Login-CURL call)")
@@ -181,7 +181,7 @@ func getAccessToken(loginUrl string, refreshToken string, grantType string) (str
 }
 
 func (c *EventCommand) ListEvents(cliConnection plugin.CliConnection, noInstanceNames bool, action string) {
-	initialize()
+	Initialize()
 	fmt.Println("Getting the list of instance events in the org", AddColor(helper.GetOrgName(helper.ReadConfigJsonFile()), constants.Cyan), "/ space", AddColor(helper.GetSpaceName(helper.ReadConfigJsonFile()), constants.Cyan), "...")
 	var cmd string
 	var guid string
@@ -227,8 +227,8 @@ func (c *EventCommand) ListEvents(cliConnection plugin.CliConnection, noInstance
 	var apiEndpoint string = helper.GetApiEndpoint(helper.ReadConfigJsonFile())
 	var refreshToken string = helper.GetRefreshToken(helper.ReadConfigJsonFile())
 
-	accessToken, _ := getAccessToken(AuthorizationEndpoint, refreshToken, "refresh_token")
-	curlResponse, err := executeCurl(apiEndpoint, accessToken, cmd)
+	accessToken, _ := GetAccessToken(AuthorizationEndpoint, refreshToken, "refresh_token")
+	curlResponse, err := ExecuteCurl(apiEndpoint, accessToken, cmd)
 
 	if err != nil {
 		fmt.Println(AddColor("FAILED", constants.Red))

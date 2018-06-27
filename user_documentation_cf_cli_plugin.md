@@ -12,6 +12,8 @@ Pritish Mishra
 
 Subhankar Chattopadhyay
 
+Mayank Tiwary
+
 ## Table of Contents:
 
 1. [Introduction](#introduction)
@@ -24,6 +26,9 @@ Subhankar Chattopadhyay
    1. [Listing all backups of a service-instance](#listing-all-backups-of-a-service-instance)
    1. [Starting a restore](#starting-a-restore)
    1. [Aborting a restore](#aborting-a-restore)
+   1. [Listing backups for deleted service instances](#listing-deleted-backups)
+   1. [Listing backups for deleted service instances using instance guid](#listing-deleted-backups-guid)
+   1. [Listing service instance events](#listing-instance-events)
 1. [Error status](#error-status)
    1. [Unauthorized](#unauthorized)
    1. [Another concurrent operation](#another-concurrent-operation)
@@ -35,6 +40,7 @@ Subhankar Chattopadhyay
    1. [IncorrectInstanceName](#incorrect-instance-name)
    1. [IncorrectCommandUsage](#incorrect-command-usage)
    1. [UserLoggedOutError](#user-logged-out-error)
+   1. [MultipleGUIDError](#multtple-guid-error)
 
 
 
@@ -179,6 +185,66 @@ Restore has been aborted for the instance name: [SERVICE\_INSTANCE\_NAME]
 
 **Additional note:** The successful execution of this command means the abort process was initiated. Theprocess of aborting the backup again takes some time to complete. For the convenience of the user, the abort process too runs in the background. If you wish to know the progress and/or the state of the backup, you can use the &quot;cf service SERVICE\_INSTANCE\_NAME&quot; command.
 
+### Listing backups for deleted service instances:
+
+**Command:** cf list-backup SERVICE\_INSTANCE\_NAME --deleted
+
+**Usage:** This command is used to fetch backups for deleted service instances. You need to provide the name of the service-instance as the parameter. Upon successful execution of the command, the plugin will print all the backups taken for the deleted service instance.
+
+**Expected Output:**
+
+Getting the list of  backups in the org [ORG_NAME] / space [SPACE_NAME] / service instance [SERVICE\_INSTANCE\_NAME] ...
+
+OK
+
+[List of backups]
+
+**Example:**
+
+<img src="https://github.com/SAP/service-fabrik-cli-plugin/blob/master/images/plugin_screenshot4.png">
+
+**Additional note:** The successful execution of this command will return all the backups releated to the deleted service instance [SERVICE\_INSTANCE\_NAME]. 
+
+### Listing backups for deleted service instances using instance guid:
+
+**Command:** cf list-backup --guid SERVICE\_INSTANCE\_GUID
+
+**Usage:** This command is used to fetch backups for deleted service instances using instance guid. You need to provide the guid of the service-instance as the parameter. Upon successful execution of the command, the plugin will print all the backups taken for the deleted service instance.
+
+**Expected Output:**
+
+Getting the list of  backups in the org [ORG_NAME] / space [SPACE_NAME] / service instance GUID [SERVICE\_INSTANCE\_GUID] ...
+
+OK
+
+[List of backups]
+
+**Example:**
+
+<img src="https://github.com/SAP/service-fabrik-cli-plugin/blob/master/images/plugin_screenshot5.png">
+
+**Additional note:** The successful execution of this command will return all the backups releated to the deleted service instance having Guid [SERVICE\_INSTANCE\_GUID]. 
+
+### Listing service instance events:
+
+**Command:** cf instance-events [--delete|--create|--update]
+
+**Usage:** This command is used to fetch all events for service instances. Upon successful execution of the command, the plugin will print all the recorded events all service instances.
+
+**Expected Output:**
+
+Getting the list of instance events in the org [ORG_NAME] / space [SPACE_NAME] ...
+
+OK
+
+[List of events]
+
+**Example:**
+
+<img src="https://github.com/SAP/service-fabrik-cli-plugin/blob/master/images/plugin_screenshot6.png">
+
+**Additional note:** The successful execution of this command will return all the events releated to all service instances. You can also use flags [--delete|--update|--create] to filter out results based on event type. 
+
 ## [Error status](#error-status)
 
 During the course of using the various commands of the plugin, you might come across various scenarios. Upon successful execution of any command, you get a message, &quot;Success!&quot; followed by the command specific information. But in case of an error, there are various status and error messages displayed to the user. Some of these erroneous status and their meaning are discussed here.
@@ -268,3 +334,14 @@ You may have been logged out of cf. Please enter &quot;cf login&quot; in your cl
 **Commands:** ALL
 
 **Message:** No Access Token was found. You may be logged out. Please log in to continue.
+
+## Multiple Guid for a deleted service instance Error
+
+**Triggered by:** User attempts to fetch backups for deleted service-insatance.
+
+The deleted serice instance has multiple GUIDs. 
+
+**Commands:** cf list-backup [SERVICE\_INSTANCE\_NAME] --deleted
+
+**Message:** [SERVICE\_INSTANCE\_NAME] maps to multiple instance GUIDs, please use 'cf instance-events --delete' to list all instance delete events, get instance guid from list and then use cf list-backup --guid GUID to get details
+Enter 'cf backup' to check the list of commands and their usage.

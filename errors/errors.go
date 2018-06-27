@@ -48,9 +48,9 @@ func IncorrectInstanceName(instanceName string) {
 	os.Exit(3)
 }
 
-func IncorrectGuid(instanceGuid string) {
+func BackupsNotFound(instanceGuid string) {
 	color.Red("FAILED")
-	fmt.Println("Service Instance Guid \"" + instanceGuid + "\" doesn't exist.")
+	fmt.Println("No backups found for the service instance Guid \"" + instanceGuid + "\".")
 	os.Exit(3)
 }
 
