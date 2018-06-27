@@ -184,11 +184,6 @@ func (c *EventCommand) ListEvents(cliConnection plugin.CliConnection, noInstance
 	Initialize()
 	fmt.Println("Getting the list of instance events in the org", AddColor(helper.GetOrgName(helper.ReadConfigJsonFile()), constants.Cyan), "/ space", AddColor(helper.GetSpaceName(helper.ReadConfigJsonFile()), constants.Cyan), "...")
 	var cmd string
-	var guid string
-	var instanceName string
-	var eventType string
-	var user string
-	var createTime string
 	var actionType string
 	var userSpaceGuid = helper.GetSpaceGUID(helper.ReadConfigJsonFile())
 
@@ -241,18 +236,13 @@ func (c *EventCommand) ListEvents(cliConnection plugin.CliConnection, noInstance
 			for _, resource := range resources {
 				resourceObj := resource.(map[string]interface{})
 				resourceObjMetadata := resourceObj["metadata"].(map[string]interface{})
-				createTime = resourceObjMetadata["created_at"].(string)
+				field[4] = resourceObjMetadata["created_at"].(string)
 				resourceObjEntity := resourceObj["entity"].(map[string]interface{})
-				guid = resourceObjEntity["actee"].(string)
-				eventType = resourceObjEntity["type"].(string)
-				user = resourceObjEntity["actor_name"].(string)
-				instanceName = resourceObjEntity["actee_name"].(string)
-				field[0] = instanceName
-				field[1] = guid
+				field[1] = resourceObjEntity["actee"].(string)
+				field[2] = resourceObjEntity["type"].(string)
+				field[3] = resourceObjEntity["actor_name"].(string)
+				field[0] = resourceObjEntity["actee_name"].(string)
 				field[1] = AddColor(field[1], constants.Cyan)
-				field[2] = eventType
-				field[3] = user
-				field[4] = createTime
 				table.Append(field)
 			}
 		}

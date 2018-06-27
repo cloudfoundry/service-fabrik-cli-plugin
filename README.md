@@ -77,7 +77,7 @@ Command Name | Command Description
 `cf instance-events --create` | List all create service instance events in the space.
 `cf instance-events --update` | List all update service instance events in the space.
 `cf instance-events --delete` | List all delete service instance events in the space.
-`cf instance-events ` | List all service instance events in the space.
+`cf instance-events ` | List all create, update and delete service instance events in the space.
 ` cf start-restore SERVICE_INSTANCE_NAME BACKUP_ID ` | Start restore of a service-fabrik service instance from the given backup id.
 ` cf abort-restore SERVICE_INSTANCE_NAME` | Abort restore of a service-fabrik service instance.
  
