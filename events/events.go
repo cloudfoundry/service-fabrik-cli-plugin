@@ -4,7 +4,6 @@ import (
 	"crypto/tls"
 	"encoding/json"
 	"fmt"
-	"github.com/SAP/service-fabrik-cli-plugin/errors"
 	"github.com/SAP/service-fabrik-cli-plugin/helper"
 	"github.com/SAP/service-fabrik-cli-plugin/constants"
 	"github.com/cloudfoundry/cli/plugin"
@@ -47,18 +46,6 @@ type Configuration struct {
 	ServiceBroker       string
 	ServiceBrokerExtUrl string
 	SkipSslFlag         bool
-}
-
-func GetBrokerName() string {
-	return GetConfiguration().ServiceBroker
-}
-
-func GetExtUrl() string {
-	return GetConfiguration().ServiceBrokerExtUrl
-}
-
-func GetskipSslFlag() bool {
-	return GetConfiguration().SkipSslFlag
 }
 
 func GetConfiguration() Configuration {
@@ -187,10 +174,6 @@ func (c *EventCommand) ListEvents(cliConnection plugin.CliConnection, noInstance
 	var actionType string
 	var userSpaceGuid = helper.GetSpaceGUID(helper.ReadConfigJsonFile())
 
-	if helper.GetAccessToken(helper.ReadConfigJsonFile()) == "" {
-		errors.NoAccessTokenError("Access Token")
-	}
-
 	table := tablewriter.NewWriter(os.Stdout)
 	table.SetBorder(false)
 	table.SetHeaderAlignment(tablewriter.ALIGN_LEFT)
@@ -227,7 +210,7 @@ func (c *EventCommand) ListEvents(cliConnection plugin.CliConnection, noInstance
 
 	if err != nil {
 		fmt.Println(AddColor("FAILED", constants.Red))
-		fmt.Printf("Errors in getting Orgs: ", err)
+		fmt.Printf("Errors in getting service instance events. ", err)
 		return
 	} else {
 		fmt.Println(AddColor("OK", constants.Green))

@@ -198,7 +198,7 @@ func (c *BackupCommand) ListBackupsByDeletedInstanceName(cliConnection plugin.Cl
 	var guidMap map[string]string = guidTranslator.FindDeletedInstanceGuid(cliConnection, serviceInstanceName, nil, "")
 	if len(guidMap) > 1 {
 		fmt.Println(AddColor("FAILED", constants.Red))
-		fmt.Println("" + serviceInstanceName + " maps to multiple instance GUIDs, please use 'cf instance-events --delete' to list all instance delete events, get instance guid from list and then use cf list-backup --guid GUID to get details")
+		fmt.Println("" + serviceInstanceName + " maps to multiple instance GUIDs, please use 'cf instance-events --delete' to list all instance delete events, get required instance guid from the list and then use 'cf list-backup --guid GUID' to fetch backups list.")
 		fmt.Println("Enter 'cf backup' to check the list of commands and their usage.")
 		os.Exit(1)
 	} else {

@@ -365,7 +365,7 @@ func FindDeletedInstanceGuid(cliConnection plugin.CliConnection, instanceName st
 		}
 	}
 	if flag == 0 {
-		errors.IncorrectInstanceName(instanceName)
+		errors. InstanceGuidNotFound(instanceName)
 	}
 	return guidInstanceMap
 }

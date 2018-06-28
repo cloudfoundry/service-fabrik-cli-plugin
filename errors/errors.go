@@ -29,6 +29,13 @@ func IncorrectNumberOfArguments() {
 	os.Exit(1)
 }
 
+func InstanceGuidNotFound(instanceName string) {
+	color.Red("FAILED")
+	fmt.Println("Instance Guid not found for the given deleted instance " + instanceName + ".")
+	fmt.Println("Enter 'cf backup' to check the list of commands and their usage.")
+	os.Exit(1)
+}
+
 func InvalidArgument() {
 	color.Red("FAILED")
 	fmt.Println("You have entered an invalid argument.")
