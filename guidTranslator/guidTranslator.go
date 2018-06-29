@@ -43,7 +43,6 @@ func FindInstanceName(cliConnection plugin.CliConnection, InstanceGuid string, o
 		for index, val := range output {
 			_ = index
 			var str []string = strings.Fields(val)
-
 			if len(str) > 1 {
 
 				//extract guid of service-instance
@@ -111,7 +110,7 @@ func FindServiceName(cliConnection plugin.CliConnection, serviceId string, outpu
 
 		}
 		cmd = findNextPage(output)
-		if cmd != "null"{
+		if cmd != "null" {
 			nextPage = true
 		}
 	}
@@ -126,9 +125,9 @@ func FindPlanName(cliConnection plugin.CliConnection, planId string, output []st
 	cmd = "/v2/service_plans"
 	var err error
 	var nextPage bool = false
-	
+
 	for cmd != "null" {
-		if output == nil || nextPage == true  {
+		if output == nil || nextPage == true {
 			output, err = cliConnection.CliCommandWithoutTerminalOutput("curl", cmd)
 		}
 		if err != nil {
@@ -170,7 +169,7 @@ func FindServiceId(cliConnection plugin.CliConnection, serviceGuid string, outpu
 	var cmd string
 	var guidTemp string
 	var serviceId string
-	var nextPage bool = false	
+	var nextPage bool = false
 
 	cmd = "/v2/services"
 	var err error
@@ -254,7 +253,7 @@ func FindServicePlanId(cliConnection plugin.CliConnection, servicePlanGuid strin
 
 		}
 		cmd = findNextPage(output)
-		if cmd != "null"{
+		if cmd != "null" {
 			nextPage = true
 		}
 	}
@@ -301,11 +300,74 @@ func FindServiceGUId(cliConnection plugin.CliConnection, servicePlanGuid string,
 
 		}
 		cmd = findNextPage(output)
-		if cmd != "null"{
+		if cmd != "null" {
 			nextPage = true
 		}
 	}
 	return "Invalid_Service_Guid"
+}
+
+func FindDeletedInstanceGuid(cliConnection plugin.CliConnection, instanceName string, output []string, userSpaceGuid string) map[string]string {
+	var cmd string
+	var err error
+
+	//Retrieve userSpaceGuid
+	if userSpaceGuid == "" {
+		userSpaceGuid = helper.GetSpaceGUID(helper.ReadConfigJsonFile())
+	}
+
+	cmd = "/v2/events?q=type:audit.service_instance.delete%3Bspace_guid:" + userSpaceGuid
+
+	var flag int = 0
+	var guidTemp string
+	var instanceNameTemp string
+	var nextPage bool = false
+	guidInstanceMap := make(map[string]string)
+
+	var userInput string = "\"" + instanceName + "\""
+
+	for cmd != "null" {
+		if output == nil || nextPage == true {
+			output, err = cliConnection.CliCommandWithoutTerminalOutput("curl", cmd)
+		}
+
+		if err != nil {
+			errors.CfCliPluginError(cmd)
+		}
+
+		for index, val := range output {
+			_ = index
+			var str []string = strings.Fields(val)
+			if len(str) > 1 {
+
+				//extract guid of service-instance
+				if strings.Compare(str[0], "\"actee\":") == 0 {
+					guidTemp = str[1]
+				}
+
+				//extract service-instance-name
+				if strings.Compare(str[0], "\"actee_name\":") == 0 {
+					instanceNameTemp = str[1]
+				}
+
+				//Compare with userInput
+				if strings.Contains(instanceNameTemp, userInput) {
+					flag = 1
+					guidInstanceMap[guidTemp] = instanceNameTemp
+					instanceNameTemp =""
+				}
+			}
+		}
+
+		cmd = findNextPage(output)
+		if cmd != "null" {
+			nextPage = true
+		}
+	}
+	if flag == 0 {
+		errors.InstanceGuidNotFound(instanceName)
+	}
+	return guidInstanceMap
 }
 
 func FindInstanceGuid(cliConnection plugin.CliConnection, instanceName string, output []string, userSpaceGuid string) string {
@@ -321,7 +383,7 @@ func FindInstanceGuid(cliConnection plugin.CliConnection, instanceName string, o
 	var guid string
 	var nextPage bool = false
 
-	//str3 = "\""+args[3]+"\""
+	
 	var userInput string = "\"" + instanceName + "\""
 
 	for cmd != "null" {
@@ -382,7 +444,7 @@ func FindInstanceGuid(cliConnection plugin.CliConnection, instanceName string, o
 			}
 		}
 		cmd = findNextPage(output)
-		if cmd != "null"{
+		if cmd != "null" {
 			nextPage = true
 		}
 	}
@@ -470,7 +532,7 @@ func FindServicePlanGuid(cliConnection plugin.CliConnection, instanceName string
 			}
 		}
 		cmd = findNextPage(output)
-		if cmd != "null"{
+		if cmd != "null" {
 			nextPage = true
 		}
 	}

@@ -12,6 +12,8 @@ Pritish Mishra
 
 Subhankar Chattopadhyay
 
+Mayank Tiwary
+
 ## Table of Contents:
 
 1. [Introduction](#introduction)
@@ -22,6 +24,9 @@ Subhankar Chattopadhyay
 1. [Commands and their usage](#commands-and-their-usage)
    1. [Listing all backups](#listing-all-backups)
    1. [Listing all backups of a service-instance](#listing-all-backups-of-a-service-instance)
+   1. [Listing all backups of a deleted service-instance](#listing-deleted-backups)
+   1. [Listing all backups of a service-instance by instance guid](#listing-deleted-backups-guid)
+   1. [Listing service instance events](#listing-instance-events)
    1. [Starting a restore](#starting-a-restore)
    1. [Aborting a restore](#aborting-a-restore)
 1. [Error status](#error-status)
@@ -35,6 +40,7 @@ Subhankar Chattopadhyay
    1. [IncorrectInstanceName](#incorrect-instance-name)
    1. [IncorrectCommandUsage](#incorrect-command-usage)
    1. [UserLoggedOutError](#user-logged-out-error)
+   1. [MultipleGUIDError](#multtple-guid-error)
 
 
 
@@ -134,6 +140,53 @@ OK
 <img src="https://github.com/SAP/service-fabrik-cli-plugin/blob/master/images/plugin_screenshot1.png" height="400">
 
 **Additional note:** This command works exactly the same wayas &quot;listing all backups&quot;. It just filters the listto display only the backups of the service-instance required by you.
+
+### Listing all backups of a deleted service-instance
+
+**Command:** cf list-backup SERVICE\_INSTANCE\_NAME --deleted
+
+**Usage:** This command is used to fetch all backups of a deleted service instance. You need to provide the name of service-instance, you want the list of backups for, as a parameter. Upon successful execution, the plugin will display a list of all backups of the service-instance.
+**Expected Output:**
+
+Getting the list of  backups in the org [ORG_NAME] / space [SPACE_NAME] / service instance [SERVICE\_INSTANCE\_NAME] ...
+
+OK
+
+[List of backups]
+
+**Additional note:** This command works same as cf list-backup [SERVICE\_INSTANCE\_NAME], but only works on deleted service instance name. 
+
+### Listing all backups of a service-instance by instance guid:
+
+**Command:** cf list-backup --guid SERVICE\_INSTANCE\_GUID
+
+**Usage:** This command is used to fetch backups for deleted service instances using instance guid. You need to provide the Guid of service-instance, you want the list of backups for, as a parameter. Upon successful execution, the plugin will display a list of all backups of the service-instance.
+
+**Expected Output:**
+
+Getting the list of  backups in the org [ORG_NAME] / space [SPACE_NAME] / service instance GUID [SERVICE\_INSTANCE\_GUID] ...
+
+OK
+
+[List of backups]
+
+**Additional note:** This command works same as cf list-backup [SERVICE\_INSTANCE\_NAME], but also works on deleted service instance. 
+
+### Listing service instance events:
+
+**Command:** cf instance-events [--delete|--create|--update]
+
+**Usage:** This command is used to fetch all events of all service instances within the space. Upon successful execution of the command, the plugin will print all the recorded events of all service instances.
+
+**Expected Output:**
+
+Getting the list of instance events in the org [ORG_NAME] / space [SPACE_NAME] ...
+
+OK
+
+[List of events]
+
+**Additional note:** The successful execution of this command will return all the events releated to all service instances. You can also use flags [--delete|--update|--create] to filter out results based on event type. 
 
 ### Starting a restore:
 
@@ -268,3 +321,25 @@ You may have been logged out of cf. Please enter &quot;cf login&quot; in your cl
 **Commands:** ALL
 
 **Message:** No Access Token was found. You may be logged out. Please log in to continue.
+
+## Multiple Guid for a deleted service instance Error
+
+**Triggered by:** User attempts to fetch backups for deleted service-insatance.
+
+The deleted service instance maps to multiple GUIDs. 
+
+**Commands:** cf list-backup [SERVICE\_INSTANCE\_NAME] --deleted
+
+**Message:** [SERVICE\_INSTANCE\_NAME] maps to multiple instance GUIDs, please use 'cf instance-events --delete' to list all instance delete events, get required instance guid from the list and then use 'cf list-backup --guid GUID' to fetch backups list.
+Enter 'cf backup' to check the list of commands and their usage.
+
+## Deleted instance not found Error
+
+**Triggered by:** User attempts to fetch backups for deleted service-instance.
+
+The given deleted service instance does not exists. 
+
+**Commands:** cf list-backup [SERVICE\_INSTANCE\_NAME] --deleted
+
+**Message:** Instance Guid not found for the given deleted instance [SERVICE\_INSTANCE\_NAME].
+Enter 'cf backup' to check the list of commands and their usage.
