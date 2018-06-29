@@ -335,7 +335,7 @@ Enter 'cf backup' to check the list of commands and their usage.
 
 ## Deleted instance not found Error
 
-**Triggered by:** User attempts to fetch backups for deleted service-insatance.
+**Triggered by:** User attempts to fetch backups for deleted service-instance.
 
 The given deleted service instance does not exists. 
 
