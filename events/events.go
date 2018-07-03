@@ -70,6 +70,7 @@ func CreateHttpClient(disableSecurityCheck bool) *http.Client {
 		Transport: &http.Transport{
 			MaxIdleConnsPerHost: constants.MaxIdleConnections,
 			TLSClientConfig:     &tls.Config{InsecureSkipVerify: disableSecurityCheck},
+			Proxy:           http.ProxyFromEnvironment,
 		},
 		Timeout: time.Duration(constants.RequestTimeout) * time.Second,
 	}
