@@ -5,11 +5,11 @@ import (
 	"crypto/tls"
 	"encoding/json"
 	"fmt"
-	"github.com/cloudfoundry/cli/plugin"
-	"github.com/fatih/color"
 	"github.com/SAP/service-fabrik-cli-plugin/errors"
 	"github.com/SAP/service-fabrik-cli-plugin/guidTranslator"
 	"github.com/SAP/service-fabrik-cli-plugin/helper"
+	"github.com/cloudfoundry/cli/plugin"
+	"github.com/fatih/color"
 	"io/ioutil"
 	"net/http"
 	"os"
@@ -78,13 +78,13 @@ func getConfiguration() Configuration {
 func GetHttpClient() *http.Client {
 	//Skip ssl verification.
 	client := &http.Client{
-                Transport: &http.Transport{
-                        TLSClientConfig: &tls.Config{InsecureSkipVerify: GetskipSslFlag()},
-                        Proxy:           http.ProxyFromEnvironment,
-                },
-                Timeout: time.Duration(180) * time.Second,
-        }
-        return client
+		Transport: &http.Transport{
+			TLSClientConfig: &tls.Config{InsecureSkipVerify: GetskipSslFlag()},
+			Proxy:           http.ProxyFromEnvironment,
+		},
+		Timeout: time.Duration(180) * time.Second,
+	}
+	return client
 }
 
 func GetResponse(client *http.Client, req *http.Request) *http.Response {
@@ -96,7 +96,7 @@ func GetResponse(client *http.Client, req *http.Request) *http.Response {
 	return resp
 }
 
-func (c *RestoreCommand) StartRestore(cliConnection plugin.CliConnection, serviceInstanceName string, backupId string) {
+func (c *RestoreCommand) StartRestore(cliConnection plugin.CliConnection, serviceInstanceName string, backupId string, timeStamp string, guidBool bool) {
 	fmt.Println("Starting restore for ", AddColor(serviceInstanceName, cyan), "...")
 
 	if helper.GetAccessToken(helper.ReadConfigJsonFile()) == "" {
@@ -104,10 +104,23 @@ func (c *RestoreCommand) StartRestore(cliConnection plugin.CliConnection, servic
 	}
 
 	client := GetHttpClient()
-
-	var jsonprep string = `{"backup_guid": "` + backupId + `"}`
-	var jsonStr = []byte(jsonprep)
-	var req_body = bytes.NewBuffer(jsonStr)
+	var req_body = bytes.NewBuffer([]byte(""))
+	if guidBool == true {
+		var jsonprep string = `{"backup_guid": "` + backupId + `"}`
+		var jsonStr = []byte(jsonprep)
+		req_body = bytes.NewBuffer(jsonStr)
+	} else {
+		time, err := time.Parse(time.RFC3339, timeStamp)
+		if err != nil {
+			fmt.Println(AddColor("FAILED", red))
+			fmt.Println(err)
+			fmt.Println("Please enter time in ISO8061 format, example - 2018-11-12T11:45:26.371Z")
+			return
+		}
+		var jsonprep string = `{"time_stamp": "` + time.String() + `"}`
+		var jsonStr = []byte(jsonprep)
+		req_body = bytes.NewBuffer(jsonStr)
+	}
 
 	var guid string = guidTranslator.FindInstanceGuid(cliConnection, serviceInstanceName, nil, "")
 	guid = strings.TrimRight(guid, ",")
@@ -134,7 +147,11 @@ func (c *RestoreCommand) StartRestore(cliConnection plugin.CliConnection, servic
 
 	if resp.Status == "202 Accepted" {
 		fmt.Println(AddColor("OK", green))
+		if guidBool == true {
 		fmt.Println("Restore has been initiated for the instance name:", AddColor(serviceInstanceName, cyan), " and from the backup id:", AddColor(backupId, cyan))
+		} else {
+		fmt.Println("Restore has been initiated for the instance name:", AddColor(serviceInstanceName, cyan), " using time stamp:", AddColor(timeStamp, cyan))
+		}
 		fmt.Println("Please check the status of restore by entering 'cf service SERVICE_INSTANCE_NAME'")
 	}
 
