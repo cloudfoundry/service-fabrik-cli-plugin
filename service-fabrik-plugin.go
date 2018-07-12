@@ -158,7 +158,7 @@ func (serviceFabrikPlugin *ServiceFabrikPlugin) Run(cliConnection plugin.CliConn
 					} else {
 						os.Exit(7)
 					}
-				} else if args[2] == "--time_stamp" {
+				} else if args[2] == "--timestamp" {
 					fmt.Println("Are you sure you want to start restore? (y/n)")
 					var userChoice string
 					fmt.Scanln(&userChoice)
@@ -273,7 +273,7 @@ func (serviceFabrikPlugin *ServiceFabrikPlugin) GetMetadata() plugin.PluginMetad
 				Name:     "start-restore",
 				HelpText: "Start restore of a service instance",
 				UsageDetails: plugin.Usage{
-					Usage: "cf start-restore SERVICE_INSTANCE_NAME --backup_guid BACKUP_ID \n     cf start-restore SERVICE_INSTANCE_NAME --time_stamp TIME_STAMP",
+					Usage: "cf start-restore SERVICE_INSTANCE_NAME --backup_guid BACKUP_ID \n     cf start-restore SERVICE_INSTANCE_NAME --timestamp TIME_STAMP",
 				},
 			},
 			{
