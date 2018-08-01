@@ -117,7 +117,8 @@ func (c *RestoreCommand) StartRestore(cliConnection plugin.CliConnection, servic
 			fmt.Println("Please enter time in ISO8061 format, example - 2018-11-12T11:45:26.371Z")
 			return
 		}
-		var jsonprep string = `{"time_stamp": "` + time.String() + `"}`
+		var epochTime string = strconv.FormatInt(time.UnixNano()/1000000, 10)
+                var jsonprep string = `{"time_stamp": "`+ epochTime + `"}`
 		var jsonStr = []byte(jsonprep)
 		req_body = bytes.NewBuffer(jsonStr)
 	}
