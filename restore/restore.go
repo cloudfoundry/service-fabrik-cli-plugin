@@ -5,6 +5,7 @@ import (
 	"crypto/tls"
 	"encoding/json"
 	"fmt"
+	"github.com/SAP/service-fabrik-cli-plugin/constants"
 	"github.com/SAP/service-fabrik-cli-plugin/errors"
 	"github.com/SAP/service-fabrik-cli-plugin/guidTranslator"
 	"github.com/SAP/service-fabrik-cli-plugin/helper"
@@ -13,9 +14,9 @@ import (
 	"io/ioutil"
 	"net/http"
 	"os"
+	"strconv"
 	"strings"
 	"time"
-	"strconv"
 )
 
 type RestoreCommand struct {
@@ -97,33 +98,72 @@ func GetResponse(client *http.Client, req *http.Request) *http.Response {
 	return resp
 }
 
-func (c *RestoreCommand) StartRestore(cliConnection plugin.CliConnection, serviceInstanceName string, backupId string, timeStamp string, isGuidOperation  bool) {
+func (c *RestoreCommand) StartRestore(cliConnection plugin.CliConnection, serviceInstanceName string, backupId string, timeStamp string, isGuidOperation bool, instanceGuidOperation bool, instanceNameOperation bool, instanceGuid string, instanceName string, deletedFlag bool) {
 	fmt.Println("Starting restore for ", AddColor(serviceInstanceName, cyan), "...")
-
+	var source_instance_id string = ""
+	if instanceGuidOperation == true {
+		var serviceInstanceName string = ""
+		serviceInstanceName = guidTranslator.FindInstanceName(cliConnection, instanceGuid, nil)
+		fmt.Println("Instance Name = ", serviceInstanceName)
+		if serviceInstanceName == "" {
+			fmt.Println(AddColor("FAILED", red))
+			fmt.Println("Error - No service instance found with service instance guid = ", instanceGuid)
+			os.Exit(7)
+		} else {
+			source_instance_id = instanceGuid
+		}
+	}
+	if instanceNameOperation == true {
+		guid := guidTranslator.FindInstanceGuid(cliConnection, instanceName, nil, "")
+		guid = strings.Trim(guid, ",")
+		guid = strings.Trim(guid, "\"")
+		source_instance_id = guid
+	}
+	if deletedFlag == true {
+		var guidMap map[string]string = guidTranslator.FindDeletedInstanceGuid(cliConnection, instanceName, nil, "")
+		if len(guidMap) > 1 {
+			fmt.Println(AddColor("FAILED", constants.Red))
+			fmt.Println("" + instanceName + " maps to multiple instance GUIDs, please use 'cf instance-events --delete' to list all instance delete events, get required instance guid from the list and then use 'cf list-backup --guid GUID' to fetch backups list.")
+			fmt.Println("Enter 'cf backup' to check the list of commands and their usage.")
+			os.Exit(1)
+		} else {
+			for k, _ := range guidMap {
+				guid := k
+				guid = strings.Trim(guid, ",")
+				guid = strings.Trim(guid, "\"")
+				source_instance_id = guid
+			}
+		}
+	}
 	if helper.GetAccessToken(helper.ReadConfigJsonFile()) == "" {
 		errors.NoAccessTokenError("Access Token")
 	}
 	var userSpaceGuid string = helper.GetSpaceGUID(helper.ReadConfigJsonFile())
 	client := GetHttpClient()
 	var req_body = bytes.NewBuffer([]byte(""))
-	if isGuidOperation  == true {
+	if isGuidOperation == true {
 		var jsonPrep string = `{"backup_guid": "` + backupId + `"}`
 		var jsonStr = []byte(jsonPrep)
 		req_body = bytes.NewBuffer(jsonStr)
 	} else {
-		 parsedTimestamp, err := time.Parse(time.RFC3339, timeStamp)
+		parsedTimestamp, err := time.Parse(time.RFC3339, timeStamp)
 		if err != nil {
 			fmt.Println(AddColor("FAILED", red))
 			fmt.Println(err)
 			fmt.Println("Please enter time in ISO8061 format, example - 2018-11-12T11:45:26.371Z, 2018-11-12T11:45:26Z")
 			return
 		}
-		var epochTime string = strconv.FormatInt( parsedTimestamp.UnixNano()/1000000, 10)
-                var jsonprep string = `{"time_stamp": "`+ epochTime + `", "space_guid": "` + userSpaceGuid + `"}`
-		var jsonStr = []byte(jsonprep)
+		var epochTime string = strconv.FormatInt(parsedTimestamp.UnixNano()/1000000, 10)
+		var jsonPrep string = ""
+		if source_instance_id != "" {
+			jsonPrep = `{"time_stamp": "` + epochTime + `", "space_guid": "` + userSpaceGuid + `", "source_instance_id": "` + source_instance_id + `"}`
+		} else {
+			jsonPrep = `{"time_stamp": "` + epochTime + `", "space_guid": "` + userSpaceGuid + `"}`
+		}
+		var jsonStr = []byte(jsonPrep)
 		req_body = bytes.NewBuffer(jsonStr)
 	}
-	fmt.Println(req_body)
+
 	var guid string = guidTranslator.FindInstanceGuid(cliConnection, serviceInstanceName, nil, "")
 	guid = strings.TrimRight(guid, ",")
 	guid = strings.Trim(guid, "\"")
@@ -144,15 +184,15 @@ func (c *RestoreCommand) StartRestore(cliConnection plugin.CliConnection, servic
 		fmt.Println(AddColor("FAILED", red))
 		var message string = string(body)
 		var parts []string = strings.Split(message, ":")
-		fmt.Println("Error - ",parts[3])
+		fmt.Println("Error - ", parts[3])
 	}
 
 	if resp.Status == "202 Accepted" {
 		fmt.Println(AddColor("OK", green))
-		if isGuidOperation  == true {
-		fmt.Println("Restore has been initiated for the instance name:", AddColor(serviceInstanceName, cyan), " and from the backup id:", AddColor(backupId, cyan))
+		if isGuidOperation == true {
+			fmt.Println("Restore has been initiated for the instance name:", AddColor(serviceInstanceName, cyan), " and from the backup id:", AddColor(backupId, cyan))
 		} else {
-		fmt.Println("Restore has been initiated for the instance name:", AddColor(serviceInstanceName, cyan), " using time stamp:", AddColor(timeStamp, cyan))
+			fmt.Println("Restore has been initiated for the instance name:", AddColor(serviceInstanceName, cyan), " using time stamp:", AddColor(timeStamp, cyan))
 		}
 		fmt.Println("Please check the status of restore by entering 'cf service SERVICE_INSTANCE_NAME'")
 	}

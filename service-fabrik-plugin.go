@@ -146,29 +146,65 @@ func (serviceFabrikPlugin *ServiceFabrikPlugin) Run(cliConnection plugin.CliConn
 			//Internally split into start and abort.
 			switch cmds[0] {
 			case "start":
-				if argLength != 4 {
-					errors.IncorrectNumberOfArguments()
-				}
-				if args[2] == "--backup_guid" {
-					fmt.Println("Are you sure you want to start restore? (y/n)")
-					var userChoice string
-					fmt.Scanln(&userChoice)
-					if userChoice == "y" {
-						restore.NewRestoreCommand(cliConnection).StartRestore(cliConnection, args[1], args[3], "", true)
+				if argLength == 4 {
+					if args[2] == "--backup_guid" {
+						fmt.Println("Are you sure you want to start restore? (y/n)")
+						var userChoice string
+						fmt.Scanln(&userChoice)
+						if userChoice == "y" {
+							restore.NewRestoreCommand(cliConnection).StartRestore(cliConnection, args[1], args[3], "", true, false, false, "", "", false)
+						} else {
+							os.Exit(7)
+						}
+					} else if args[2] == "--timestamp" {
+						fmt.Println("Are you sure you want to start restore? (y/n)")
+						var userChoice string
+						fmt.Scanln(&userChoice)
+						if userChoice == "y" {
+							restore.NewRestoreCommand(cliConnection).StartRestore(cliConnection, args[1], "", args[3], false, false, false, "", "", false)
+						} else {
+							os.Exit(7)
+						}
 					} else {
-						os.Exit(7)
+						errors.InvalidArgument()
 					}
-				} else if args[2] == "--timestamp" {
-					fmt.Println("Are you sure you want to start restore? (y/n)")
-					var userChoice string
-					fmt.Scanln(&userChoice)
-					if userChoice == "y" {
-						restore.NewRestoreCommand(cliConnection).StartRestore(cliConnection, args[1], "", args[3], false)
+				} else if argLength == 6 {
+					if args[4] == "--from-instance-id" {
+						fmt.Println("Are you sure you want to start restore? (y/n)")
+						var userChoice string
+						fmt.Scanln(&userChoice)
+						if userChoice == "y" {
+							restore.NewRestoreCommand(cliConnection).StartRestore(cliConnection, args[1], "", args[3], false, true, false, args[5], "", false)
+						} else {
+							os.Exit(7)
+						}
+					} else if args[4] == "--from-instance" {
+						fmt.Println("Are you sure you want to start restore? (y/n)")
+						var userChoice string
+						fmt.Scanln(&userChoice)
+						if userChoice == "y" {
+							restore.NewRestoreCommand(cliConnection).StartRestore(cliConnection, args[1], "", args[3], false, false, true, "", args[5], false)
+						} else {
+							os.Exit(7)
+						}
 					} else {
-						os.Exit(7)
+						errors.InvalidArgument()
+					}
+				} else if argLength == 7 {
+					if args[6] == "--deleted" && args[4] == "--from-instance" {
+						fmt.Println("Are you sure you want to start restore? (y/n)")
+						var userChoice string
+						fmt.Scanln(&userChoice)
+						if userChoice == "y" {
+							restore.NewRestoreCommand(cliConnection).StartRestore(cliConnection, args[1], "", args[3], false, false, false, "", args[5], true)
+						} else {
+							os.Exit(7)
+						}
+					} else {
+						errors.InvalidArgument()
 					}
 				} else {
-					errors.InvalidArgument()
+					errors.IncorrectNumberOfArguments()
 				}
 			case "abort":
 				if argLength != 2 {
