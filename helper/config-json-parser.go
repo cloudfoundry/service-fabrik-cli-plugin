@@ -4,7 +4,7 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
-	"github.com/SAP/service-fabrik-cli-plugin/errors"
+	"github.com/cloudfoundry-incubator/service-fabrik-cli-plugin/errors"
 	"github.com/mitchellh/go-homedir"
 	"io/ioutil"
 	"os"

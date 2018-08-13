@@ -55,14 +55,14 @@ This CF CLI plugin is only available for ServiceFabrik broker, so it can only be
 The following steps need to be followed for the purpose of building the plugin.
 
 1. Clone this repo and build it. For this execute following commands on Linux or Mac OS X system.
-  1. `$ go get github.com/SAP/service-fabrik-cli-plugin`
-  2. `$ cd $GOPATH/src/github.com/SAP/service-fabrik-cli-plugin`
+  1. `$ go get github.com/cloudfoundry-incubator/service-fabrik-cli-plugin`
+  2. `$ cd $GOPATH/src/github.com/cloudfoundry-incubator/service-fabrik-cli-plugin`
   3. `$ go build .`
 2. The above will clone your repo into default $GOPATH. If you want to setup a different $GOPATH and work on that, then execute following commands on a Linux or Mac OS X system:
-  1. `$ mkdir -p service-fabrik-cli-plugin/src/github.com/SAP/`
+  1. `$ mkdir -p service-fabrik-cli-plugin/src/github.com/cloudfoundry-incubator/`
   2. `$ export GOPATH=$(pwd)/service-fabrik-cli-plugin:$GOPATH`
-  3. `$ cd service-fabrik-cli-plugin/src/github.com/SAP/`
-  4. `$ git clone https://github.com/SAP/service-fabrik-cli-plugin.git`
+  3. `$ cd service-fabrik-cli-plugin/src/github.com/cloudfoundry-incubator/`
+  4. `$ git clone https://github.com/cloudfoundry-incubator/service-fabrik-cli-plugin.git`
   5. `$ cd service-fabrik-cli-plugin`
   6. `$ go build .`
 

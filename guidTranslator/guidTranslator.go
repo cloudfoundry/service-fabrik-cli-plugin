@@ -2,8 +2,8 @@ package guidTranslator
 
 import (
 	"code.cloudfoundry.org/cli/plugin"
-	"github.com/SAP/service-fabrik-cli-plugin/errors"
-	"github.com/SAP/service-fabrik-cli-plugin/helper"
+	"github.com/cloudfoundry-incubator/service-fabrik-cli-plugin/errors"
+	"github.com/cloudfoundry-incubator/service-fabrik-cli-plugin/helper"
 	"strings"
 )
 

@@ -5,9 +5,9 @@ import (
 	"crypto/tls"
 	"encoding/json"
 	"fmt"
-	"github.com/SAP/service-fabrik-cli-plugin/constants"
-	"github.com/SAP/service-fabrik-cli-plugin/errors"
-	"github.com/SAP/service-fabrik-cli-plugin/guidTranslator"
+	"github.com/cloudfoundry-incubator/service-fabrik-cli-plugin/constants"
+	"github.com/cloudfoundry-incubator/service-fabrik-cli-plugin/errors"
+	"github.com/cloudfoundry-incubator/service-fabrik-cli-plugin/guidTranslator"
 	"github.com/SAP/service-fabrik-cli-plugin/helper"
 	"github.com/cloudfoundry/cli/plugin"
 	"github.com/fatih/color"
@@ -98,9 +98,15 @@ func GetResponse(client *http.Client, req *http.Request) *http.Response {
 	return resp
 }
 
+func GetTrimmedGUID(guid string) (string) {
+	guid = strings.TrimRight(guid, ",")
+	guid = strings.Trim(guid, "\"")
+return guid
+}
+
 func (c *RestoreCommand) StartRestore(cliConnection plugin.CliConnection, serviceInstanceName string, backupId string, timeStamp string, isGuidOperation bool, instanceGuidOperation bool, instanceNameOperation bool, instanceGuid string, instanceName string, deletedFlag bool) {
 	fmt.Println("Starting restore for ", AddColor(serviceInstanceName, cyan), "...")
-	var source_instance_id string = ""
+	var sourceInstanceId string = ""
 	if instanceGuidOperation == true {
 		var serviceInstanceName string = ""
 		serviceInstanceName = guidTranslator.FindInstanceName(cliConnection, instanceGuid, nil)
@@ -110,14 +116,13 @@ func (c *RestoreCommand) StartRestore(cliConnection plugin.CliConnection, servic
 			fmt.Println("Error - No service instance found with service instance guid = ", instanceGuid)
 			os.Exit(7)
 		} else {
-			source_instance_id = instanceGuid
+			sourceInstanceId = instanceGuid
 		}
 	}
 	if instanceNameOperation == true {
 		guid := guidTranslator.FindInstanceGuid(cliConnection, instanceName, nil, "")
-		guid = strings.Trim(guid, ",")
-		guid = strings.Trim(guid, "\"")
-		source_instance_id = guid
+		guid = GetTrimmedGUID(guid)
+		sourceInstanceId = guid
 	}
 	if deletedFlag == true {
 		var guidMap map[string]string = guidTranslator.FindDeletedInstanceGuid(cliConnection, instanceName, nil, "")
@@ -131,7 +136,7 @@ func (c *RestoreCommand) StartRestore(cliConnection plugin.CliConnection, servic
 				guid := k
 				guid = strings.Trim(guid, ",")
 				guid = strings.Trim(guid, "\"")
-				source_instance_id = guid
+				sourceInstanceId = guid
 			}
 		}
 	}
@@ -155,18 +160,17 @@ func (c *RestoreCommand) StartRestore(cliConnection plugin.CliConnection, servic
 		}
 		var epochTime string = strconv.FormatInt(parsedTimestamp.UnixNano()/1000000, 10)
 		var jsonPrep string = ""
-		if source_instance_id != "" {
-			jsonPrep = `{"time_stamp": "` + epochTime + `", "space_guid": "` + userSpaceGuid + `", "source_instance_id": "` + source_instance_id + `"}`
+		if sourceInstanceId != "" {
+			jsonPrep = `{"time_stamp": "` + epochTime + `", "space_guid": "` + userSpaceGuid + `", "source_instance_id": "` + sourceInstanceId + `"}`
 		} else {
 			jsonPrep = `{"time_stamp": "` + epochTime + `", "space_guid": "` + userSpaceGuid + `"}`
 		}
 		var jsonStr = []byte(jsonPrep)
 		req_body = bytes.NewBuffer(jsonStr)
 	}
-
+	fmt.Println(req_body)
 	var guid string = guidTranslator.FindInstanceGuid(cliConnection, serviceInstanceName, nil, "")
-	guid = strings.TrimRight(guid, ",")
-	guid = strings.Trim(guid, "\"")
+	guid = GetTrimmedGUID(guid)
 
 	var apiEndpoint string = helper.GetApiEndpoint(helper.ReadConfigJsonFile())
 	var broker string = GetBrokerName()
@@ -184,7 +188,9 @@ func (c *RestoreCommand) StartRestore(cliConnection plugin.CliConnection, servic
 		fmt.Println(AddColor("FAILED", red))
 		var message string = string(body)
 		var parts []string = strings.Split(message, ":")
-		fmt.Println("Error - ", parts[3])
+		if len(parts) == 4 {
+			fmt.Println("Error - ", parts[3])
+		}
 	}
 
 	if resp.Status == "202 Accepted" {
@@ -211,8 +217,7 @@ func (c *RestoreCommand) AbortRestore(cliConnection plugin.CliConnection, servic
 	client := GetHttpClient()
 
 	var guid string = guidTranslator.FindInstanceGuid(cliConnection, serviceInstanceName, nil, "")
-	guid = strings.TrimRight(guid, ",")
-	guid = strings.Trim(guid, "\"")
+	guid = GetTrimmedGUID(guid)
 
 	var userSpaceGuid string = helper.GetSpaceGUID(helper.ReadConfigJsonFile())
 
@@ -233,7 +238,9 @@ func (c *RestoreCommand) AbortRestore(cliConnection plugin.CliConnection, servic
 		fmt.Println(AddColor("FAILED", red))
 		var message string = string(body)
 		var parts []string = strings.Split(message, ":")
-		fmt.Println(parts[3])
+		if len(parts) == 4 {
+                	fmt.Println("Error - ", parts[3])
+                }
 	}
 
 	if resp.Status == "202 Accepted" {
