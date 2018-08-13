@@ -5,10 +5,10 @@ import (
 	"crypto/tls"
 	"encoding/json"
 	"fmt"
+	"github.com/SAP/service-fabrik-cli-plugin/constants"
 	"github.com/SAP/service-fabrik-cli-plugin/errors"
 	"github.com/SAP/service-fabrik-cli-plugin/guidTranslator"
 	"github.com/SAP/service-fabrik-cli-plugin/helper"
-	"github.com/SAP/service-fabrik-cli-plugin/constants"
 	"github.com/cloudfoundry/cli/plugin"
 	"github.com/fatih/color"
 	"github.com/olekukonko/tablewriter"
@@ -28,7 +28,6 @@ func NewBackupCommand(cliConnection plugin.CliConnection) *BackupCommand {
 	command.cliConnection = cliConnection
 	return command
 }
-
 
 func AddColor(text string, textColor color.Attribute) string {
 	printer := color.New(textColor).Add(color.Bold).SprintFunc()
@@ -68,6 +67,16 @@ func getConfiguration() Configuration {
 		fmt.Println("error:", err)
 	}
 	return configuration
+}
+
+func GetTimeDifference(initialDate string, finalDate string) int {
+	initialDate = initialDate[0:19]
+	format := "2006-01-02 15:04:05"
+	initialParsedTime, _ := time.Parse(format, initialDate)
+	finalParsedTime, _ := time.Parse(format, finalDate)
+	diff := initialParsedTime.Sub(finalParsedTime)
+	daysDiff := int(diff.Hours() / 24)
+	return daysDiff
 }
 
 func GetHttpClient() *http.Client {
@@ -183,7 +192,6 @@ func (c *BackupCommand) BackupInfo(cliConnection plugin.CliConnection, backupId 
 
 }
 
-
 func (c *BackupCommand) ListBackupsByDeletedInstanceName(cliConnection plugin.CliConnection, serviceInstanceName string) {
 	fmt.Println("Getting the list of  backups in the org", AddColor(helper.GetOrgName(helper.ReadConfigJsonFile()), constants.Cyan), "/ space", AddColor(helper.GetSpaceName(helper.ReadConfigJsonFile()), constants.Cyan), "/ service instance", AddColor(serviceInstanceName, constants.Cyan), "...")
 
@@ -256,10 +264,18 @@ func (c *BackupCommand) ListBackupsByDeletedInstanceName(cliConnection plugin.Cl
 				field[3] = (response[backup].(map[string]interface{}))["trigger"].(string)
 				field[4] = (response[backup].(map[string]interface{}))["started_at"].(string)
 				field[5], flag = (response[backup].(map[string]interface{}))["finished_at"].(string)
+				daysDiff := 0
+				subTrimmed := field[4][0:19]
+				finalTrimmed := strings.Replace(subTrimmed, "T", " ", -1)
+				currentDate := time.Now()
+				daysDiff = GetTimeDifference(currentDate.String(), finalTrimmed)
 				if flag == false {
 					field[5] = "null"
 				}
-				table.Append(field)
+				if daysDiff <= 14 {
+					table.Append(field)
+				}
+
 			}
 		}
 
@@ -288,10 +304,10 @@ func (c *BackupCommand) ListBackupsByInstance(cliConnection plugin.CliConnection
 		guid = guidTranslator.FindInstanceGuid(cliConnection, serviceInstanceName, nil, "")
 		guid = strings.Trim(guid, ",")
 		guid = strings.Trim(guid, "\"")
-	 fmt.Println("Getting the list of  backups in the org", AddColor(helper.GetOrgName(helper.ReadConfigJsonFile()), constants.Cyan), "/ space", AddColor(helper.GetSpaceName(helper.ReadConfigJsonFile()), constants.Cyan), "/ service instance", AddColor(serviceInstanceName, constants.Cyan), "...")
+		fmt.Println("Getting the list of  backups in the org", AddColor(helper.GetOrgName(helper.ReadConfigJsonFile()), constants.Cyan), "/ space", AddColor(helper.GetSpaceName(helper.ReadConfigJsonFile()), constants.Cyan), "/ service instance", AddColor(serviceInstanceName, constants.Cyan), "...")
 	} else {
 		guid = instanceGuid
-	fmt.Println("Getting the list of  backups in the org", AddColor(helper.GetOrgName(helper.ReadConfigJsonFile()), constants.Cyan), "/ space", AddColor(helper.GetSpaceName(helper.ReadConfigJsonFile()), constants.Cyan), "/ service instance GUID", AddColor(instanceGuid, constants.Cyan), "...")
+		fmt.Println("Getting the list of  backups in the org", AddColor(helper.GetOrgName(helper.ReadConfigJsonFile()), constants.Cyan), "/ space", AddColor(helper.GetSpaceName(helper.ReadConfigJsonFile()), constants.Cyan), "/ service instance GUID", AddColor(instanceGuid, constants.Cyan), "...")
 	}
 	var apiEndpoint string = helper.GetApiEndpoint(helper.ReadConfigJsonFile())
 	var broker string = GetBrokerName()
@@ -344,10 +360,17 @@ func (c *BackupCommand) ListBackupsByInstance(cliConnection plugin.CliConnection
 			field[3] = (response[backup].(map[string]interface{}))["trigger"].(string)
 			field[4] = (response[backup].(map[string]interface{}))["started_at"].(string)
 			field[5], flag = (response[backup].(map[string]interface{}))["finished_at"].(string)
+			daysDiff := 0
+			subTrimmed := field[4][0:19]
+			finalTrimmed := strings.Replace(subTrimmed, "T", " ", -1)
+			currentDate := time.Now()
+			daysDiff = GetTimeDifference(currentDate.String(), finalTrimmed)
 			if flag == false {
 				field[5] = "null"
 			}
-			table.Append(field)
+			if daysDiff <= 14 {
+				table.Append(field)
+			}
 		}
 
 	} else {
@@ -439,19 +462,27 @@ func (c *BackupCommand) ListBackups(cliConnection plugin.CliConnection, noInstan
 					field[7] = ""
 				}
 			}
+			daysDiff := 0
 			field[2] = (response[backup].(map[string]interface{}))["username"].(string)
 			field[3] = (response[backup].(map[string]interface{}))["type"].(string)
 			field[0] = (response[backup].(map[string]interface{}))["backup_guid"].(string)
 			field[0] = AddColor(field[0], constants.Cyan)
 			field[4] = (response[backup].(map[string]interface{}))["trigger"].(string)
 			field[5] = (response[backup].(map[string]interface{}))["started_at"].(string)
+			subTrimmed := field[5][0:19]
+			finalTrimmed := strings.Replace(subTrimmed, "T", " ", -1)
+			currentDate := time.Now()
+			daysDiff = GetTimeDifference(currentDate.String(), finalTrimmed)
 			_, flag := (response[backup].(map[string]interface{}))["finished_at"].(string)
 			if flag == false {
 				field[6] = "null"
 			} else {
 				field[6] = (response[backup].(map[string]interface{}))["finished_at"].(string)
 			}
-			table.Append(field)
+			if daysDiff <= 14 {
+				table.Append(field)
+			}
+
 		}
 	}
 
