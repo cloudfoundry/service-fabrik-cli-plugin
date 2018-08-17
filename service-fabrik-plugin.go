@@ -146,18 +146,30 @@ func (serviceFabrikPlugin *ServiceFabrikPlugin) Run(cliConnection plugin.CliConn
 			//Internally split into start and abort.
 			switch cmds[0] {
 			case "start":
-				if argLength != 3 {
+				if argLength != 4 {
 					errors.IncorrectNumberOfArguments()
 				}
-				fmt.Println("Are you sure you want to start restore? (y/n)")
-				var userChoice string
-				fmt.Scanln(&userChoice)
-				if userChoice == "y" {
-					restore.NewRestoreCommand(cliConnection).StartRestore(cliConnection, args[1], args[2])
+				if args[2] == "--backup_guid" {
+					fmt.Println("Are you sure you want to start restore? (y/n)")
+					var userChoice string
+					fmt.Scanln(&userChoice)
+					if userChoice == "y" {
+						restore.NewRestoreCommand(cliConnection).StartRestore(cliConnection, args[1], args[3], "", true)
+					} else {
+						os.Exit(7)
+					}
+				} else if args[2] == "--timestamp" {
+					fmt.Println("Are you sure you want to start restore? (y/n)")
+					var userChoice string
+					fmt.Scanln(&userChoice)
+					if userChoice == "y" {
+						restore.NewRestoreCommand(cliConnection).StartRestore(cliConnection, args[1], "", args[3], false)
+					} else {
+						os.Exit(7)
+					}
 				} else {
-					os.Exit(7)
+					errors.InvalidArgument()
 				}
-
 			case "abort":
 				if argLength != 2 {
 					errors.IncorrectNumberOfArguments()
@@ -215,7 +227,7 @@ func (serviceFabrikPlugin *ServiceFabrikPlugin) GetMetadata() plugin.PluginMetad
 		Name:    "ServiceFabrikPlugin",
 		Version: setVersion(Version),
 		Commands: []plugin.Command{
-			 { // required to be a registered command
+			{ // required to be a registered command
 				Name:     "start-backup",
 				HelpText: "Start backup of a service instance",
 				UsageDetails: plugin.Usage{
@@ -261,7 +273,7 @@ func (serviceFabrikPlugin *ServiceFabrikPlugin) GetMetadata() plugin.PluginMetad
 				Name:     "start-restore",
 				HelpText: "Start restore of a service instance",
 				UsageDetails: plugin.Usage{
-					Usage: "cf start-restore SERVICE_INSTANCE_NAME BACKUP_ID",
+					Usage: "cf start-restore SERVICE_INSTANCE_NAME --backup_guid BACKUP_ID \n     cf start-restore SERVICE_INSTANCE_NAME --timestamp TIME_STAMP",
 				},
 			},
 			{
