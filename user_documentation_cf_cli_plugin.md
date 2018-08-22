@@ -190,7 +190,7 @@ OK
 
 ### Starting a restore:
 
-**Command:** cf start-restore SERVICE\_INSTANCE\_NAME BACKUP\_ID
+**Command:** cf start-restore SERVICE\_INSTANCE\_NAME --backup-guid BACKUP\_ID
 
 **Usage:** You can restore the state of a service-instance from any previously taken backup. In order to dothat, you must provide the name of the service-instance and the id of the backup from which restore must be done. Upon successful execution, the plugin will initiate the restore process from the backup.
 
@@ -206,9 +206,77 @@ Restore has been initiated for the instance name: [SERVICE\_INSTANCE\_NAME] and 
 
 Please check the status of restore by entering &#39;cf service SERVIC\_INSTANCE\_NAME&#39;
 
-**Example:**
+**Additional note:** The successful execution of this command means the restore process was initiated. Theprocess of restoring the backup takes some time to complete. For the convenience of the user, the restore process runs in the background. If you wish to know the progress and/or the state of the restore, you can use the &quot;cf service SERVICE\_INSTANCE\_NAME&quot; command.
 
-<img src="https://github.com/SAP/service-fabrik-cli-plugin/blob/master/images/plugin_screenshot2.png">
+**Command:** cf start-restore SERVICE\_INSTANCE\_NAME --timestamp TIME\_STAMP
+
+**Usage:** You can restore the state of a service-instance to any point of time within the retention time. In order to dothat, you must provide the name of the service-instance and the time stamp within the retention period. 
+
+**Expected Output:**
+
+Starting restore
+
+OK
+
+Restore has been initiated for the instance name: [SERVICE\_INSTANCE\_NAME] and using time stamp:
+
+[TIME\_STAMP]
+
+Please check the status of restore by entering &#39;cf service SERVIC\_INSTANCE\_NAME&#39;
+
+**Additional note:** The successful execution of this command means the restore process was initiated. Theprocess of restoring the backup takes some time to complete. For the convenience of the user, the restore process runs in the background. If you wish to know the progress and/or the state of the restore, you can use the &quot;cf service SERVICE\_INSTANCE\_NAME&quot; command.
+
+**Command:** cf start-restore SERVICE\_INSTANCE\_NAME --timestamp TIME\_STAMP --source SOURCE\_SERVICE\_INSTANCE\_NAME
+
+**Usage:** You can restore the state of a service-instance to any point of time within the retention time using the backup of source service instance. In order to dothat, you must provide the name of the target service-instance, time stamp within the retention period and source instance. 
+
+**Expected Output:**
+
+Starting restore
+
+OK
+
+Restore has been initiated for the instance name: [SERVICE\_INSTANCE\_NAME] and using time stamp:
+
+[TIME\_STAMP]
+
+Please check the status of restore by entering &#39;cf service SERVIC\_INSTANCE\_NAME&#39;
+
+**Additional note:** The successful execution of this command means the restore process was initiated. Theprocess of restoring the backup takes some time to complete. For the convenience of the user, the restore process runs in the background. If you wish to know the progress and/or the state of the restore, you can use the &quot;cf service SERVICE\_INSTANCE\_NAME&quot; command.
+
+**Command:** cf start-restore SERVICE\_INSTANCE\_NAME --timestamp TIME\_STAMP --source-id SOURCE\_SERVICE\_INSTANCE\_GUID
+
+**Usage:** You can restore the state of a service-instance to any point of time within the retention time from the backup of given source service instance guid. In order to dothat, you must provide the name of the target service-instance, time stamp within the retention period and source instance guid. 
+
+**Expected Output:**
+
+Starting restore
+
+OK
+
+Restore has been initiated for the instance name: [SERVICE\_INSTANCE\_NAME] and using time stamp:
+
+[TIME\_STAMP]
+
+Please check the status of restore by entering &#39;cf service SERVIC\_INSTANCE\_NAME&#39;
+
+**Additional note:** The successful execution of this command means the restore process was initiated. Theprocess of restoring the backup takes some time to complete. For the convenience of the user, the restore process runs in the background. If you wish to know the progress and/or the state of the restore, you can use the &quot;cf service SERVICE\_INSTANCE\_NAME&quot; command.
+
+**Command:** cf start-restore SERVICE\_INSTANCE\_NAME --timestamp TIME\_STAMP --source SOURCE\_SERVICE\_INSTANCE\_NAME -deleted
+
+**Usage:** You can restore the state of a service-instance to any point of time within the retention time using the backup of given deleted source service instance. In order to dothat, you must provide the name of the target service-instance, time stamp within the retention period and deleted source instance guid. 
+
+**Expected Output:**
+
+Starting restore
+
+OK
+
+Restore has been initiated for the instance name: [SERVICE\_INSTANCE\_NAME] and using time stamp:
+
+[TIME\_STAMP]
+
+Please check the status of restore by entering &#39;cf service SERVIC\_INSTANCE\_NAME&#39;
 
 **Additional note:** The successful execution of this command means the restore process was initiated. Theprocess of restoring the backup takes some time to complete. For the convenience of the user, the restore process runs in the background. If you wish to know the progress and/or the state of the restore, you can use the &quot;cf service SERVICE\_INSTANCE\_NAME&quot; command.
 
