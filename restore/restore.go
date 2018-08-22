@@ -168,7 +168,6 @@ func (c *RestoreCommand) StartRestore(cliConnection plugin.CliConnection, servic
 		var jsonStr = []byte(jsonPrep)
 		req_body = bytes.NewBuffer(jsonStr)
 	}
-	fmt.Println(req_body)
 	var guid string = guidTranslator.FindInstanceGuid(cliConnection, serviceInstanceName, nil, "")
 	guid = GetTrimmedGUID(guid)
 

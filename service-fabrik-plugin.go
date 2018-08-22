@@ -50,13 +50,13 @@ func (serviceFabrikPlugin *ServiceFabrikPlugin) Run(cliConnection plugin.CliConn
 
 	//Display help text if user enters "cf backup"
 	if argLength == 1 && args[0] == "backup" {
-		serviceFabrikPlugin.printHelp()
+		serviceFabrikPlugin.printHelp(false, "")
 		return
 	}
 
 	//Display help text if user enters "cf restore"
 	if argLength == 1 && args[0] == "restore" {
-		serviceFabrikPlugin.printHelp()
+		serviceFabrikPlugin.printHelp(false, "")
 		return
 	}
 
@@ -123,7 +123,7 @@ func (serviceFabrikPlugin *ServiceFabrikPlugin) Run(cliConnection plugin.CliConn
 						backup.NewBackupCommand(cliConnection).ListBackupsByInstance(cliConnection, "", args[2], true)
 					} else {
 						errors.InvalidArgument()
-						serviceFabrikPlugin.printHelp()
+						serviceFabrikPlugin.printHelp(false, "")
 						return
 					}
 				}
@@ -147,7 +147,7 @@ func (serviceFabrikPlugin *ServiceFabrikPlugin) Run(cliConnection plugin.CliConn
 			switch cmds[0] {
 			case "start":
 				if argLength == 4 {
-					if args[2] == "--backup_guid" {
+					if args[2] == "--backup-guid" {
 						fmt.Println("Are you sure you want to start restore? (y/n)")
 						var userChoice string
 						fmt.Scanln(&userChoice)
@@ -166,10 +166,11 @@ func (serviceFabrikPlugin *ServiceFabrikPlugin) Run(cliConnection plugin.CliConn
 							os.Exit(7)
 						}
 					} else {
+						serviceFabrikPlugin.printHelp(true, "start-restore")
 						errors.InvalidArgument()
 					}
 				} else if argLength == 6 {
-					if args[4] == "--from-instance-id" {
+					if args[4] == "--source-id" {
 						fmt.Println("Are you sure you want to start restore? (y/n)")
 						var userChoice string
 						fmt.Scanln(&userChoice)
@@ -178,7 +179,7 @@ func (serviceFabrikPlugin *ServiceFabrikPlugin) Run(cliConnection plugin.CliConn
 						} else {
 							os.Exit(7)
 						}
-					} else if args[4] == "--from-instance" {
+					} else if args[4] == "--source" {
 						fmt.Println("Are you sure you want to start restore? (y/n)")
 						var userChoice string
 						fmt.Scanln(&userChoice)
@@ -188,10 +189,11 @@ func (serviceFabrikPlugin *ServiceFabrikPlugin) Run(cliConnection plugin.CliConn
 							os.Exit(7)
 						}
 					} else {
+						serviceFabrikPlugin.printHelp(true, "start-restore")
 						errors.InvalidArgument()
 					}
 				} else if argLength == 7 {
-					if args[6] == "--deleted" && args[4] == "--from-instance" {
+					if args[6] == "--deleted" && args[4] == "--source" {
 						fmt.Println("Are you sure you want to start restore? (y/n)")
 						var userChoice string
 						fmt.Scanln(&userChoice)
@@ -201,9 +203,11 @@ func (serviceFabrikPlugin *ServiceFabrikPlugin) Run(cliConnection plugin.CliConn
 							os.Exit(7)
 						}
 					} else {
+						serviceFabrikPlugin.printHelp(true, "start-restore")
 						errors.InvalidArgument()
 					}
 				} else {
+					serviceFabrikPlugin.printHelp(true, "start-restore")
 					errors.IncorrectNumberOfArguments()
 				}
 			case "abort":
@@ -234,7 +238,7 @@ func (serviceFabrikPlugin *ServiceFabrikPlugin) Run(cliConnection plugin.CliConn
 						events.NewEventsCommand(cliConnection).ListEvents(cliConnection, true, "update")
 					} else {
 						errors.InvalidArgument()
-						serviceFabrikPlugin.printHelp()
+						serviceFabrikPlugin.printHelp(false, "")
 						return
 					}
 				}
@@ -247,15 +251,28 @@ func (serviceFabrikPlugin *ServiceFabrikPlugin) Run(cliConnection plugin.CliConn
 	}
 }
 
-func (c *ServiceFabrikPlugin) printHelp() {
+func (c *ServiceFabrikPlugin) printHelp(printSingleCommandBool bool, command string) {
 	metadata := c.GetMetadata()
-	for _, command := range metadata.Commands {
-		fmt.Println("Name:")
-		fmt.Printf("    %-s - %-s\n", command.Name, command.HelpText)
-		fmt.Println("Usage:")
-		fmt.Printf("    %-s\n", command.UsageDetails.Usage)
-		fmt.Println()
+	if printSingleCommandBool == false {
+		for _, command := range metadata.Commands {
+			fmt.Println("Name:")
+			fmt.Printf("    %-s - %-s\n", command.Name, command.HelpText)
+			fmt.Println("Usage:")
+			fmt.Printf("    %-s\n", command.UsageDetails.Usage)
+			fmt.Println()
+		}
+	} else {
+		for _, command := range metadata.Commands {
+			if command.Name == "start-restore" {
+				fmt.Println("Name:")
+				fmt.Printf("    %-s - %-s\n", command.Name, command.HelpText)
+				fmt.Println("Usage:")
+				fmt.Printf("    %-s\n", command.UsageDetails.Usage)
+				fmt.Println()
+			}
+		}
 	}
+
 }
 
 func (serviceFabrikPlugin *ServiceFabrikPlugin) GetMetadata() plugin.PluginMetadata {
@@ -309,7 +326,7 @@ func (serviceFabrikPlugin *ServiceFabrikPlugin) GetMetadata() plugin.PluginMetad
 				Name:     "start-restore",
 				HelpText: "Start restore of a service instance",
 				UsageDetails: plugin.Usage{
-					Usage: "cf start-restore SERVICE_INSTANCE_NAME --backup_guid BACKUP_ID \n     cf start-restore SERVICE_INSTANCE_NAME --timestamp TIME_STAMP",
+					Usage: "cf start-restore SERVICE_INSTANCE_NAME --backup_guid BACKUP_ID \n    cf start-restore SERVICE_INSTANCE_NAME --timestamp TIME_STAMP\n    cf start-restore SERVICE_INSTANCE_NAME --timestamp TIME_STAMP --source SOURCE_SERVICE_INSTANCE_NAME\n    cf start-restore SERVICE_INSTANCE_NAME --timestamp TIME_STAMP --source-id SOURCE_SERVICE_INSTANCE_GUID\n    cf start-restore SERVICE_INSTANCE_NAME --timestamp TIME_STAMP --source SOURCE_SERVICE_INSTANCE_NAME --deleted",
 				},
 			},
 			{
