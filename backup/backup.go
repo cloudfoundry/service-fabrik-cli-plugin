@@ -272,7 +272,7 @@ func (c *BackupCommand) ListBackupsByDeletedInstanceName(cliConnection plugin.Cl
 				if flag == false {
 					field[5] = "null"
 				}
-				if daysDiff <= 13 {
+				if daysDiff <= 12 {
 					table.Append(field)
 				}
 
@@ -368,7 +368,7 @@ func (c *BackupCommand) ListBackupsByInstance(cliConnection plugin.CliConnection
 			if flag == false {
 				field[5] = "null"
 			}
-			if daysDiff <= 13 {
+			if daysDiff <= 12 {
 				table.Append(field)
 			}
 		}
@@ -479,7 +479,7 @@ func (c *BackupCommand) ListBackups(cliConnection plugin.CliConnection, noInstan
 			} else {
 				field[6] = (response[backup].(map[string]interface{}))["finished_at"].(string)
 			}
-			if daysDiff <= 13 {
+			if daysDiff <= 12 {
 				table.Append(field)
 			}
 
