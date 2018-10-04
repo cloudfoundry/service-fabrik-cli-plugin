@@ -8,7 +8,7 @@ import (
 	"github.com/cloudfoundry-incubator/service-fabrik-cli-plugin/constants"
 	"github.com/cloudfoundry-incubator/service-fabrik-cli-plugin/errors"
 	"github.com/cloudfoundry-incubator/service-fabrik-cli-plugin/guidTranslator"
-	"github.com/SAP/service-fabrik-cli-plugin/helper"
+	"github.com/cloudfoundry-incubator/service-fabrik-cli-plugin/helper"
 	"github.com/cloudfoundry/cli/plugin"
 	"github.com/fatih/color"
 	"io/ioutil"
