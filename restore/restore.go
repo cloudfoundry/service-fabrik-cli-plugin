@@ -160,7 +160,7 @@ func (c *RestoreCommand) StartRestore(cliConnection plugin.CliConnection, servic
 		}
 	}
 
-	if respOperation, flag := respObject["name"].(string); flag != false {
+	if resp.Status == "202 Accepted" {
 		fmt.Println(AddColor("OK", green))
 		fmt.Println("Operation: ", respOperation)
 		if restoreGuid, flag := respObject["guid"].(string); flag != false {
@@ -335,12 +335,12 @@ func (c *RestoreCommand) AbortRestore(cliConnection plugin.CliConnection, servic
 		}
 	}
 
-	if respStatus == 202 {
+	if resp.Status == "202 Accepted" {
 		fmt.Println(AddColor("OK", green))
 		fmt.Println("Restore has been aborted for the instance name:", color.CyanString(serviceInstanceName))
 	}
 
-	if respStatus == 200 {
+	if resp.Status == "200 OK" {
 		fmt.Println("currently no restore in progress for this service instance")
 	}
 
