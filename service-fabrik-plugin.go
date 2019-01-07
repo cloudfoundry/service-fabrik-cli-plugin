@@ -70,7 +70,7 @@ func (serviceFabrikPlugin *ServiceFabrikPlugin) Run(cliConnection plugin.CliConn
 
 	var cmds []string = strings.Split(args[0], "-")
 	//3 overall switches: backup, restore & events
-	if len(cmds) == 2 {
+	if len(cmds) > 2 {
 
 		switch cmds[1] {
 		case "backup":
@@ -186,6 +186,9 @@ func (serviceFabrikPlugin *ServiceFabrikPlugin) Run(cliConnection plugin.CliConn
 				if argLength != 2 {
 					errors.IncorrectNumberOfArguments()
 				}
+				if cmds[2] != "status" {
+					errors.InvalidArgument()
+				}
 				restore.NewRestoreCommand(cliConnection).RestoreInfo(cliConnection, args[1])
 			}
 		case "events":
@@ -282,10 +285,10 @@ func (serviceFabrikPlugin *ServiceFabrikPlugin) GetMetadata() plugin.PluginMetad
 				},
 			},
 			{
-				Name:     "show-restore",
+				Name:     "show-restore-status",
 				HelpText: "Status of the last Restore operation of a service-instance",
 				UsageDetails: plugin.Usage{
-					Usage: "cf show-restore SERVICE_INSTANCE_NAME",
+					Usage: "cf show-restore-status SERVICE_INSTANCE_NAME",
 				},
 			},
 			{

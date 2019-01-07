@@ -162,7 +162,9 @@ func (c *RestoreCommand) StartRestore(cliConnection plugin.CliConnection, servic
 
 	if resp.Status == "202 Accepted" {
 		fmt.Println(AddColor("OK", green))
-		fmt.Println("Operation: ", respOperation)
+		if respOperation, flag := respObject["name"].(string); flag != false {
+			fmt.Println("Operation: ", respOperation)
+		}
 		if restoreGuid, flag := respObject["guid"].(string); flag != false {
 			fmt.Println("Restore Guid: ", restoreGuid)
 		}
