@@ -161,6 +161,32 @@ func (c *RestoreCommand) StartRestore(cliConnection plugin.CliConnection, servic
 
 }
 
+func (c *RestoreCommand) RestoreInfo(cliConnection plugin.CliConnection, serviceInstanceName string) {
+	fmt.Println("Showing the status of the last restore operation for", AddColor(serviceInstanceName, cyan) ," ...")
+
+	if helper.GetAccessToken(helper.ReadConfigJsonFile()) == "" {
+                errors.NoAccessTokenError("Access Token")
+        }
+
+        client := GetHttpClient()
+
+        var guid string = guidTranslator.FindInstanceGuid(cliConnection, serviceInstanceName, nil, "")
+        guid = strings.TrimRight(guid, ",")
+        guid = strings.Trim(guid, "\"")
+
+        var userSpaceGuid string = helper.GetSpaceGUID(helper.ReadConfigJsonFile())
+
+        var apiEndpoint string = helper.GetApiEndpoint(helper.ReadConfigJsonFile())
+        var broker string = GetBrokerName()
+        var extUrl string = GetExtUrl()
+
+        apiEndpoint = strings.Replace(apiEndpoint, "api", broker, 1)
+
+	var url string = apiEndpoint + extUrl + "/service_instances/" + guid + "/restore?space_guid=" + userSpaceGuid
+
+ 	req, err := http.NewRequest("GET", url, nil)
+}
+
 func (c *RestoreCommand) AbortRestore(cliConnection plugin.CliConnection, serviceInstanceName string) {
 	fmt.Println("Aborting restore for ", AddColor(serviceInstanceName, cyan), "...")
 
