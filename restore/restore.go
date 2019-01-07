@@ -91,6 +91,7 @@ func GetHttpClient() *http.Client {
 func GetResponse(client *http.Client, req *http.Request) *http.Response {
 	req.Header.Set("Authorization", helper.GetAccessToken(helper.ReadConfigJsonFile()))
 	req.Header.Set("Content-Type", "application/json")
+	req.Header.Set("Accept", "application/json")
 
 	resp, err := client.Do(req)
 	errors.ErrorIsNil(err)
@@ -185,6 +186,36 @@ func (c *RestoreCommand) RestoreInfo(cliConnection plugin.CliConnection, service
 	var url string = apiEndpoint + extUrl + "/service_instances/" + guid + "/restore?space_guid=" + userSpaceGuid
 
  	req, err := http.NewRequest("GET", url, nil)
+
+	var resp *http.Response = GetResponse(client, req)
+
+        defer resp.Body.Close()
+        body, err := ioutil.ReadAll(resp.Body)
+
+	var respObject map[string]interface{}
+
+	//fmt.Println(string(body))
+
+	if err := json.Unmarshal(body, &respObject); err != nil {
+		fmt.Println(err)
+	}
+
+	respStatus := respObject["status"].(float64)
+	
+	if respStatus != 200 {
+		fmt.Println(AddColor("FAILED", red))
+		if respError, flag := respObject["error"].(string); flag != false{
+			fmt.Println("Error: ", respError)
+		}
+		if respMessage, flag := respObject["description"].(string); flag != false {
+			fmt.Println("Message: ", respMessage)
+		}
+	}
+
+
+	//fmt.Println(respStatus)
+
+	errors.ErrorIsNil(err)
 }
 
 func (c *RestoreCommand) AbortRestore(cliConnection plugin.CliConnection, serviceInstanceName string) {

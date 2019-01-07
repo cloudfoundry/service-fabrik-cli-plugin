@@ -182,6 +182,11 @@ func (serviceFabrikPlugin *ServiceFabrikPlugin) Run(cliConnection plugin.CliConn
 				} else {
 					os.Exit(7)
 				}
+			case "show":
+				if argLength != 2 {
+					errors.IncorrectNumberOfArguments()
+				}
+				restore.NewRestoreCommand(cliConnection).RestoreInfo(cliConnection, args[1])
 			}
 		case "events":
 			switch cmds[0] {
@@ -275,6 +280,13 @@ func (serviceFabrikPlugin *ServiceFabrikPlugin) GetMetadata() plugin.PluginMetad
 				UsageDetails: plugin.Usage{
 					Usage: "cf start-restore SERVICE_INSTANCE_NAME --backup_guid BACKUP_ID \n     cf start-restore SERVICE_INSTANCE_NAME --timestamp TIME_STAMP",
 				},
+			},
+			{
+				Name: "show-restore",
+				HelpText: "Status of the last Restore operation of a service-instance",
+				UsageDetails: plugin.Usage{
+                                        Usage: "cf show-restore SERVICE_INSTANCE_NAME",
+                                },
 			},
 			{
 				Name:     "abort-restore",
