@@ -10,6 +10,7 @@ import (
 	"github.com/SAP/service-fabrik-cli-plugin/helper"
 	"github.com/cloudfoundry/cli/plugin"
 	"github.com/fatih/color"
+	"github.com/olekukonko/tablewriter"
 	"io/ioutil"
 	"net/http"
 	"os"
@@ -144,29 +145,33 @@ func (c *RestoreCommand) StartRestore(cliConnection plugin.CliConnection, servic
 	var respObject map[string]interface{}
 
 	if err := json.Unmarshal(body, &respObject); err != nil {
-                fmt.Println(err)
-        }
-
-	respStatus := respObject["status"].(float64)
-
-	if respStatus != 202 {
-		fmt.Println(AddColor("FAILED", red))
-		if respError, flag := respObject["error"].(string); flag != false {
-                        fmt.Println("Error: ", respError)
-                }
-                if respMessage, flag := respObject["description"].(string); flag != false {
-                        fmt.Println("Message: ", respMessage)
-                }
+		fmt.Println(err)
 	}
 
-	if respStatus == 202 {
+	if respStatus, flag := respObject["status"].(float64); flag != false {
+		if respStatus != 202 {
+			fmt.Println(AddColor("FAILED", red))
+			if respError, flag := respObject["error"].(string); flag != false {
+				fmt.Println("Error: ", respError)
+			}
+			if respMessage, flag := respObject["description"].(string); flag != false {
+				fmt.Println("Message: ", respMessage)
+			}
+		}
+	}
+
+	if respOperation, flag := respObject["name"].(string); flag != false {
 		fmt.Println(AddColor("OK", green))
+		fmt.Println("Operation: ", respOperation)
+		if restoreGuid, flag := respObject["guid"].(string); flag != false {
+			fmt.Println("Restore Guid: ", restoreGuid)
+		}
 		if isGuidOperation == true {
 			fmt.Println("Restore has been initiated for the instance name:", AddColor(serviceInstanceName, cyan), " and from the backup id:", AddColor(backupId, cyan))
 		} else {
 			fmt.Println("Restore has been initiated for the instance name:", AddColor(serviceInstanceName, cyan), " using time stamp:", AddColor(timeStamp, cyan))
 		}
-		fmt.Println("Please check the status of restore by entering 'cf service SERVICE_INSTANCE_NAME'")
+		fmt.Println("Please check the status of restore by entering 'cf show-restore-status SERVICE_INSTANCE_NAME'")
 	}
 
 	errors.ErrorIsNil(err)
@@ -205,26 +210,82 @@ func (c *RestoreCommand) RestoreInfo(cliConnection plugin.CliConnection, service
 
 	var respObject map[string]interface{}
 
-	//fmt.Println(string(body))
-
 	if err := json.Unmarshal(body, &respObject); err != nil {
 		fmt.Println(err)
 	}
 
-	respStatus := respObject["status"].(float64)
-
-	if respStatus != 200 {
-		fmt.Println(AddColor("FAILED", red))
-		if respError, flag := respObject["error"].(string); flag != false {
-			fmt.Println("Error: ", respError)
-		}
-		if respMessage, flag := respObject["description"].(string); flag != false {
-			fmt.Println("Message: ", respMessage)
+	if respStatus, flag := respObject["status"].(float64); flag != false {
+		if respStatus != 200 {
+			fmt.Println(AddColor("FAILED", red))
+			if respError, flag := respObject["error"].(string); flag != false {
+				fmt.Println("Error: ", respError)
+			}
+			if respMessage, flag := respObject["description"].(string); flag != false {
+				fmt.Println("Message: ", respMessage)
+			}
 		}
 	}
 
-	//fmt.Println(respStatus)
+	if resp.Status == "200 OK" {
+		fmt.Println(AddColor("OK", green))
 
+		table := tablewriter.NewWriter(os.Stdout)
+		table.SetBorder(false)
+		table.SetHeaderAlignment(tablewriter.ALIGN_LEFT)
+		table.SetAlignment(tablewriter.ALIGN_LEFT)
+		table.SetCenterSeparator(" ")
+		table.SetColumnSeparator(" ")
+		table.SetRowSeparator(" ")
+		table.SetHeaderLine(false)
+		table.SetAutoFormatHeaders(false)
+		table.SetHeader([]string{" ", " "})
+
+		if field, flag := respObject["service_id"].(string); flag != false {
+			table.Append([]string{"service-name", strings.Trim(guidTranslator.FindServiceName(cliConnection, field, nil), "\"")})
+		}
+
+		if field, flag := respObject["plan_id"].(string); flag != false {
+			table.Append([]string{"plan-name", strings.Trim(guidTranslator.FindPlanName(cliConnection, field, nil), "\"")})
+		}
+
+		if field, flag := respObject["instance_guid"].(string); flag != false {
+			table.Append([]string{"instance-name", strings.Trim(guidTranslator.FindInstanceName(cliConnection, field, nil), "\"")})
+		}
+
+		table.Append([]string{"organization-name", helper.GetOrgName(helper.ReadConfigJsonFile())})
+		table.Append([]string{"space-name", helper.GetSpaceName(helper.ReadConfigJsonFile())})
+
+		if field, flag := respObject["username"].(string); flag != false {
+			table.Append([]string{"username", field})
+		}
+
+		if field, flag := respObject["operation"].(string); flag != false {
+			table.Append([]string{"operation", field})
+		}
+
+		if field, flag := respObject["backup_guid"].(string); flag != false {
+			table.Append([]string{"backup_guid", field})
+		}
+
+		if field, flag := respObject["trigger"].(string); flag != false {
+			table.Append([]string{"trigger", field})
+		}
+
+		if field, flag := respObject["state"].(string); flag != false {
+			table.Append([]string{"state", field})
+		}
+
+		if field, flag := respObject["started_at"].(string); flag != false {
+			table.Append([]string{"trigger", field})
+		}
+
+		if _, flag := respObject["finished_at"].(string); flag {
+			table.Append([]string{"finished_at", respObject["finished_at"].(string)})
+		} else {
+			table.Append([]string{"finished_at", "null"})
+		}
+		table.Render()
+	}
 	errors.ErrorIsNil(err)
 }
 
@@ -259,19 +320,19 @@ func (c *RestoreCommand) AbortRestore(cliConnection plugin.CliConnection, servic
 
 	var respObject map[string]interface{}
 	if err := json.Unmarshal(body, &respObject); err != nil {
-                fmt.Println(err)
-        }
+		fmt.Println(err)
+	}
 
 	respStatus := respObject["status"].(float64)
 
 	if (respStatus != 202) && (respStatus != 200) {
 		fmt.Println(AddColor("FAILED", red))
-                if respError, flag := respObject["error"].(string); flag != false {
-                        fmt.Println("Error: ", respError)
-                }
-                if respMessage, flag := respObject["description"].(string); flag != false {
-                        fmt.Println("Message: ", respMessage)
-                }
+		if respError, flag := respObject["error"].(string); flag != false {
+			fmt.Println("Error: ", respError)
+		}
+		if respMessage, flag := respObject["description"].(string); flag != false {
+			fmt.Println("Message: ", respMessage)
+		}
 	}
 
 	if respStatus == 202 {
