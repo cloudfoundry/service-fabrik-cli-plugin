@@ -282,11 +282,11 @@ func (serviceFabrikPlugin *ServiceFabrikPlugin) GetMetadata() plugin.PluginMetad
 				},
 			},
 			{
-				Name: "show-restore",
+				Name:     "show-restore",
 				HelpText: "Status of the last Restore operation of a service-instance",
 				UsageDetails: plugin.Usage{
-                                        Usage: "cf show-restore SERVICE_INSTANCE_NAME",
-                                },
+					Usage: "cf show-restore SERVICE_INSTANCE_NAME",
+				},
 			},
 			{
 				Name:     "abort-restore",
