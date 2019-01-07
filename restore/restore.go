@@ -325,15 +325,16 @@ func (c *RestoreCommand) AbortRestore(cliConnection plugin.CliConnection, servic
 		fmt.Println(err)
 	}
 
-	respStatus := respObject["status"].(float64)
+	if respStatus, flag := respObject["status"].(float64); flag != false {
 
-	if (respStatus != 202) && (respStatus != 200) {
-		fmt.Println(AddColor("FAILED", red))
-		if respError, flag := respObject["error"].(string); flag != false {
-			fmt.Println("Error: ", respError)
-		}
-		if respMessage, flag := respObject["description"].(string); flag != false {
-			fmt.Println("Message: ", respMessage)
+		if (respStatus != 202) && (respStatus != 200) {
+			fmt.Println(AddColor("FAILED", red))
+			if respError, flag := respObject["error"].(string); flag != false {
+				fmt.Println("Error: ", respError)
+			}
+			if respMessage, flag := respObject["description"].(string); flag != false {
+				fmt.Println("Message: ", respMessage)
+			}
 		}
 	}
 

@@ -70,7 +70,7 @@ func (serviceFabrikPlugin *ServiceFabrikPlugin) Run(cliConnection plugin.CliConn
 
 	var cmds []string = strings.Split(args[0], "-")
 	//3 overall switches: backup, restore & events
-	if len(cmds) > 2 {
+	if len(cmds) >= 2 {
 
 		switch cmds[1] {
 		case "backup":
