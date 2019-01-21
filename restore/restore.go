@@ -128,8 +128,6 @@ func (c *RestoreCommand) StartRestore(cliConnection plugin.CliConnection, servic
 	}
 	fmt.Println(req_body)
 	var guid string = guidTranslator.FindInstanceGuid(cliConnection, serviceInstanceName, nil, "")
-	guid = strings.TrimRight(guid, ",")
-	guid = strings.Trim(guid, "\"")
 
 	var apiEndpoint string = helper.GetApiEndpoint(helper.ReadConfigJsonFile())
 	var broker string = GetBrokerName()
@@ -191,8 +189,6 @@ func (c *RestoreCommand) RestoreInfo(cliConnection plugin.CliConnection, service
 	client := GetHttpClient()
 
 	var guid string = guidTranslator.FindInstanceGuid(cliConnection, serviceInstanceName, nil, "")
-	guid = strings.TrimRight(guid, ",")
-	guid = strings.Trim(guid, "\"")
 
 	var userSpaceGuid string = helper.GetSpaceGUID(helper.ReadConfigJsonFile())
 
@@ -302,8 +298,6 @@ func (c *RestoreCommand) AbortRestore(cliConnection plugin.CliConnection, servic
 	client := GetHttpClient()
 
 	var guid string = guidTranslator.FindInstanceGuid(cliConnection, serviceInstanceName, nil, "")
-	guid = strings.TrimRight(guid, ",")
-	guid = strings.Trim(guid, "\"")
 
 	var userSpaceGuid string = helper.GetSpaceGUID(helper.ReadConfigJsonFile())
 

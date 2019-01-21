@@ -354,7 +354,7 @@ func FindDeletedInstanceGuid(cliConnection plugin.CliConnection, instanceName st
 				if strings.Contains(instanceNameTemp, userInput) {
 					flag = 1
 					guidInstanceMap[guidTemp] = instanceNameTemp
-					instanceNameTemp =""
+					instanceNameTemp = ""
 				}
 			}
 		}
@@ -383,7 +383,6 @@ func FindInstanceGuid(cliConnection plugin.CliConnection, instanceName string, o
 	var guid string
 	var nextPage bool = false
 
-	
 	var userInput string = "\"" + instanceName + "\""
 
 	for cmd != "null" {
@@ -435,6 +434,8 @@ func FindInstanceGuid(cliConnection plugin.CliConnection, instanceName string, o
 						if strings.Contains(spaceGuid, userSpaceGuid) {
 							guid = guidTemp
 							spaceGuid = userSpaceGuid
+							guid = strings.TrimRight(guid, ",")
+							guid = strings.Trim(guid, "\"")
 							return guid
 						}
 

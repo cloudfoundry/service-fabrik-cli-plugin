@@ -3,9 +3,9 @@ package guidTranslator
 import (
 	"bufio"
 	"fmt"
-	"os"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
+	"os"
 	"testing"
 )
 
@@ -113,7 +113,7 @@ var _ = Describe("guidTranslator", func() {
 				}
 
 				result := FindInstanceGuid(nil, instanceName, output, userSpaceGuid)
-				Expect(result).To(Equal("\"8912303d-3cdf-476e-b864-47f008b5ba5e\","))
+				Expect(result).To(Equal("8912303d-3cdf-476e-b864-47f008b5ba5e"))
 			})
 		})
 
