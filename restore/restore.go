@@ -173,7 +173,7 @@ func (c *RestoreCommand) StartRestore(cliConnection plugin.CliConnection, servic
 		} else {
 			fmt.Println("Restore has been initiated for the instance name:", AddColor(serviceInstanceName, cyan), " using time stamp:", AddColor(timeStamp, cyan))
 		}
-		fmt.Println("Please check the status of restore by entering 'cf show-restore-status SERVICE_INSTANCE_NAME'")
+		fmt.Println("Please check the status of restore by entering 'cf restore SERVICE_INSTANCE_NAME'")
 	}
 
 	errors.ErrorIsNil(err)
