@@ -68,9 +68,17 @@ func (serviceFabrikPlugin *ServiceFabrikPlugin) Run(cliConnection plugin.CliConn
 		backup.NewBackupCommand(cliConnection).BackupInfo(cliConnection, args[1])
 	}
 
+	if args[0] == "restore" { //If user enters, "cf restore SERVICE_INSTANCE_NAME"
+		if argLength != 2 {
+			errors.IncorrectNumberOfArguments()
+			return
+		}
+		restore.NewRestoreCommand(cliConnection).RestoreInfo(cliConnection, args[1])
+	}
+
 	var cmds []string = strings.Split(args[0], "-")
 	//3 overall switches: backup, restore & events
-	if len(cmds) == 2 {
+	if len(cmds) >= 2 {
 
 		switch cmds[1] {
 		case "backup":
@@ -274,6 +282,13 @@ func (serviceFabrikPlugin *ServiceFabrikPlugin) GetMetadata() plugin.PluginMetad
 				HelpText: "Start restore of a service instance",
 				UsageDetails: plugin.Usage{
 					Usage: "cf start-restore SERVICE_INSTANCE_NAME --backup_guid BACKUP_ID \n     cf start-restore SERVICE_INSTANCE_NAME --timestamp TIME_STAMP",
+				},
+			},
+			{
+				Name:     "restore",
+				HelpText: "Status of the last Restore operation of a service-instance",
+				UsageDetails: plugin.Usage{
+					Usage: "cf restore SERVICE_INSTANCE_NAME",
 				},
 			},
 			{
