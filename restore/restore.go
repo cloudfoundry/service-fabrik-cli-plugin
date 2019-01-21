@@ -5,6 +5,7 @@ import (
 	"crypto/tls"
 	"encoding/json"
 	"fmt"
+	"github.com/SAP/service-fabrik-cli-plugin/constants"
 	"github.com/SAP/service-fabrik-cli-plugin/errors"
 	"github.com/SAP/service-fabrik-cli-plugin/guidTranslator"
 	"github.com/SAP/service-fabrik-cli-plugin/helper"
@@ -160,7 +161,7 @@ func (c *RestoreCommand) StartRestore(cliConnection plugin.CliConnection, servic
 		}
 	}
 
-	if resp.Status == "202 Accepted" {
+	if resp.Status == constants.AcceptedHttpStatusResponse {
 		fmt.Println(AddColor("OK", green))
 		if respOperation, flag := respObject["name"].(string); flag != false {
 			fmt.Println("Operation: ", respOperation)
@@ -228,7 +229,7 @@ func (c *RestoreCommand) RestoreInfo(cliConnection plugin.CliConnection, service
 		}
 	}
 
-	if resp.Status == "200 OK" {
+	if resp.Status == constants.OKHttpStatusResponse {
 		fmt.Println(AddColor("OK", green))
 
 		table := tablewriter.NewWriter(os.Stdout)
@@ -338,12 +339,12 @@ func (c *RestoreCommand) AbortRestore(cliConnection plugin.CliConnection, servic
 		}
 	}
 
-	if resp.Status == "202 Accepted" {
+	if resp.Status == constants.AcceptedHttpStatusResponse {
 		fmt.Println(AddColor("OK", green))
 		fmt.Println("Restore has been aborted for the instance name:", color.CyanString(serviceInstanceName))
 	}
 
-	if resp.Status == "200 OK" {
+	if resp.Status == constants.OKHttpStatusResponse {
 		fmt.Println("currently no restore in progress for this service instance")
 	}
 
