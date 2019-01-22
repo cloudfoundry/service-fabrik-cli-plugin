@@ -211,7 +211,7 @@ func (c *EventCommand) ListEvents(cliConnection plugin.CliConnection, noInstance
 
 	if err != nil {
 		fmt.Println(AddColor("FAILED", constants.Red))
-		fmt.Printf("Errors in getting service instance events. ", err)
+		fmt.Println("Errors in getting service instance events. ", err)
 		return
 	} else {
 		fmt.Println(AddColor("OK", constants.Green))
