@@ -1,18 +1,19 @@
 package main
 
 import (
-	"code.cloudfoundry.org/cli/plugin"
 	"fmt"
+	"io"
+	"os"
+	"strconv"
+	"strings"
+
+	"code.cloudfoundry.org/cli/plugin"
 	"github.com/SAP/service-fabrik-cli-plugin/backup"
 	"github.com/SAP/service-fabrik-cli-plugin/errors"
 	"github.com/SAP/service-fabrik-cli-plugin/events"
 	"github.com/SAP/service-fabrik-cli-plugin/helper"
 	"github.com/SAP/service-fabrik-cli-plugin/restore"
 	"github.com/cloudfoundry/cli/cf/trace"
-	"io"
-	"os"
-	"strconv"
-	"strings"
 )
 
 //Dynamically set during build time
@@ -235,7 +236,7 @@ func (serviceFabrikPlugin *ServiceFabrikPlugin) GetMetadata() plugin.PluginMetad
 		Name:    "ServiceFabrikPlugin",
 		Version: setVersion(Version),
 		Commands: []plugin.Command{
-			{ // required to be a registered command
+			/*{ // required to be a registered command
 				Name:     "start-backup",
 				HelpText: "Start backup of a service instance",
 				UsageDetails: plugin.Usage{
@@ -248,7 +249,7 @@ func (serviceFabrikPlugin *ServiceFabrikPlugin) GetMetadata() plugin.PluginMetad
 				UsageDetails: plugin.Usage{
 					Usage: "cf abort-backup SERVICE_INSTANCE_NAME",
 				},
-			},
+			},*/
 			{
 				Name:     "list-backup",
 				HelpText: "List backup(s) of a service instance",

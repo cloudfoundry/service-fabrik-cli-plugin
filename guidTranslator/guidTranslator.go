@@ -1,10 +1,12 @@
 package guidTranslator
 
 import (
+	"strings"
+
 	"code.cloudfoundry.org/cli/plugin"
+	"github.com/SAP/service-fabrik-cli-plugin/constants"
 	"github.com/SAP/service-fabrik-cli-plugin/errors"
 	"github.com/SAP/service-fabrik-cli-plugin/helper"
-	"strings"
 )
 
 type CliCmd struct{}
@@ -69,6 +71,23 @@ func FindInstanceName(cliConnection plugin.CliConnection, InstanceGuid string, o
 	return "" //if no match is found, return "Invalid name"
 }
 
+func ServiceNameFromInstance(cliConnection plugin.CliConnection, instanceId string) string {
+	serviceInstance, err := cliConnection.GetService(instanceId)
+	if err != nil {
+		errors.CfCliPluginError("/v2/service_instance/" + instanceId)
+	}
+	serviceName := serviceInstance.ServiceOffering.Name
+	return serviceName
+}
+
+func IsServiceNameValid(serviceName string) bool {
+	for _, service := range constants.ValidServices {
+		if serviceName == service {
+			return true
+		}
+	}
+	return false
+}
 func FindServiceName(cliConnection plugin.CliConnection, serviceId string, output []string) string {
 	var cmd string
 	var serviceIdTemp string

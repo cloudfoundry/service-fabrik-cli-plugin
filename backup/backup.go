@@ -5,18 +5,19 @@ import (
 	"crypto/tls"
 	"encoding/json"
 	"fmt"
-	"github.com/SAP/service-fabrik-cli-plugin/errors"
-	"github.com/SAP/service-fabrik-cli-plugin/guidTranslator"
-	"github.com/SAP/service-fabrik-cli-plugin/helper"
-	"github.com/SAP/service-fabrik-cli-plugin/constants"
-	"github.com/cloudfoundry/cli/plugin"
-	"github.com/fatih/color"
-	"github.com/olekukonko/tablewriter"
 	"io/ioutil"
 	"net/http"
 	"os"
 	"strings"
 	"time"
+
+	"github.com/SAP/service-fabrik-cli-plugin/constants"
+	"github.com/SAP/service-fabrik-cli-plugin/errors"
+	"github.com/SAP/service-fabrik-cli-plugin/guidTranslator"
+	"github.com/SAP/service-fabrik-cli-plugin/helper"
+	"github.com/cloudfoundry/cli/plugin"
+	"github.com/fatih/color"
+	"github.com/olekukonko/tablewriter"
 )
 
 type BackupCommand struct {
@@ -28,7 +29,6 @@ func NewBackupCommand(cliConnection plugin.CliConnection) *BackupCommand {
 	command.cliConnection = cliConnection
 	return command
 }
-
 
 func AddColor(text string, textColor color.Attribute) string {
 	printer := color.New(textColor).Add(color.Bold).SprintFunc()
@@ -183,7 +183,6 @@ func (c *BackupCommand) BackupInfo(cliConnection plugin.CliConnection, backupId 
 
 }
 
-
 func (c *BackupCommand) ListBackupsByDeletedInstanceName(cliConnection plugin.CliConnection, serviceInstanceName string) {
 	fmt.Println("Getting the list of  backups in the org", AddColor(helper.GetOrgName(helper.ReadConfigJsonFile()), constants.Cyan), "/ space", AddColor(helper.GetSpaceName(helper.ReadConfigJsonFile()), constants.Cyan), "/ service instance", AddColor(serviceInstanceName, constants.Cyan), "...")
 
@@ -288,10 +287,16 @@ func (c *BackupCommand) ListBackupsByInstance(cliConnection plugin.CliConnection
 		guid = guidTranslator.FindInstanceGuid(cliConnection, serviceInstanceName, nil, "")
 		guid = strings.Trim(guid, ",")
 		guid = strings.Trim(guid, "\"")
-	 fmt.Println("Getting the list of  backups in the org", AddColor(helper.GetOrgName(helper.ReadConfigJsonFile()), constants.Cyan), "/ space", AddColor(helper.GetSpaceName(helper.ReadConfigJsonFile()), constants.Cyan), "/ service instance", AddColor(serviceInstanceName, constants.Cyan), "...")
+		fmt.Println("Getting the list of  backups in the org", AddColor(helper.GetOrgName(helper.ReadConfigJsonFile()), constants.Cyan), "/ space", AddColor(helper.GetSpaceName(helper.ReadConfigJsonFile()), constants.Cyan), "/ service instance", AddColor(serviceInstanceName, constants.Cyan), "...")
 	} else {
 		guid = instanceGuid
-	fmt.Println("Getting the list of  backups in the org", AddColor(helper.GetOrgName(helper.ReadConfigJsonFile()), constants.Cyan), "/ space", AddColor(helper.GetSpaceName(helper.ReadConfigJsonFile()), constants.Cyan), "/ service instance GUID", AddColor(instanceGuid, constants.Cyan), "...")
+		fmt.Println("Getting the list of  backups in the org", AddColor(helper.GetOrgName(helper.ReadConfigJsonFile()), constants.Cyan), "/ space", AddColor(helper.GetSpaceName(helper.ReadConfigJsonFile()), constants.Cyan), "/ service instance GUID", AddColor(instanceGuid, constants.Cyan), "...")
+	}
+
+	var serviceName string
+	serviceName = guidTranslator.ServiceNameFromInstance(cliConnection, guid)
+	if !guidTranslator.IsServiceNameValid(serviceName) {
+		errors.IncorrectServiceType(serviceInstanceName, serviceName)
 	}
 	var apiEndpoint string = helper.GetApiEndpoint(helper.ReadConfigJsonFile())
 	var broker string = GetBrokerName()
