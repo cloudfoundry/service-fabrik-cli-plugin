@@ -1,6 +1,7 @@
 package guidTranslator
 
 import (
+	"fmt"
 	"strings"
 
 	"code.cloudfoundry.org/cli/plugin"
@@ -74,6 +75,7 @@ func FindInstanceName(cliConnection plugin.CliConnection, InstanceGuid string, o
 func ServiceNameFromInstance(cliConnection plugin.CliConnection, instanceId string) string {
 	serviceInstance, err := cliConnection.GetService(instanceId)
 	if err != nil {
+		fmt.Println(err)
 		errors.CfCliPluginError("/v2/service_instance/" + instanceId)
 	}
 	serviceName := serviceInstance.ServiceOffering.Name

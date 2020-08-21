@@ -290,13 +290,18 @@ func (c *BackupCommand) ListBackupsByInstance(cliConnection plugin.CliConnection
 		fmt.Println("Getting the list of  backups in the org", AddColor(helper.GetOrgName(helper.ReadConfigJsonFile()), constants.Cyan), "/ space", AddColor(helper.GetSpaceName(helper.ReadConfigJsonFile()), constants.Cyan), "/ service instance", AddColor(serviceInstanceName, constants.Cyan), "...")
 	} else {
 		guid = instanceGuid
+		serviceInstanceName = guidTranslator.FindInstanceName(cliConnection, guid, nil)
+		serviceInstanceName = strings.Trim(serviceInstanceName, ",")
+		serviceInstanceName = strings.Trim(serviceInstanceName, "\"")
 		fmt.Println("Getting the list of  backups in the org", AddColor(helper.GetOrgName(helper.ReadConfigJsonFile()), constants.Cyan), "/ space", AddColor(helper.GetSpaceName(helper.ReadConfigJsonFile()), constants.Cyan), "/ service instance GUID", AddColor(instanceGuid, constants.Cyan), "...")
 	}
 
-	var serviceName string
-	serviceName = guidTranslator.ServiceNameFromInstance(cliConnection, guid)
-	if !guidTranslator.IsServiceNameValid(serviceName) {
-		errors.IncorrectServiceType(serviceInstanceName, serviceName)
+	if serviceInstanceName != "" {
+		serviceName := guidTranslator.ServiceNameFromInstance(cliConnection, serviceInstanceName)
+		fmt.Println("Instance ", AddColor(serviceInstanceName, constants.Cyan), "is of service ", AddColor(serviceName, constants.Cyan))
+		if !guidTranslator.IsServiceNameValid(serviceName) {
+			errors.IncorrectServiceType(serviceInstanceName, serviceName)
+		}
 	}
 	var apiEndpoint string = helper.GetApiEndpoint(helper.ReadConfigJsonFile())
 	var broker string = GetBrokerName()
