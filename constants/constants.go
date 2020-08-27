@@ -14,3 +14,5 @@ const (
 	OKHttpStatusResponse       string          = "200 OK"
 	AcceptedHttpStatusResponse string          = "202 Accepted"
 )
+
+var ValidServices = []string{"blueprint", "postgresql", "mongodb", "redis"}

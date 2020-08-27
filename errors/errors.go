@@ -2,10 +2,11 @@ package errors
 
 import (
 	"fmt"
-	"github.com/cloudfoundry/cli/cf/errors"
-	"github.com/fatih/color"
 	"log"
 	"os"
+
+	"github.com/cloudfoundry/cli/cf/errors"
+	"github.com/fatih/color"
 )
 
 func Condition(cond bool, message string) {
@@ -52,6 +53,13 @@ func IncorrectSpace(orgName string, spaceName string) {
 func IncorrectInstanceName(instanceName string) {
 	color.Red("FAILED")
 	fmt.Println("Service Instance \"" + instanceName + "\" doesn't exist.")
+	os.Exit(3)
+}
+
+func IncorrectServiceType(instanceName string, serviceName string) {
+	color.Red("FAILED")
+	fmt.Println("Service Instance \"" + instanceName + "\" is of service \"" + serviceName + "\".")
+	fmt.Println("Service \"" + serviceName + "\" is not supported for this command.")
 	os.Exit(3)
 }
 
