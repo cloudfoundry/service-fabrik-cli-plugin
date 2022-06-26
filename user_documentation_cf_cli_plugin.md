@@ -55,14 +55,14 @@ This CF CLI plugin is only available for ServiceFabrik broker, so it can only be
 The following steps need to be followed for the purpose of building the plugin.
 
 1. Clone this repo and build it. For this execute following commands on Linux or Mac OS X system.
-  1. `$ go get github.com/SAP/service-fabrik-cli-plugin`
-  2. `$ cd $GOPATH/src/github.com/SAP/service-fabrik-cli-plugin`
+  1. `$ go get github.com/cloudfoundry/service-fabrik-cli-plugin`
+  2. `$ cd $GOPATH/src/github.com/cloudfoundry/service-fabrik-cli-plugin`
   3. `$ go build .`
 2. The above will clone your repo into default $GOPATH. If you want to setup a different $GOPATH and work on that, then execute following commands on a Linux or Mac OS X system:
   1. `$ mkdir -p service-fabrik-cli-plugin/src/github.com/SAP/`
   2. `$ export GOPATH=$(pwd)/service-fabrik-cli-plugin:$GOPATH`
   3. `$ cd service-fabrik-cli-plugin/src/github.com/SAP/`
-  4. `$ git clone https://github.com/SAP/service-fabrik-cli-plugin.git`
+  4. `$ git clone https://github.com/cloudfoundry/service-fabrik-cli-plugin.git`
   5. `$ cd service-fabrik-cli-plugin`
   6. `$ go build .`
 
@@ -137,7 +137,7 @@ OK
 
 **Example:**
 
-<img src="https://github.com/SAP/service-fabrik-cli-plugin/blob/master/images/plugin_screenshot1.png" height="400">
+<img src="https://github.com/cloudfoundry/service-fabrik-cli-plugin/blob/master/images/plugin_screenshot1.png" height="400">
 
 **Additional note:** This command works exactly the same wayas &quot;listing all backups&quot;. It just filters the listto display only the backups of the service-instance required by you.
 
@@ -208,7 +208,7 @@ Please check the status of restore by entering &#39;cf service SERVIC\_INSTANCE\
 
 **Example:**
 
-<img src="https://github.com/SAP/service-fabrik-cli-plugin/blob/master/images/plugin_screenshot2.png">
+<img src="https://github.com/cloudfoundry/service-fabrik-cli-plugin/blob/master/images/plugin_screenshot2.png">
 
 **Additional note:** The successful execution of this command means the restore process was initiated. Theprocess of restoring the backup takes some time to complete. For the convenience of the user, the restore process runs in the background. If you wish to know the progress and/or the state of the restore, you can use the &quot;cf service SERVICE\_INSTANCE\_NAME&quot; command.
 
@@ -228,7 +228,7 @@ Restore has been aborted for the instance name: [SERVICE\_INSTANCE\_NAME]
 
 **Example:**
 
-<img src="https://github.com/SAP/service-fabrik-cli-plugin/blob/master/images/plugin_screenshot3.png">
+<img src="https://github.com/cloudfoundry/service-fabrik-cli-plugin/blob/master/images/plugin_screenshot3.png">
 
 **Additional note:** The successful execution of this command means the abort process was initiated. Theprocess of aborting the backup again takes some time to complete. For the convenience of the user, the abort process too runs in the background. If you wish to know the progress and/or the state of the backup, you can use the &quot;cf service SERVICE\_INSTANCE\_NAME&quot; command.
 

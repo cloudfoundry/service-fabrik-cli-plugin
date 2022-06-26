@@ -11,8 +11,8 @@ This is a [Cloud Foundry CLI](https://github.com/cloudfoundry/cli) plugin for pe
 ## Building the plugin 
 Clone this repo and build it. For this execute following commands on Linux or Mac OS X system
 ```
-$ go get github.com/SAP/service-fabrik-cli-plugin
-$ cd $GOPATH/src/github.com/SAP/service-fabrik-cli-plugin
+$ go get github.com/cloudfoundry/service-fabrik-cli-plugin
+$ cd $GOPATH/src/github.com/cloudfoundry/service-fabrik-cli-plugin
 $ go build .
 ```
 
@@ -22,7 +22,7 @@ The above will clone your repo into default $GOPATH. If you want to setup a diff
 $ mkdir -p service-fabrik-cli-plugin/src/github.com/SAP/
 $ export GOPATH=$(pwd)/service-fabrik-cli-plugin:$GOPATH
 $ cd service-fabrik-cli-plugin/src/github.com/SAP/
-$ git clone https://github.com/SAP/service-fabrik-cli-plugin.git
+$ git clone https://github.com/cloudfoundry/service-fabrik-cli-plugin.git
 $ cd service-fabrik-cli-plugin
 $ go build .
 ```
@@ -40,11 +40,11 @@ cf install-plugin C:\Users\[username]\github.com\SAP\service-fabrik-cli-plugin\s
 ```
 For Mac
 ```
-cf install-plugin ~/github.com/SAP/service-fabrik-cli-plugin/servicefabrik_cli_plugin_darwin_amd64
+cf install-plugin ~/github.com/cloudfoundry/service-fabrik-cli-plugin/servicefabrik_cli_plugin_darwin_amd64
 ```
 For Linux
 ```
-cf install-plugin ~/github.com/SAP/service-fabrik-cli-plugin/servicefabrik_cli_plugin_linux_amd64
+cf install-plugin ~/github.com/cloudfoundry/service-fabrik-cli-plugin/servicefabrik_cli_plugin_linux_amd64
 ```
 The installation instructions given here imply that the working directory is the home directory. Kindly change it to the proper directory structure as given here, if it is not so.
 
@@ -83,11 +83,11 @@ Command Name | Command Description
 For more information, see the command help output available via `cf [command] --help` or `cf help [command]`.
 
 # Further Reading
-User Documentation: [user_documentation_cf_cli_plugin.md](https://github.com/SAP/service-fabrik-cli-plugin/blob/master/user_documentation_cf_cli_plugin.md)
+User Documentation: [user_documentation_cf_cli_plugin.md](https://github.com/cloudfoundry/service-fabrik-cli-plugin/blob/master/user_documentation_cf_cli_plugin.md)
 
 ## How to obtain support
 
-If you need any support, have any question or have found a bug, please report it in the [GitHub bug tracking system](https://github.com/SAP/service-fabrik-cli-plugin/issues). We shall get back to you.
+If you need any support, have any question or have found a bug, please report it in the [GitHub bug tracking system](https://github.com/cloudfoundry/service-fabrik-cli-plugin/issues). We shall get back to you.
 
 ## LICENSE
 
